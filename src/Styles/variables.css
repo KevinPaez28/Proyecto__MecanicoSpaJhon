@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Cardo:ital,wght@0,400;0,700;1,400&family=Comfortaa:wght@300..700&family=Comic+Relief:wght@400;700&family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Orbitron:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+/* @import url('categoriasProductos.css');
+@import url('interfazAdmin.css');
+@import url('interfazIndex.css');
+@import url('interfazVehiculos.css');
+@import url('registrar.css');
+@import url('registrarEmpleado.css'); */
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+:root{
+  --color--principal:#38528a;
+  --color--hoverForm: #b9bdc7;
+  --color--itemsMenuloginhover:#000000c0;
+  --color--inputlogin:rgba(253, 253, 253, 0.712);
+  --color--registrovehiculos:rgba(253, 253, 253, 0.335);
+  --color--principaltextheader:rgb(243, 243, 243);
+  --color--negroFuente:#000;
+  --color--buttonheader:#cbcfd2;
+  --color--blancocontent:#F5F5F5;
+  --color--fondologin: rgba(171, 171, 171, 0.559);
+  --color--cardvehiculos :  rgba(158, 152, 152, 0.425);
+  --color--buttoncards:#6d80a1;
+  --color--buttonProductos:#0d6dfdab;
+  --color--fondotextos:#d0cfcf;
+  --color--buttonEliminar:#bd4d4d;
+  --color--buttonEditado:#8d9c60;
+
+
+
+
+  --font--principalateral:"Lato", sans-serif;
+  --font--principalContent: 'Inter', sans-serif;
+  --font-Title: 'Poppins', sans-serif;
+  --font-body:'Roboto', sans-serif;
+  --font_bodyIngresovehiculos: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

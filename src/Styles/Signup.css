@@ -1,0 +1,82 @@
+@import url('variables.css');
+.registrarse{
+ width: 100%;
+ height: 90vh;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 25px;
+}
+.bodyContent{
+  display: flex;
+  flex-direction: column;
+}
+.form__card{
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.form__grupo{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.form__label{
+  width: 50%;
+}
+.form__inputtext{
+ width: 50%;
+} 
+.mensaje-error {
+  color: red;
+  font-size: 0.7rem;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+.form__input{
+  border-radius: 5px;
+  height: 25px;
+  padding: 3px;
+  border: none;
+}
+
+.formulario{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 40px;
+  background-color: var(--color--fondologin);
+  border-radius:20px ;
+   font-family: var(--font--principalateral);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.button{
+  display: flex;
+  justify-content: center;
+  gap: 10px
+}
+.button__form{
+ width: 40%;
+ height: 5vh;
+ text-align: center;
+ border-radius: 50px;
+ background-color: var(--color--principal);
+ color: rgb(255, 255, 255);
+ font-family:var(--font-buttons);
+ font-size: 1.1rem;
+ font-weight: 600;
+}
+.button__form--diseño_fondo:hover{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+  background-color:var(--color--hoverForm);
+  transform: translateY(-2px); 
+  border: none;
+  color: black;
+   font-size: 1.1rem;
+ font-weight: 600;
+}

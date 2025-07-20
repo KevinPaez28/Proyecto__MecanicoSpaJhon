@@ -1,0 +1,225 @@
+@import url('variables.css');
+
+.interfazcategorias {
+  width: 80%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.interfazcategorias__header {
+  display: flex;
+  width: 100%;
+  height: 12%;
+  align-items: center;
+}
+
+.interfazcategorias__title {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-Title);
+  font-weight: 600;
+  padding: 20px;
+}
+
+.interfazcategorias__titleProductos {
+  font-size: 2.0rem;
+}
+
+.interfazcategorias__titleButton {
+  width: 15%;
+  height: 11%;
+  background-color: var(--color--buttonProductos);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--color--negroFuente);
+  height: 50%;
+  font-size: 1.2rem;
+  font-family: var(--font--principalateral);
+}
+
+.interfazcategorias__content {
+  width: 100%;
+  height: 88%;
+  display: flex;
+  flex-direction: row;
+}
+
+.interfazcategorias__contenedor {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  flex-wrap: wrap;
+  height: 80vh;
+  gap: 20px;
+  padding: 10px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.interfazcategorias__Cards {
+  height: 35%;
+  width: 30%;
+  background-color: var(--color--cardvehiculos);
+  border-radius: 15px;
+}
+
+.interfazcategorias__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-family: var(--font--principalateral);
+  width: 100%;
+  height: 100%;
+}
+
+.interfazcategorias__nombre {
+  text-align: center;
+  font-size: 1.4rem;
+  font-family: var(--font-Title);
+  font-weight: 600;
+}
+
+.interfazcategorias__button {
+  display: flex;
+  justify-content: space-around;
+  height: 20%;
+  align-items: center;
+}
+
+.interfazcategorias__buttones {
+  width: 45%;
+  height: 70%;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--color--buttoncards);
+  color: var(--color--blancocontent);
+}
+
+#contenedorCategorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+.interfazcategorias__card {
+  height: 35%;
+  width: 40%;
+  background-color: var(--color--cardvehiculos);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-family: var(--font--principalateral);
+  justify-content: space-between;
+}
+
+.interfazcategorias__insertar {
+  width: 25%;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 20px;
+}
+
+.interfazinsertar__formulario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  background-color: var(--color--cardvehiculos);
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.interfazinsertar__contenedor-categorias {
+  width: 100%;
+  height: 33%;
+}
+
+.interfazinsertar__contenedor-productos {
+  width: 100%;
+  height: 70%;
+}
+
+.interfazinsertar__formulario-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 40%;
+  width: 100%;
+  justify-content: center;
+}
+
+.interfazinsertar__formulario-botones {
+  height: 25%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.interfazinsertar__label {
+  font-family: var(--font--principalContent);
+}
+
+.interfazinsertar__input {
+  width: 70%;
+  height: 39%;
+  border-radius: 5px;
+  background-color: var(--color--blancocontent);
+  padding: 5px;
+}
+
+.interfazinsertar__boton {
+  border-radius: 10px;
+  border: none;
+  height: 70%;
+  width: 60%;
+  background-color: var(--color--buttoncards);
+  color: var(--color--blancocontent);
+}
+
+.interfazinsertar__formulario-titulo {
+  text-align: center;
+}
+
+.interfazinsertar__formulario-texto {
+  font-family: var(--font-Title);
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+.interfazcategorias__productos_item {
+ display: flex;
+ justify-content: space-between;
+ padding: 6px 10px;
+}
+.interfazcategorias__productos_item > p{
+ font-size: 0.9rem;
+}
+
+.interfazcategorias__nombre_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+

@@ -1,0 +1,142 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<div class = "bodyAdmin" >
+  <div class="lateral">
+    <div class ="lateral__title">
+      <p class="lateral__titletext">ADMIN</p>
+    </div>
+    <div class="lateral__menu">
+      <div class = "lateral__border">
+        <i class="bi bi-clipboard2-fill lateral__icons"></i>
+      </div>
+      <a href="#/Admin/principal" class = "lateral__text">Inicio</a>
+    </div>
+
+      <div class="lateral__menu">
+        <div class = "lateral__border">
+          <i class="bi bi-person-fill lateral__icons"></i>
+        </div>
+        <a href="#/Admin/RegisterEmpleados" class = "lateral__text">Registrar Empleado</a>
+      </div>
+      <div class="lateral__menu">
+        <div class = "lateral__border">
+          <i class="bi bi-car-front-fill lateral__icons"></i>
+        </div>
+        <a href="#/Admin/RegisterVehiculos" class = "lateral__text">Vehiculos</a>
+      </div>
+      <div class="lateral__menu">
+        <div class = "lateral__border">
+          <i class="bi bi-tag-fill lateral__icons"></i>
+        </div>
+        <a href="#/Admin/CategoriasProductos" class = "lateral__text">Categorias y Productos</a>
+      </div>
+      <div class="lateral__menu">
+        <div class = "lateral__border">
+          <i class="bi bi-clipboard2-fill lateral__icons"></i>
+        </div>
+        <a href="" class = "lateral__text">facturacion</a>
+      </div>
+      <div class="lateral__menu">
+        <div class = "lateral__border">
+          <i class="bi bi-box-arrow-left lateral__icons"></i>
+        </div>
+        <a href="" class = "lateral__text">Cerrar sesion</a>
+      </div>
+  </div>
+
+  <div class = "loginmecanico">
+      <div class="contentadmin__fondo ">
+        <!-- <img class="imagen__fondo" src="/Img/Logo.png" alt=""> -->
+      </div>
+      <div class = "loginmecanico__login">
+        <form id="formUsuario" class="formulario" novalidate>
+          <div class="title">
+            <p class="form__text">Register</p>
+          </div>
+
+          <div class="form__grupo">
+            <div class="form__label">
+              <label for="nombre">Nombre completo:</label>
+            </div>
+            <div class="form__inputtext">
+              <input type="text" id="nombre" class="form__input" placeholder="Nombre completo" min="5" required>
+            </div>
+          </div>
+
+          <div class="form__grupo">
+            <div class="form__label">
+              <label for="correo">Correo electrónico:</label>
+            </div>
+            <div class="form__inputtext">
+              <input type="email" id="correo" class="form__input" placeholder="Correo electrónico" required>
+            </div>
+          </div>
+
+          <div class="form__grupo">
+            <div class="form__label">
+            <label for="rol">Rol del empleado:</label>
+            </div>
+            <div class="form__inputtext">
+              <select id="rol" class="form__input" required>
+                <option value="">Selecciona un rol</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form__grupo">
+            <div class="form__label">
+            <label for="cedula">Cédula:</label>
+            </div>
+            <div class="form__inputtext">
+            <input type="text" id="cedula" class="form__input" placeholder="Cédula" required>
+            </div>
+          </div>
+         
+          <div class="form__grupo">
+            <div class="form__label">
+            <label for="telefono">Teléfono:</label>
+            </div>
+            <div class="form__inputtext">
+            <input type="text" id="telefono" class="form__input" placeholder="Teléfono" minlength="10" maxlength="10" required />
+            </div>
+          </div>  
+
+          <div class="form__grupo">
+            <div class="form__label">
+            <label for="usuario">Nombre de usuario:</label>
+            </div>
+            <div class="form__inputtext">
+            <input type="text" id="usuario" class="form__input" placeholder="Nombre Usuario" min="5" required />
+            </div>
+          </div>
+
+          <div class="form__grupo">
+            <div class="form__label">
+            <label for="contrasena">Contraseña:</label>
+            </div>
+            <div class="form__inputtext">
+            <input type="password" id="contrasena" class="form__input" placeholder="Contraseña" required/>
+            </div>
+          </div>
+
+          <div class="form__grupo button">
+            <button type="submit" class="button__form button__form--diseño_fondo">Registrarse</button>
+            <button type="button" id="Eliminar" class="button__form button__form--diseño_fondo"> Eliminar o editar</button>
+          </div>
+        </form>
+       </div>
+
+    <dialog id="EliminarUsuario" class="dialog__centrado">
+      <div class="EliminarUsuario__title">
+      <p class="Eliminarusuario__text">Eliminar Usuarios</p>
+      </div>
+      <div class="EliminarUsuario__body"> 
+        <div class="EliminarUsuario__Content"></div>     
+      </div>
+       <div class="EliminarUsuario__close">
+          <button class="buttonclose" id="cerrarDialogo">Cerrar</button>
+       </div>
+    </dialog>
+  </div>
+</div>
+<script type="module" src="RegisterEmpleados.js"></script>
+</html>
