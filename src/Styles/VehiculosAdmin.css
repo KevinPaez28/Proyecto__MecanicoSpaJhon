@@ -182,15 +182,16 @@ gap: 25px;
   padding: 3px;
 }
 .inserarUsuario__close{
-  height: 10%;
+  height: 15%;
   display: flex;
   text-align: center;
   width: 100%;
   justify-content: space-between;
+  padding: 0px 5px;
 }
 .formVehiculo__btn{
   width: 40%;
-  height: 70%;  
+  height: 60%;  
   background-color:var( --color--hoverForm) ;
   border-radius: 10px ;
 }

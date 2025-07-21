@@ -1,4 +1,5 @@
 import { get , post } from "../../../../Helpers/api";
+import { confirmacion,success,error  } from "../../../../Helpers/alertas";
 import { contarCamposFormulario,validar,validarCorreo,validarMinimo,validarCedula,validarContrasenia,validarLetras,validarNumeros,validarMaximo,limpiar,ModificarUsuarios } from "../../../../Helpers/Modules/modules"
 import "../../../../Styles/registerEmpleado.css";
 
@@ -46,21 +47,21 @@ export default async () => {
       delete datos['documento']; 
 
       const respuesta = await post('Usuarios', datos);
-
-      if (respuesta?.ok) {
-        alert("Usuario creado correctamente");
-        formulario.reset();
-        location.reload();
-      } else {
-        alert("No se pudo crear el usuario");
+      const confirm = await confirmacion("¿Desea Crear el usuario?")
+      if(confirm.isConfirmed){
+        if((await success({ message: "Usuario Registrado con exito"})).isConfirmed){
+          if (respuesta?.ok) {
+            formulario.reset();
+          } else {
+            await error("No se pudo crear el usuario", "");
+          }
+        }
       }
     } else {
-      alert("Faltan campos válidos");
+      await error("Faltan campos válidos","");
     }
   };
-  if (formulario.dataset.listener === "true") {
-    return;
-    }
+
 
   formulario.addEventListener('submit', nuevoUsuario);
 
@@ -116,6 +117,5 @@ export default async () => {
   cerrar.addEventListener("click", () => {
     dialogo.close(); 
   });
-      formulario.dataset.listener = "true";
 
 }

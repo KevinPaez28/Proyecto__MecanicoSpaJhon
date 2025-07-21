@@ -1,5 +1,5 @@
 import { get , del, put } from "../api.js";
-import { confirm } from "../alertas.js";
+import { confirm ,success,error,eliminar} from "../alertas.js";
 export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) =>  {
   try {
     if (!usuarios || !Array.isArray(usuarios)) {
@@ -44,8 +44,7 @@ export const TotalDeClientes = (usuarios) => {
   if (!elementosMenuNumbers || elementosMenuNumbers.length === 0) return;
   const clientesFiltrados = usuarios.filter(usuario => usuario.rol_id === 2);
   elementosMenuNumbers[0].textContent = clientesFiltrados.length;
-}
-
+};
 export const ModificarUsuarios = (usuarios, Roles) => {
   try {
     const dialogo = document.getElementById("EliminarUsuario");
@@ -152,6 +151,7 @@ export const ModificarUsuarios = (usuarios, Roles) => {
   }
 };
 export const editarUsuarios = async (nombre,cedula,telefono,usuarioText,btnEditar,id,correo,contrasena,rol) =>{
+  const dialog = document.getElementById("EliminarUsuario")
   const inputNombre = document.createElement("input");
   inputNombre.classList.add("empleadosContent__input");
   inputNombre.value = nombre.textContent;
@@ -189,33 +189,46 @@ export const editarUsuarios = async (nombre,cedula,telefono,usuarioText,btnEdita
     const paramns = id;
     try {
     const respuesta = await put(`Usuarios/${paramns}`, nuevoUsuario);
-    if (respuesta.ok) {
-      alert(" Usuario actualizado correctamente");
-      location.reload();  
-    } else {
-      alert("No se pudo actualizar el usuario");
-    }
+    dialog.close()
+    const confirmacion = await confirm("actualizar")
+
+     if(confirmacion.isConfirmed){
+      if((await success({ message: "Usuario Actualizado con exito"})).isConfirmed){
+        if (respuesta.ok) {
+          location.reload();  
+        } else {
+           await error("No se pudo actualizar el usuario");
+        }
+      }
+     }
     } catch (error) {
       console.error("Error al actualizar usuario:", nuevoUsuario);
-      alert(" Error inesperado al actualizar");
+       await error(" Error inesperado al actualizar");
     }
   });
-}
+};
 export const eliminarUsuarioPorId = async (id) => {
-    try {
-    const respuesta = await del(`Usuarios/${id}`);
-
-    if (respuesta.ok) {
-      alert("Usuario eliminado correctamente");
-
-      location.reload();  
-    } else {
-      alert("No se pudo eliminar el usuario");
-    }
-  } catch (error) {
-    console.error("Error al eliminar usuarios:", error);
+  const dialog= document.getElementById("EliminarUsuario")
+    try {  
+        dialog.close();
+        const confirm = await eliminar("¿Deseas eliminar el usuario?");
+        if (confirm.isConfirmed) {
+          const respuesta = await del(`Usuarios/${id}`);
+          
+          if (respuesta.ok) {
+            const ok = await success({ message: "Usuario eliminado con éxito" });
+            if (ok.isConfirmed) {
+              location.reload();
+            }
+          } else {
+            await error("No se pudo eliminar el usuario");
+          }
+        }
+    } catch (error) {
+    console.error("Error al eliminar el usuario:", error);
+    await error("Error inesperado al eliminar");
   }
-}
+};
 
 
 export const Vehiculos = (vehiculos, Usuarios) => {
@@ -304,14 +317,15 @@ export const Vehiculos = (vehiculos, Usuarios) => {
     botones.appendChild(btnEditar);
     botones.appendChild(btnEliminar);
 
+    btnEliminar.addEventListener("click" , () =>{
+      EliminarVehiculos(element.vehiculo_id)
+    })
 
     btnEditar.addEventListener("click", () => {
       EditarVehiculos(nombre, placa, modelo, btnEditar);
     });
 
-    btnEliminar.addEventListener("click" , () =>{
-      EliminarVehiculos(nombre, placa, modelo, btnEditar)
-    })
+    
     // Estructura final del card
     infoWrapper.appendChild(titulos);
     infoWrapper.appendChild(content);
@@ -321,9 +335,26 @@ export const Vehiculos = (vehiculos, Usuarios) => {
     seccionInfo.appendChild(cards);
   });
 };
-export const EliminarVehiculos = (nombre, placa, modelo, btnEditar) =>{
-  
-}
+export const EliminarVehiculos = async (id) =>{
+  console.log(id)
+  try {
+    const confirm = await eliminar ("Desea eliminar la informacion del Vehiculo?")
+    if(confirm.isConfirmed){
+      const respuesta = await del(`Vehiculos/${id}`)
+      if (respuesta.ok) {
+        const ok = await success({ message: "Informacio eliminada con éxito" });
+        if (ok.isConfirmed) {
+          location.reload();
+        }
+      } else {
+        await error("No se pudo eliminar la informacion");
+      }
+    }
+  } catch (error) {
+    console.error("Error al eliminar el usuario:", error);
+    await error("Error inesperado al eliminar");
+  }
+};
 export const EditarVehiculos = (nombre, placa, modelo, btnEditar) =>{
    const inputMarca = document.createElement("input");
     inputMarca.classList.add("inputEditar");
@@ -344,7 +375,7 @@ export const EditarVehiculos = (nombre, placa, modelo, btnEditar) =>{
     btnEditar.textContent = "Guardar";
 
     btnEditar.addEventListener("click", async () => {
-      const EditarVehiculo = {
+        const EditarVehiculo = {
         marca: inputMarca.value.trim(),
         placa: inputPlaca.value.trim(),
         modelo: inputModelo.value.trim(),
@@ -356,12 +387,12 @@ export const EditarVehiculos = (nombre, placa, modelo, btnEditar) =>{
         const confirmacion = await confirm("actualizar")
 
         if(confirmacion.isConfirmed){
-
-          if (respuesta.ok) {
-          alert("Vehículo actualizado");
-          location.reload();
-          } else {
-            alert("Error al actualizar vehículo");
+          if((await success({ message: "Vehiculo Actualizado con exito"})).isConfirmed){
+            if (respuesta.ok) {
+            location.reload();
+            } else {
+              alert("Error al actualizar vehículo");
+            }
           }
         }
         
@@ -370,7 +401,7 @@ export const EditarVehiculos = (nombre, placa, modelo, btnEditar) =>{
         alert("Error inesperado");
       }
    });
-}
+};
 
 export const Categorias_Productos = (Categorias, Productos, select, contenedorPadre) => {
   Categorias.forEach(element => {
@@ -447,7 +478,7 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
 
     body.append(nombre, productos, botones);
     card.appendChild(body);
-    contenedorPadre.appendChild(card); // 👈 Aquí agregas solo las tarjetas (no contenedores múltiples)
+    contenedorPadre.appendChild(card); 
 
     const option = document.createElement("option");
     option.value = element.categoria_id;

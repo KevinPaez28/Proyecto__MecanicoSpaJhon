@@ -1,6 +1,8 @@
 import { get, post } from "../../../../Helpers/api";
 import { contarCamposFormulario, limpiar, validarMinimo, Vehiculos } from "../../../../Helpers/Modules/modules";
 import "../../../../Styles/VehiculosAdmin.css";
+import { confirmacion,success,error  } from "../../../../Helpers/alertas";
+
 
 export default async (parametros = null) =>{
   
@@ -51,23 +53,29 @@ export default async (parametros = null) =>{
     }
     const usuarioId = datos["usuario_id"];
     const usuarioEncontrado = usuarios.find(u => u.usuario === usuarioId);
+    
     if (usuarioEncontrado) {
     datos["usuario_id"] = usuarioEncontrado.usuario_id;
     } else {
-    alert(" El usuario no está registrado.");
-    return; // Detenemos el registro
+          await error(" El usuario no está registrado.");
+    return; 
     }
+
     if (completados === contarcampos) {
-      const respuesta = await post('Vehiculos', datos);
-      
-      if (respuesta?.ok) {
-        alert("Vehículo registrado correctamente");
-        form.reset();
-      } else {
-        alert("No se pudo registrar el vehículo");
+      dialogo.close();
+      const confirm = await confirmacion("¿Desea Crear el usuario?")
+      if(confirm.isConfirmed){
+        const respuesta = await post('Vehiculos', datos);
+        if((await success({ message: "vehiculo Registrado con exito"})).isConfirmed){
+          if (respuesta?.ok) {
+          location.reload();  
+          } else {
+            await error("No se pudo crear el Vehiculo", "");
+          }
+        }
       }
     } else {
-      alert("Por favor completa todos los campos requeridos.");
+      error("Por favor completa todos los campos requeridos.");
     }
   };
   form.removeEventListener("submit", CrearVehiculos);

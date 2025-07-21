@@ -1,5 +1,6 @@
 import {get, post} from "../../../../Helpers/api" 
 import { Categorias_Productos, limpiar, validarMinimo, contarCamposFormulario, validarLetras, validarNumeros} from "../../../../Helpers/Modules/modules"
+import { confirmacion,success,error  } from "../../../../Helpers/alertas";
 import "../../../../Styles/CategoriasProductos.css";
 
 export default async (parametros = null) =>{
@@ -33,19 +34,23 @@ export default async (parametros = null) =>{
       }
     }
       
-    if (completados === totalRequeridos) {
+  if (completados === totalRequeridos) {
+  const confirm = await confirmacion("¿Desea Crear la Categoría?");
+    if (confirm.isConfirmed) {
       const respuesta = await post('Categorias', datos);
-      console.log(datos);
-      
       if (respuesta?.ok) {
-        alert("Categoría creada correctamente");
-        formularioCategoria.reset();
-        location.reload();
+        const ok = await success({ message: "Categoría registrada con éxito" });
+        if (ok.isConfirmed) {
+          formularioCategoria.reset();
+          location.reload();
+        }
       } else {
-        alert("No se pudo crear la categoría");
+        await error("La categoría ya está creada.");
       }
+    }
+
     } else {
-      alert("Por favor completa todos los campos requeridos.");
+      await error("Por favor completa todos los campos requeridos.");
     }
   };
 
@@ -74,16 +79,21 @@ export default async (parametros = null) =>{
     }
     
     if (completados === totalRequeridos) {
-      const respuesta = await post('Productos', datos);
-      if (respuesta?.ok) {
-        alert("Producto creado correctamente");
-        formularioproductos.reset();
-        location.reload();
-      } else {
-        alert("No se pudo crear el producto");
+
+      const confirm = await confirmacion("¿Desea Crear el Productos?")
+      if(confirm.isConfirmed){
+        const respuesta = await post('Productos', datos);
+        if((await success({ message: "Productos Registrado con exito"})).isConfirmed){
+          if (respuesta?.ok) {
+            formularioproductos.reset();
+            location.reload()
+          } else {
+            await error("No se pudo crear el Productos", "");
+          }
+        }
       }
     } else {
-      alert("Por favor completa todos los campos requeridos.");
+       await error("Por favor completa todos los campos requeridos.");
     }
   };
 
