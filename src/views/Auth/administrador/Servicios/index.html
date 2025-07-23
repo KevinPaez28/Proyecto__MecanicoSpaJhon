@@ -51,10 +51,6 @@
 
   <div class="interfaz-servicios">
   <div class="servicios-header">
-    <div class="servicios-fondo">
-      <!-- Imagen de fondo si la necesitas -->
-      <!-- <img class="servicios-logo" src="/Img/LogoServicios.png" alt=""> -->
-    </div>
     <div class="servicios-title">
       <p class="servicios-title-text">Gestión de Servicios</p>
     </div>
@@ -77,13 +73,13 @@
         </div>
 
         <div class="servicios-formulario-grupo">
-          <label for="descripcionServicio" class="servicios-label">Descripción</label>
-          <textarea id="descripcionServicio" class="servicios-input" rows="3"></textarea>
+          <label for="descripcionServicio" class="servicios-label">Descripcion</label>
+          <textarea id="descripcionServicio" class="servicios-input" required ></textarea>
         </div>
 
         <div class="servicios-formulario-grupo">
           <label for="precioServicio" class="servicios-label">Precio</label>
-          <input id="precioServicio" type="number" class="servicios-input" required step="0.01" />
+          <input id="precioServicio" type="number" class="servicios-input" required minlength="3" />
         </div>
 
         <div class="servicios-formulario-botones">

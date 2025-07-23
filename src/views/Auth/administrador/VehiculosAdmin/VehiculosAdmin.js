@@ -89,6 +89,5 @@ export default async (parametros = null) =>{
    marca.addEventListener('blur', (event) => {
     if (validarMinimo(event.target)) limpiar(event.target);
   })
-  form.removeEventListener("submit", CrearVehiculos);
   form.addEventListener("submit", CrearVehiculos);
 }

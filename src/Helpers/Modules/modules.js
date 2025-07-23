@@ -233,7 +233,6 @@ export const eliminarUsuarioPorId = async (id) => {
 
 export const Vehiculos = (vehiculos, Usuarios) => {
   const seccionInfo = document.querySelector(".interfazVehiculos__content");
-  seccionInfo.innerHTML = "";
 
   vehiculos.forEach((element) => {
     const cards = document.createElement("div");
@@ -721,6 +720,90 @@ export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,in
   
 }
 
+
+
+export const MostrarServicios = async (servicios) =>{
+  const contentServicios = document.querySelector(".servicios-listado")
+
+  servicios.forEach(servicios => {
+    const cards = document.createElement("div");
+    cards.classList.add("listado__cardservicios");
+
+    const body = document.createElement("div");
+    body.classList.add("listado__bodyservicios");
+
+    // Contenedor de la info
+    const info = document.createElement("div");
+    info.classList.add("listado__infoServicios");
+
+    // ---- Nombre ----
+    const Nombres = document.createElement("div");
+    Nombres.classList.add("listado__tituloServicios");
+
+    const pnombre_servicios = document.createElement("div");
+    pnombre_servicios.classList.add("listado__pnombre_servicios");
+    pnombre_servicios.textContent = "Nombre del Servicio";
+    Nombres.appendChild(pnombre_servicios);
+
+    const nombre = document.createElement("p");
+    nombre.classList.add("listadoServicios__textinfo");
+    nombre.textContent = servicios.nombre_servicio;
+    Nombres.appendChild(nombre);
+
+    // ---- Descripción ----
+    const descripciongrupo = document.createElement("div");
+    descripciongrupo.classList.add("listado__tituloServicios");
+
+    const descripcion = document.createElement("div");
+    descripcion.classList.add("listado__pnombre_servicios");
+    descripcion.textContent = "Descripción";
+    descripciongrupo.appendChild(descripcion);
+
+    const descTexto = document.createElement("p");
+    descTexto.classList.add("listadoServicios__textinfo");
+    descTexto.textContent = servicios.descripcion;
+    descripciongrupo.appendChild(descTexto);
+
+    // ---- Precio ----
+    const precios = document.createElement("div");
+    precios.classList.add("listado__tituloServicios");
+
+    const preciotitle = document.createElement("div");
+    preciotitle.classList.add("listado__pnombre_servicios");
+    preciotitle.textContent = "Precio";
+    precios.appendChild(preciotitle);
+
+    const precio = document.createElement("p");
+    precio.classList.add("listadoServicios__textinfo");
+    precio.textContent = servicios.precio;
+    precios.appendChild(precio);
+
+    // Añadimos bloques al contenedor de info
+    info.appendChild(Nombres);
+    info.appendChild(descripciongrupo);
+    info.appendChild(precios);
+
+    // ---- Botones ----
+    const botones = document.createElement("div");
+    botones.classList.add("listadoServicios__button");
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.classList.add("listadoServicios__buttones");
+    btnEliminar.textContent = "Eliminar";
+    botones.appendChild(btnEliminar);
+
+    const btneditar = document.createElement("button");
+    btneditar.classList.add("listadoServicios__buttones");
+    btneditar.textContent = "Editar";
+    botones.appendChild(btneditar);
+
+    // Armamos la tarjeta
+    body.appendChild(info);
+    body.appendChild(botones);
+    cards.appendChild(body);
+    contentServicios.appendChild(cards);
+  });
+}
 //VALIDACIONES 
 
 export const contarCamposFormulario = (formulario) => {
