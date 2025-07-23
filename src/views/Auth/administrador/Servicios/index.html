@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<div class = "bodyAdmin" >
+<div class="bodyAdmin">
   <div class="lateral">
     <div class ="lateral__title">
       <p class="lateral__titletext">ADMIN</p>
@@ -49,60 +49,50 @@
     </div>
   </div>
 
-  <div class="contentadmin">
-    <div class="contentadmin__fondo ">
-        <!-- <img class="imagen__fondo" src="/Img/Logo.png" alt=""> -->
+  <div class="interfaz-servicios">
+  <div class="servicios-header">
+    <div class="servicios-fondo">
+      <!-- Imagen de fondo si la necesitas -->
+      <!-- <img class="servicios-logo" src="/Img/LogoServicios.png" alt=""> -->
     </div>
-    <div class="contentadmin__menu">
-      <div class="menu__resumen">
-        <div class = "menu__info">
-          <h2 class ="menu__numbers">0</h2>
-          <p class ="menu__text" >Clientes</p>
-        </div>
-        <div class = "menu__info">
-          <h2 class ="menu__numbers">0</h2>
-          <p class ="menu__text" >Trabajos en Curso</p>
-        </div>
-        <div class = "menu__info">
-          <h2 class ="menu__numbers">0</h2>
-          <p class ="menu__text" >Ingresos del Mes</p>
-        </div>
-        <div class = "menu__info">
-          <h2 class ="menu__numbers">0</h2>
-          <p class ="menu__text" >Nuevos Clientes</p>
-        </div>
-      </div>
-
-      <div class="menu__calendario">
-        <p class = "menu__text">
-          Calendario de Trabajos 
-        </p>
-      </div>
-
-
-      <div class="menu__ordenes">
-        <p class="menu__text">Ultimas Ordenes de Trabajo</p>
-      </div>
-
-      <div class="menu__empleados">
-        <p class="menu__text">Total de Usuarios Registrados</p>
-        <div class="menu__empleadosNombres">
-          <p>Nombre</p>
-          <p>Cedula</p>
-          <p>Rol</p>
-        </div>
-        <div class="menu__empleados-contenido">
-
-        </div>
-      </div>
-
-      <div class="menu__reportes">
-        <p class="menu__text">Reportes</p>
-      </div>
-
-      <div class="menu__notificaciones">
-        <p class="menu__text">Notificaciones</p>
-      </div>
+    <div class="servicios-title">
+      <p class="servicios-title-text">Gestión de Servicios</p>
     </div>
-  <script src="AdminPrincipal.js" type="module"></script>
+  </div>
+
+  <div class="servicios-content">
+    <div class="servicios-listado" id="contenedorServicios">
+      <!-- Aquí se listarán los servicios existentes -->
+    </div>
+
+    <div class="servicios-formulario-contenedor">
+      <form id="formularioServicios" class="servicios-formulario">
+        <div class="servicios-formulario-header">
+          <p class="servicios-formulario-titulo">Agregar Nuevo Servicio</p>
+        </div>
+
+        <div class="servicios-formulario-grupo">
+          <label for="nombreServicio" class="servicios-label">Nombre del Servicio</label>
+          <input id="nombreServicio" type="text" class="servicios-input" required minlength="3" />
+        </div>
+
+        <div class="servicios-formulario-grupo">
+          <label for="descripcionServicio" class="servicios-label">Descripción</label>
+          <textarea id="descripcionServicio" class="servicios-input" rows="3"></textarea>
+        </div>
+
+        <div class="servicios-formulario-grupo">
+          <label for="precioServicio" class="servicios-label">Precio</label>
+          <input id="precioServicio" type="number" class="servicios-input" required step="0.01" />
+        </div>
+
+        <div class="servicios-formulario-botones">
+          <button type="submit" class="servicios-boton">Guardar Servicio</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <script type="module" src="servicios.js"></script>
 </div>

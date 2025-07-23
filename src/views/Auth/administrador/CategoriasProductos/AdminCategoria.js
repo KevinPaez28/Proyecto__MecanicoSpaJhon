@@ -13,7 +13,12 @@ export default async (parametros = null) =>{
   const contenedor = document.getElementById("contenedorCategorias");
   const Categoria = document.querySelector("#nombre");
   const formularioCategoria = document.querySelector("#categorias");
+  const Nombre = document.querySelector("#Nombre");
+  const Precio = document.querySelector("#Precio");
+  const Unidad = document.querySelector("#stock");
+  const formularioproductos = document.querySelector('#productos');
 
+  
   // Validar y crear Categorías
   const CrearCategorias = async (event) => {
     event.preventDefault();
@@ -34,30 +39,27 @@ export default async (parametros = null) =>{
       }
     }
       
-  if (completados === totalRequeridos) {
-  const confirm = await confirmacion("¿Desea Crear la Categoría?");
-    if (confirm.isConfirmed) {
-      const respuesta = await post('Categorias', datos);
-      if (respuesta?.ok) {
-        const ok = await success({ message: "Categoría registrada con éxito" });
-        if (ok.isConfirmed) {
-          formularioCategoria.reset();
-          location.reload();
+    if (completados === totalRequeridos) {
+    const confirm = await confirmacion("¿Desea Crear la Categoría?");
+      if (confirm.isConfirmed) {
+        const respuesta = await post('Categorias', datos);
+        if (respuesta?.ok) {
+          const ok = await success({ message: "Categoría registrada con éxito" });
+          if (ok.isConfirmed) {
+            formularioCategoria.reset();
+            location.reload();
+          }
+        } else {
+          await error("La categoría ya está creada.");
         }
-      } else {
-        await error("La categoría ya está creada.");
       }
-    }
 
-    } else {
-      await error("Por favor completa todos los campos requeridos.");
-    }
+      } else {
+        await error("Por favor completa todos los campos requeridos.");
+      }
   };
 
-  const Nombre = document.querySelector("#Nombre");
-  const Precio = document.querySelector("#Precio");
-  const Unidad = document.querySelector("#stock");
-  const formularioproductos = document.querySelector('#productos');
+
 
   const CrearProductos = async (event) => {
     event.preventDefault();

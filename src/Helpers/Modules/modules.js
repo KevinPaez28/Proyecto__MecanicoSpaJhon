@@ -190,7 +190,7 @@ export const editarUsuarios = async (nombre,cedula,telefono,usuarioText,btnEdita
     try {
     const respuesta = await put(`Usuarios/${paramns}`, nuevoUsuario);
     dialog.close()
-    const confirmacion = await confirm("actualizar")
+    const confirmacion = await confirm("Actualizar")
 
      if(confirmacion.isConfirmed){
       if((await success({ message: "Usuario Actualizado con exito"})).isConfirmed){
@@ -286,14 +286,23 @@ export const Vehiculos = (vehiculos, Usuarios) => {
     const usuarioId = document.createElement("p");
     usuarioId.classList.add("interfazvehiculos__usuarioId");
 
-    const usuariosFiltrados = Usuarios.filter(
-      (v) => v.usuario_id === element.usuario_id && v.rol_id === 2
-    );
+    const usuariosFiltrados = Usuarios.filter((usuario) => {
+      // Verifica que el ID del usuario sea el mismo que el del elemento actual
+      const mismoUsuario = usuario.usuario_id === element.usuario_id;
 
-    usuarioId.textContent =
-      usuariosFiltrados.length > 0
-        ? usuariosFiltrados[0].usuario
-        : "Sin usuario asignado";
+      // Verifica que el rol sea exactamente 2
+      const esRolCliente = usuario.rol_id === 2;
+
+      // Solo retorna aquellos que cumplan ambas condiciones
+      return mismoUsuario && esRolCliente;
+    });
+
+    if (usuariosFiltrados.length > 0) {
+    usuarioId.textContent = usuariosFiltrados[0].usuario;
+    } else {
+      
+      usuarioId.textContent = "Sin usuario asignado";
+    }
 
     content.appendChild(nombre);
     content.appendChild(placa);
@@ -342,7 +351,7 @@ export const EliminarVehiculos = async (id) =>{
     if(confirm.isConfirmed){
       const respuesta = await del(`Vehiculos/${id}`)
       if (respuesta.ok) {
-        const ok = await success({ message: "Informacio eliminada con éxito" });
+        const ok = await success({ message: "Informacion eliminada con éxito" });
         if (ok.isConfirmed) {
           location.reload();
         }
@@ -403,6 +412,8 @@ export const EditarVehiculos = (nombre, placa, modelo, btnEditar) =>{
    });
 };
 
+
+
 export const Categorias_Productos = (Categorias, Productos, select, contenedorPadre) => {
   Categorias.forEach(element => {
     const card = document.createElement("div");
@@ -438,10 +449,14 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
 
     productos.appendChild(divItem);
 
-    const productosFiltrados = Productos.filter(p => p.categoria_id == element.categoria_id);
+    const btnEditar = document.createElement("button");
+    btnEditar.classList.add("interfazcategorias__buttones");
+    btnEditar.textContent = "Editar";
 
+    const productosFiltrados = Productos.filter(p => p.categoria_id == element.categoria_id);
     if (productosFiltrados.length > 0) {
       productosFiltrados.forEach(p => {
+       
         const divProducto = document.createElement("div");
         divProducto.classList.add("interfazcategorias__productos_item");
 
@@ -456,6 +471,11 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
 
         divProducto.append(stock, nombreProducto, precio);
         productos.appendChild(divProducto);
+
+        btnEditar.addEventListener("click" , async (e) =>{
+        e.preventDefault();
+        editarProductos(stock,nombreProducto,precio,btnEditar,p.producto_id,element.categoria_id)
+      })
       });
     } else {
       const sinProductos = document.createElement("em");
@@ -465,10 +485,6 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
 
     const botones = document.createElement("div");
     botones.classList.add("interfazcategorias__button");
-
-    const btnEditar = document.createElement("button");
-    btnEditar.classList.add("interfazcategorias__buttones");
-    btnEditar.textContent = "Editar";
 
     const btnEliminar = document.createElement("button");
     btnEliminar.classList.add("interfazcategorias__buttones");
@@ -486,8 +502,224 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
     select.appendChild(option);
   });
 };
+export const editarProductos = (stock,nombreProducto,precio,btnEditar,id,id_categoria) =>{
+  const inputNombre = document.createElement("input");
+  inputNombre.classList.add("Categorias__input");
+  inputNombre.value = nombreProducto.textContent;
+  nombreProducto.replaceWith(inputNombre)
+
+  const inputStock = document.createElement("input");
+  inputStock.classList.add("Categorias__input");
+  inputStock.value = stock.textContent;
+  stock.replaceWith(inputStock)
+
+  const inputPrecio = document.createElement("input");
+  inputPrecio.classList.add("Categorias__input");
+  inputPrecio.value = precio.textContent;
+  precio.replaceWith(inputPrecio)
+
+  btnEditar.textContent = "Guardar";
+  btnEditar.classList.remove("btn-modificar");
+  btnEditar.classList.add("btn-guardar");
+
+  btnEditar.addEventListener("click", async (e) => {
+  e.preventDefault();
+      const nuevaCategoria = {
+      nombre:inputNombre.value.trim(),
+      precio:inputPrecio.value.trim(),
+      stock:inputStock.value.trim(),
+      categoria_id : id_categoria
+    }
+    console.log(nuevaCategoria)
+    const paramns = id; 
+    try {
+      const confirmacion = await confirm("Actualizar")
+      if (confirmacion.isConfirmed) {
+        const respuesta = await put(`Productos/${paramns}`, nuevaCategoria)
+        if (respuesta.ok) {
+            const ok = await success({ message: "Informacion Actualizada con éxito" });
+          if (ok.isConfirmed){
+            location.reload()
+          }else{
+            await error("No se pudo actualizar la Categoria")
+          }
+        }
+      }else{
+      } 
+    } catch (error) {
+      console.error("Error al actualizar Categoria:", nuevaCategoria);
+       await error(" Error inesperado al actualizar");
+    }
+  })
+};
 
 
+
+export const VehiculosPorId = (vehiculos,Usuarios) =>{
+
+  const seccionInfo = document.querySelector(".VehiculosUsuariosId");
+  seccionInfo.innerHTML = "";
+
+  vehiculos.forEach((element) => {
+    const cards = document.createElement("div");
+    cards.classList.add("vehiculosUsuarios");
+
+    const body = document.createElement("div");
+    body.classList.add("interfazvehiculos__body");
+
+    const infoWrapper = document.createElement("div");
+    infoWrapper.classList.add("interfazvehiculos__info");
+
+    const titulos = document.createElement("div");
+    titulos.classList.add("interfazvehiculos__contentCards");
+
+    const pMarca = document.createElement("p");
+    pMarca.classList.add("interfazvehiculos__titulonombre");
+    pMarca.textContent = "Marca:";
+    titulos.appendChild(pMarca);
+
+    const pPlaca = document.createElement("p");
+    pPlaca.classList.add("interfazvehiculos__titulonombre");
+    pPlaca.textContent = "Placa:";
+    titulos.appendChild(pPlaca);
+
+    const pModelo = document.createElement("p");
+    pModelo.classList.add("interfazvehiculos__titulonombre");
+    pModelo.textContent = "Modelo:";
+    titulos.appendChild(pModelo);
+
+    const pUsuario = document.createElement("p");
+    pUsuario.classList.add("interfazvehiculos__titulonombre");
+    pUsuario.textContent = "Usuario:";
+    titulos.appendChild(pUsuario);
+
+    const content = document.createElement("div");
+    content.classList.add("interfazvehiculos__contentCard");
+
+    const nombre = document.createElement("p");
+    nombre.classList.add("interfazvehiculos__marca");
+    nombre.textContent = element.marca;
+
+    const placa = document.createElement("p");
+    placa.classList.add("interfazvehiculos__placa");
+    placa.textContent = element.placa;
+
+    const modelo = document.createElement("p");
+    modelo.classList.add("interfazvehiculos__modelo");
+    modelo.textContent = element.modelo;
+
+    const usuarioId = document.createElement("p");
+    usuarioId.classList.add("interfazvehiculos__usuarioId");
+
+    const usuariosFiltrados = Usuarios.filter(
+      (v) => v.usuario_id === element.usuario_id && v.rol_id === 2
+    );
+
+    usuarioId.textContent =
+      usuariosFiltrados.length > 0
+        ? usuariosFiltrados[0].usuario
+        : "Sin usuario asignado";
+
+    content.appendChild(nombre);
+    content.appendChild(placa);
+    content.appendChild(modelo);
+    content.appendChild(usuarioId);
+
+    // Crear contenedor de botones y colocarlo FUERA del contentCard
+    const botones = document.createElement("div");
+    botones.classList.add("Usuarios__buttones");
+
+    const btnEditar = document.createElement("button");
+    btnEditar.classList.add("usuarios__button");
+    btnEditar.textContent = "Editar";
+    btnEditar.dataset.id = element.vehiculo_id;
+    btnEditar.dataset.usuarioId = element.usuario_id;
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.classList.add("usuarios__button");
+    btnEliminar.textContent = "Eliminar";
+
+    botones.appendChild(btnEditar);
+    botones.appendChild(btnEliminar);
+
+    btnEliminar.addEventListener("click" , () =>{
+      EliminarVehiculos(element.vehiculo_id)
+    })
+
+    btnEditar.addEventListener("click", () => {
+      EditarVehiculos(nombre, placa, modelo, btnEditar);
+    });
+
+    
+    // Estructura final del card
+    infoWrapper.appendChild(titulos);
+    infoWrapper.appendChild(content);
+    body.appendChild(infoWrapper);
+    body.appendChild(botones); // AQUI se agregan fuera del info
+    cards.appendChild(body);
+    seccionInfo.appendChild(cards);
+  });
+}
+
+export const Clientesbyid = async () =>{
+  const content = document.querySelector(".infodatos")
+  const title = document.querySelector(".titleNombre") 
+  const buttons = document.querySelector(".contentbuttons") 
+  const id = localStorage.getItem("usuarioid");
+  const Usuarios = await get (`Usuarios/${id}`)
+
+  const infonombre = document.createElement("p")
+  infonombre.classList.add("infotitlename")
+  infonombre.textContent = Usuarios.nombre
+
+  const infocedula = document.createElement("p")
+  infocedula.classList.add("infotext")
+  infocedula.textContent = Usuarios.cedula;
+
+  const infocorreo = document.createElement("p")
+  infocorreo.classList.add("infotext")
+  infocorreo.textContent = Usuarios.correo
+
+  const infotelefono = document.createElement("p")
+  infotelefono.classList.add("infotext")
+  infotelefono.textContent = Usuarios.telefono
+
+  const infousuario = document.createElement("p")
+  infousuario.classList.add("infotext")
+  infousuario.textContent = Usuarios.usuario
+
+  const infoconstrasena = document.createElement("p")
+  infoconstrasena.classList.add("infotext")
+  infoconstrasena.textContent = Usuarios.contrasena
+
+  const btnEditar = document.createElement("button");
+  btnEditar.textContent = "Editar";
+  btnEditar.classList.add("btnUsuarios");
+
+  const btnEliminar = document.createElement("button");
+  btnEliminar.textContent = "Eliminar";
+  btnEliminar.classList.add("btnUsuarios");
+
+  btnEditar.addEventListener("click", async (e)=>{
+    e.preventDefault();
+    EditarClientes(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar)
+   })
+
+  title.appendChild(infonombre)
+  content.appendChild(infocedula)
+  content.appendChild(infocorreo)
+  content.appendChild(infoconstrasena)
+  content.appendChild(infotelefono)
+  content.appendChild(infousuario)
+
+
+  buttons.appendChild(btnEditar)
+  buttons.appendChild(btnEliminar)
+}
+
+export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar) =>{
+  
+}
 
 //VALIDACIONES 
 

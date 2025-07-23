@@ -1,0 +1,134 @@
+@import url("variables.css");
+
+.servicios__main {
+  width: 80%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.servicios__header {
+  width: 100%;
+  height: 12%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  font-family: var(--font-Title);
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.servicios__content {
+  width: 100%;
+  height: 88%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.servicios__listado {
+  width: 75%;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px;
+  overflow-y: auto;
+  height: 80vh;
+  scrollbar-width: none;
+}
+
+.servicios__card {
+  width: 30%;
+  height: 200px;
+  background-color: var(--color--cardvehiculos);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  font-family: var(--font--principalateral);
+  font-size: 1.1rem;
+}
+
+.servicios__card-title {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: var(--font-Title);
+}
+
+.servicios__card-body p {
+  margin-bottom: 5px;
+}
+
+.servicios__card-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.servicios__card-button {
+  width: 45%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--color--buttoncards);
+  color: var(--color--blancocontent);
+  cursor: pointer;
+}
+
+.servicios__formulario {
+  width: 25%;
+  height: 85vh;
+  background-color: var(--color--cardvehiculos);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 20px;
+  font-family: var(--font--principalateral);
+}
+
+.servicios__formulario-titulo {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: var(--font-Title);
+}
+
+.servicios__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.servicios__label {
+  font-family: var(--font--principalContent);
+  font-size: 1rem;
+}
+
+.servicios__input,
+.servicios__textarea {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--color--blancocontent);
+  padding: 6px;
+  font-size: 0.95rem;
+}
+
+.servicios__textarea {
+  resize: vertical;
+  height: 70px;
+}
+
+.servicios__boton {
+  border-radius: 10px;
+  border: none;
+  height: 35px;
+  width: 100%;
+  background-color: var(--color--buttoncards);
+  color: var(--color--blancocontent);
+  font-size: 1rem;
+  cursor: pointer;
+}

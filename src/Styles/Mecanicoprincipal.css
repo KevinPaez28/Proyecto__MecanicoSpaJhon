@@ -1,0 +1,57 @@
+ @import url("variables.css"); 
+
+/* Estilos exclusivos para reparaciones en curso */
+
+.panel_lateral {
+  width: 20%;
+  height: 100vh;
+  background-color: #636161;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  list-style-type: none;
+}
+
+.panel_title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #f1f1f1;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.panel_menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  transition: background-color 0.2s ease;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+.panel_iconbox {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel_icon {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.panel_text {
+  font-size: 18px;
+  color: #ffffff;
+  text-decoration: none;
+}

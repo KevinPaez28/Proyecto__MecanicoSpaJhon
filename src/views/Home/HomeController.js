@@ -1,8 +1,8 @@
+import { error, success } from "../../Helpers/alertas.js";
 import { get , login} from "../../Helpers/api.js";
 import "../../Styles/Home.css";
 
 export default (parametros = null) => {
-    console.log("Se hizo clic en el botón de Iniciar Sesión");
     const formulario = document.querySelector("form");
     if (!formulario) {
       console.warn("No se encontró el formulario");
@@ -25,34 +25,33 @@ export default (parametros = null) => {
       const usuariovalor = usuario.value.trim();
       const contraseniavalor = contrasenia.value.trim();
 
-      try {
-        const usuarios = await get("Usuarios");
+    try {
+      const usuarios = await get("Usuarios");
+      const roles = await get("Roles");
 
-        const user = usuarios.find((usu) => usu.usuario === usuariovalor);
+      const user = usuarios.find((usu) => usu.usuario === usuariovalor);
+      const rolUsuario = roles.find((rol) => rol.rol_id === user.rol_id);
 
-        const { token } = await login(usuariovalor, contraseniavalor);
+      const { token } = await login(usuariovalor, contraseniavalor);
 
-        // Guarda token y usuario en localStorage
+      if (!token) {
+        await error("Datos incorrectos");
+      } else {
         localStorage.setItem("token", token);
         localStorage.setItem("usuario", JSON.stringify(user));
+        success({ message: "Usuario iniciado correctamente" });
 
-        alert("Usuario iniciado correctamente");
+        // Generar nombre de ruta dinámicamente, ej: "Administrador" → "admin"
+        const rutaRol = rolUsuario.nombre.toLowerCase();
 
-
-      // Redirección según rol
-      if (user.rol_id === 4) {
-        location.hash = `#/Admin/principal?id=${user.usuario_id}`;
-      } else if (user.rol_id === 2) {
-        location.hash = `#/usuario?id=${encodeURIComponent(user.usuario_id)}`;
-      } else {
-        alert("Rol no reconocido");
-      }
+        // Redirigir usando el nombre del rol como parte de la ruta
+        location.hash = `#/${rutaRol}/principal?id=${user.usuario_id}`;
+      }  // Guarda token y usuario en localStorage
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
-      alert("Hubo un error al iniciar sesión.");
     }
     });
-    formulario.dataset.listener = "true";
+  
 };
 
 

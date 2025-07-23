@@ -8,39 +8,45 @@
       <div class = "lateral__border">
         <i class="bi bi-clipboard2-fill lateral__icons"></i>
       </div>
-      <a href="#/Admin/principal" class = "lateral__text">Inicio</a>
+      <a href="#/administrador/principal" class = "lateral__text">Inicio</a>
     </div>
 
-      <div class="lateral__menu">
-        <div class = "lateral__border">
-          <i class="bi bi-person-fill lateral__icons"></i>
-        </div>
-        <a href="#/Admin/RegisterEmpleados" class = "lateral__text">Registrar Empleado</a>
+    <div class="lateral__menu">
+      <div class = "lateral__border">
+        <i class="bi bi-person-fill lateral__icons"></i>
       </div>
-      <div class="lateral__menu">
-        <div class = "lateral__border">
-          <i class="bi bi-car-front-fill lateral__icons"></i>
-        </div>
-        <a href="#/Admin/RegisterVehiculos" class = "lateral__text">Vehiculos</a>
+      <a href="#/administrador/RegisterEmpleados" class = "lateral__text">Registrar Empleado</a>
+    </div>
+    <div class="lateral__menu">
+      <div class = "lateral__border">
+        <i class="bi bi-car-front-fill lateral__icons"></i>
       </div>
-      <div class="lateral__menu">
-        <div class = "lateral__border">
-          <i class="bi bi-tag-fill lateral__icons"></i>
-        </div>
-        <a href="#/Admin/CategoriasProductos" class = "lateral__text">Categorias y Productos</a>
+      <a href="#/administrador/RegisterVehiculos" class = "lateral__text">Vehiculos</a>
+    </div>
+    <div class="lateral__menu">
+      <div class = "lateral__border">
+        <i class="bi bi-tag-fill lateral__icons"></i>
       </div>
-      <div class="lateral__menu">
+      <a href="#/administrador/CategoriasProductos" class = "lateral__text">Categorias y Productos</a>
+    </div>
+    <div class="lateral__menu">
         <div class = "lateral__border">
-          <i class="bi bi-clipboard2-fill lateral__icons"></i>
+          <i class="bi bi-gear-fill lateral__icons"></i>
         </div>
-        <a href="" class = "lateral__text">facturacion</a>
+        <a href="#/administrador/Servicios" class = "lateral__text">Servicios</a>
+    </div>
+    <div class="lateral__menu">
+      <div class = "lateral__border">
+        <i class="bi bi-clipboard2-fill lateral__icons"></i>
       </div>
-      <div class="lateral__menu">
-        <div class = "lateral__border">
-          <i class="bi bi-box-arrow-left lateral__icons"></i>
-        </div>
-        <a href="" class = "lateral__text">Cerrar sesion</a>
+      <a href="" class = "lateral__text">facturacion</a>
+    </div>
+    <div class="lateral__menu">
+      <div class = "lateral__border">
+        <i class="bi bi-box-arrow-left lateral__icons"></i>
       </div>
+      <a href="#/Home" class = "lateral__text">Cerrar sesion</a>
+    </div>
   </div>
   <div class="interfazvehiculos">
     <div class="interfazVehiculos__header">
@@ -61,21 +67,29 @@
     <form class="formVehiculo__form" id="formVehiculo">
       <div class="formVehiculo__grupo">
         <label for="placa" class="formVehiculo__label">Placa:</label>
+        <div class="form__inputtext">
         <input type="text" id="placa" class="formVehiculo__input" placeholder="Placa del vehículo" required maxlength="20">
+        </div>
       </div>
       <div class="formVehiculo__grupo">
         <label for="marca" class="formVehiculo__label">Marca:</label>
-        <input type="text" id="marca" class="formVehiculo__input" placeholder="Marca del vehículo" required>
+        <div class="form__inputtext">
+          <input type="text" id="marca" class="formVehiculo__input" placeholder="Marca del vehículo" required min="3" maxlength="20">
+        </div>
       </div>
 
       <div class="formVehiculo__grupo">
         <label for="modelo" class="formVehiculo__label">Modelo:</label>
-        <input type="text" id="modelo" class="formVehiculo__input" placeholder="Modelo del vehículo" required>
+        <div class="form__inputtext">
+          <input type="text" id="modelo" class="formVehiculo__input" placeholder="Modelo del vehículo" required min="5" maxlength="20">
+        </div>
       </div>
       
       <div class="formVehiculo__grupo">
         <label for="usuario" class="formVehiculo__label">Usuario:</label>
-        <input type="text" id="usuario_id" class="formVehiculo__input" placeholder="Usuario" min="1" max="20" required>
+        <div class="form__inputtext">
+          <input type="text" id="usuario_id" class="formVehiculo__input" placeholder="Usuario" min="5" max="20" required>
+        </div>
       </div>    
       <div class="inserarUsuario__close">
           <button type="submit" class="formVehiculo__btn" id="insertarvehiculos">Registrar Vehículo</button>

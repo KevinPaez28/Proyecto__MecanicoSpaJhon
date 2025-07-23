@@ -9,7 +9,7 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
   font-family: var(--font--principalateral);
   font-size: 0.6rem;
   list-style-type: none; 

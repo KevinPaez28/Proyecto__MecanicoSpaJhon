@@ -1,5 +1,5 @@
 import { get, post } from "../../../../Helpers/api";
-import { contarCamposFormulario, limpiar, validarMinimo, Vehiculos } from "../../../../Helpers/Modules/modules";
+import { contarCamposFormulario, limpiar, validarLetras, validarMinimo, Vehiculos } from "../../../../Helpers/Modules/modules";
 import "../../../../Styles/VehiculosAdmin.css";
 import { confirmacion,success,error  } from "../../../../Helpers/alertas";
 
@@ -16,7 +16,10 @@ export default async (parametros = null) =>{
   const cerrar = document.getElementById("cerrarvehiculos");
   const btnRegistrar = document.getElementById("registrar_vehiculos");
   const form = document.querySelector("#formVehiculo");
-  const usuario = document.getElementById("usuario_id")
+  // const usuario = document.getElementById("usuario_id")
+  const modelo = document.querySelector("#modelo");
+  const marca = document.querySelector("#marca")
+  const Usuario = document.querySelector("#usuario_id")
 
   Vehiculos(vehiculos, usuarios);
   // Abrir y cerrar el diálogo
@@ -28,9 +31,6 @@ export default async (parametros = null) =>{
     dialogo.close();
   });
 
-  if (form.dataset.listener === "true") {
-    return;
-  }
   // Manejo del formulario
   const CrearVehiculos = async (event) => {
     event.preventDefault();
@@ -47,7 +47,6 @@ export default async (parametros = null) =>{
           limpiar(campo);
           datos[campo.id.toLowerCase()] = campo.value.trim();
           completados++;
-          console.log(datos)
         }
       }
     }
@@ -57,6 +56,7 @@ export default async (parametros = null) =>{
     if (usuarioEncontrado) {
     datos["usuario_id"] = usuarioEncontrado.usuario_id;
     } else {
+        dialogo.close()
           await error(" El usuario no está registrado.");
     return; 
     }
@@ -78,6 +78,17 @@ export default async (parametros = null) =>{
       error("Por favor completa todos los campos requeridos.");
     }
   };
+
+  modelo.addEventListener('blur', (event) => {
+    if (validarMinimo(event.target)) limpiar(event.target);
+  });
+   Usuario.addEventListener('blur', (event) => {
+    if (validarMinimo(event.target)) limpiar(event.target);
+  });
+  marca.addEventListener('keydown' ,validarLetras);
+   marca.addEventListener('blur', (event) => {
+    if (validarMinimo(event.target)) limpiar(event.target);
+  })
   form.removeEventListener("submit", CrearVehiculos);
   form.addEventListener("submit", CrearVehiculos);
 }

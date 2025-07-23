@@ -1,7 +1,7 @@
 export const get = async (endpoint, params = {}) => {
   try {
     const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}?${queryString}`)
+    const response = await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}${queryString}`)
     return await response.json();
   } catch (error) {
     console.error("Error en GET:", error);
@@ -57,10 +57,11 @@ export const login = async(usuario, contrasena) => {
       body: JSON.stringify({ usuario, contrasena }) 
     });
 
-    if (!response.ok) throw new Error("Login fallido");
-
-    const data = await response.text(); 
-    console.log(data)
+    if (!response.ok) {
+      console.error("Login fallido con código:", response.status);
+      return null;
+    }
+    const data = await response.json(); 
     return data;
 
   } catch (error) {

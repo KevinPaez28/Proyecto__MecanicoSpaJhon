@@ -159,7 +159,7 @@ gap: 25px;
   font-weight: 600;
 }
 .formVehiculo__form{
-  height: 69%;
+  height: 300px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -170,6 +170,7 @@ gap: 25px;
   display: flex;
   gap: 20px;
   padding: 10px;
+  height: 55px;
 }
 .formVehiculo__label{
  font-family: var(--font_bodyIngresovehiculos);
@@ -178,16 +179,17 @@ gap: 25px;
 .formVehiculo__input{
   border-radius: 5px;
   height: 25px;
-  width: 50%;
+  width: 100%;
   padding: 3px;
 }
 .inserarUsuario__close{
-  height: 15%;
+  height: 45px;
   display: flex;
   text-align: center;
   width: 100%;
   justify-content: space-between;
   padding: 0px 5px;
+  margin-top: 5px;
 }
 .formVehiculo__btn{
   width: 40%;
