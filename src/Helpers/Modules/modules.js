@@ -1,4 +1,4 @@
-import { get , del, put } from "../api.js";
+import { get , del, put, patch } from "../api.js";
 import { confirm ,success,error,eliminar} from "../alertas.js";
 export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) =>  {
   try {
@@ -37,14 +37,76 @@ export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) =>  {
     console.error('Error al obtener usuarios:', error);
   }
 }
+export const ObteneReparacionesadmin = async ()  =>{
+const reparaciones = await get (`Reparaciones/admin`)
+const contenedor = document.querySelector(".menu__trabajos");
+contenedor.innerHTML = "";
 
+reparaciones.forEach(element => {
+  const reparacion_content = document.createElement("div");
+  reparacion_content.classList.add("Menu__reparaciones-content");
 
-export const TotalDeClientes = (usuarios) => {
+  const pPlaca = document.createElement("p");
+  pPlaca.classList.add("Menu__reparaciones-datos");
+  pPlaca.textContent = element.placa;
+
+  const pUsuario = document.createElement("p");
+  pUsuario.classList.add("Menu__reparaciones-datos");
+  pUsuario.textContent = element.cliente;
+
+  const pEstado = document.createElement("p");
+  pEstado.classList.add("Menu__reparaciones-datos");
+  pEstado.textContent = element.nombre_estado;
+
+  const pServicio = document.createElement("p");
+  pServicio.classList.add("Menu__reparaciones-datos");
+  pServicio.textContent = element.detalle_id;
+
+  reparacion_content.appendChild(pServicio);
+  reparacion_content.appendChild(pPlaca);
+  reparacion_content.appendChild(pUsuario);
+  reparacion_content.appendChild(pEstado);
+
+  contenedor.appendChild(reparacion_content);
+});
+}
+export const fechaPlacaServicio = async () =>{
+  const reparaciones = await get(`Reparaciones/fecha`);
+  const contenedor = document.querySelector(".menu__fechas");
+  contenedor.innerHTML = "";
+
+  reparaciones.forEach(element => {
+    const reparacion_content = document.createElement("div");
+    reparacion_content.classList.add("Menu__fechas-content");
+
+    // Ejemplo: mostrar placa y servicio en un solo párrafo
+    const pInfo = document.createElement("p");
+    pInfo.classList.add("menu__fechasDatos");
+    pInfo.textContent = `Fecha: ${element.fecha} | Placa: ${element.placa || 'N/A'} | Servicio: ${element.nombre_servicio || 'N/D'}`;
+
+    // Ejemplo: mostrar cliente o estado en otro párrafo
+    
+
+    reparacion_content.appendChild(pInfo);
+
+    contenedor.appendChild(reparacion_content);
+  });
+}
+
+export const TotalDeClientes = async (usuarios) => {
+  const reparaciones = await get (`Reparaciones`)
   const elementosMenuNumbers = document.querySelectorAll('.menu__numbers');
   if (!elementosMenuNumbers || elementosMenuNumbers.length === 0) return;
+
+  // Contar clientes
   const clientesFiltrados = usuarios.filter(usuario => usuario.rol_id === 2);
   elementosMenuNumbers[0].textContent = clientesFiltrados.length;
+
+  // Contar consultas en proceso
+  const consultasEnProceso = reparaciones.filter(consulta => consulta.nombre_estado === 'Procesando');
+  elementosMenuNumbers[1].textContent = consultasEnProceso.length;
 };
+
 export const ModificarUsuarios = (usuarios, Roles) => {
   try {
     const dialogo = document.getElementById("EliminarUsuario");
@@ -344,7 +406,6 @@ export const Vehiculos = (vehiculos, Usuarios) => {
   });
 };
 export const EliminarVehiculos = async (id) =>{
-  console.log(id)
   try {
     const confirm = await eliminar ("Desea eliminar la informacion del Vehiculo?")
     if(confirm.isConfirmed){
@@ -359,7 +420,7 @@ export const EliminarVehiculos = async (id) =>{
       }
     }
   } catch (error) {
-    console.error("Error al eliminar el usuario:", error);
+    console.error("Error al eliminar el Vehiculo:", error);
     await error("Error inesperado al eliminar");
   }
 };
@@ -452,6 +513,12 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
     btnEditar.classList.add("interfazcategorias__buttones");
     btnEditar.textContent = "Editar";
 
+    const btnEliminar = document.createElement("button");
+    btnEliminar.classList.add("interfazcategorias__buttones");
+    btnEliminar.textContent = "Eliminar";
+
+    let id_producto = ""
+    let Productos_Categoriaid = element.categoria_id;
     const productosFiltrados = Productos.filter(p => p.categoria_id == element.categoria_id);
     if (productosFiltrados.length > 0) {
       productosFiltrados.forEach(p => {
@@ -468,13 +535,16 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
         const precio = document.createElement("p");
         precio.textContent = p.precio;
 
+        id_producto = p.producto_id;
+        
         divProducto.append(stock, nombreProducto, precio);
         productos.appendChild(divProducto);
 
         btnEditar.addEventListener("click" , async (e) =>{
         e.preventDefault();
         editarProductos(stock,nombreProducto,precio,btnEditar,p.producto_id,element.categoria_id)
-      })
+         })
+       
       });
     } else {
       const sinProductos = document.createElement("em");
@@ -485,9 +555,10 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
     const botones = document.createElement("div");
     botones.classList.add("interfazcategorias__button");
 
-    const btnEliminar = document.createElement("button");
-    btnEliminar.classList.add("interfazcategorias__buttones");
-    btnEliminar.textContent = "Eliminar";
+    btnEliminar.addEventListener("click", async () =>{
+          eliminarProductos(card, id_producto , Productos_Categoriaid ,btnEliminar)
+    })
+    
 
     botones.append(btnEditar, btnEliminar);
 
@@ -529,7 +600,6 @@ export const editarProductos = (stock,nombreProducto,precio,btnEditar,id,id_cate
       stock:inputStock.value.trim(),
       categoria_id : id_categoria
     }
-    console.log(nuevaCategoria)
     const paramns = id; 
     try {
       const confirmacion = await confirm("Actualizar")
@@ -544,6 +614,7 @@ export const editarProductos = (stock,nombreProducto,precio,btnEditar,id,id_cate
           }
         }
       }else{
+        
       } 
     } catch (error) {
       console.error("Error al actualizar Categoria:", nuevaCategoria);
@@ -551,8 +622,211 @@ export const editarProductos = (stock,nombreProducto,precio,btnEditar,id,id_cate
     }
   })
 };
+export const eliminarProductos = (contenedor,id_producto, id_categoria ,btnEliminar) =>{
+  const contentfila = contenedor.querySelectorAll(".interfazcategorias__productos_item")
+  if (contentfila.length > 0) {
+    contentfila.forEach(fila =>{
+      const icono = document.createElement("i");
+      icono.classList.add("bi", "bi-trash","icono_eliminar");
+    
+      icono.addEventListener("click", async()=>{
+        try{ const confirm = await eliminar ("Desea eliminar el Producto?")
+          if(confirm.isConfirmed){
+            const respuesta = await del(`Productos/${id_producto}`)
+            if (respuesta.ok) {
+              const ok = await success({ message: "Producto eliminada con éxito" });
+              if (ok.isConfirmed) {
+                location.reload();
+              }
+            } else {
+              await error("No se pudo eliminar la Producto");
+            }
+          }
+        } catch (error) {
+          console.error("Error al eliminar el Producto:", error);
+          await error("Error inesperado al eliminar");
+        }
+
+      })
+      fila.appendChild(icono)
+    })
+  }else{
+    btnEliminar.addEventListener("click", async () => {
+      try {
+        const confirmacion = await eliminar("La categoría está vacía. ¿Desea eliminarla?");
+        if (confirmacion.isConfirmed) {
+          const respuesta = await del(`Categorias/${id_categoria}`);
+          if (respuesta.ok) {
+            const ok = await success({ message: "Categoría eliminada con éxito" });
+            if (ok.isConfirmed) location.reload();
+          } else {
+            await error("No se pudo eliminar la categoría");
+          }
+        }
+      } catch (error) {
+        console.error("Error al eliminar la categoría:", error);
+        await error("Error inesperado al eliminar");
+      }
+    });
+  }
+}
+
+export const MostrarServicios = async (servicios) =>{
+  const contentServicios = document.querySelector(".servicios-listado")
+
+  servicios.forEach(servicios => {
+    const cards = document.createElement("div");
+    cards.classList.add("listado__cardservicios");
+
+    const body = document.createElement("div");
+    body.classList.add("listado__bodyservicios");
+
+    // Contenedor de la info
+    const info = document.createElement("div");
+    info.classList.add("listado__infoServicios");
+
+    // ---- Nombre ----
+    const Nombres = document.createElement("div");
+    Nombres.classList.add("listado__tituloServicios");
+
+    const pnombre_servicios = document.createElement("div");
+    pnombre_servicios.classList.add("listado__pnombre_servicios");
+    pnombre_servicios.textContent = "Nombre del Servicio";
+    Nombres.appendChild(pnombre_servicios);
+
+    const nombre = document.createElement("p");
+    nombre.classList.add("listadoServicios__textinfo");
+    nombre.textContent = servicios.nombre_servicio;
+    Nombres.appendChild(nombre);
+
+    // ---- Descripción ----
+    const descripciongrupo = document.createElement("div");
+    descripciongrupo.classList.add("listado__tituloServicios");
+
+    const descripcion = document.createElement("div");
+    descripcion.classList.add("listado__pnombre_servicios");
+    descripcion.textContent = "Descripción";
+    descripciongrupo.appendChild(descripcion);
+
+    const descTexto = document.createElement("p");
+    descTexto.classList.add("listadoServicios__textinfo");
+    descTexto.textContent = servicios.descripcion;
+    descripciongrupo.appendChild(descTexto);
+
+    // ---- Precio ----
+    const precios = document.createElement("div");
+    precios.classList.add("listado__tituloServicios");
+
+    const preciotitle = document.createElement("div");
+    preciotitle.classList.add("listado__pnombre_servicios");
+    preciotitle.textContent = "Precio";
+    precios.appendChild(preciotitle);
+
+    const precio = document.createElement("p");
+    precio.classList.add("listadoServicios__textinfo");
+    precio.textContent = servicios.precio;
+    precios.appendChild(precio);
+
+    // Añadimos bloques al contenedor de info
+    info.appendChild(Nombres);
+    info.appendChild(descripciongrupo);
+    info.appendChild(precios);
+
+    // ---- Botones ----
+    const botones = document.createElement("div");
+    botones.classList.add("listadoServicios__button");
+
+    const btneditar = document.createElement("button");
+    btneditar.classList.add("listadoServicios__buttones");
+    btneditar.textContent = "Editar";
+    botones.appendChild(btneditar);
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.classList.add("listadoServicios__buttones");
+    btnEliminar.textContent = "Eliminar";
+    botones.appendChild(btnEliminar);
+
+    
+    btneditar.addEventListener("click",async=>{
+      editarServicios(nombre, descTexto, precio, btneditar, servicios.servicio_id)
+
+    })
+    btnEliminar.addEventListener("click",async=>{
+      eliminarServicio(btnEliminar, servicios.servicio_id);
+    })
+    // Armamos la tarjeta
+    body.appendChild(info);
+    body.appendChild(botones);
+    cards.appendChild(body);
+    contentServicios.appendChild(cards);
+  });
+}
+export const editarServicios = (nombre, descripcion, precio, btnEditar, id) => {
+  const inputNombre = document.createElement("input");
+  inputNombre.classList.add("Servicios__input");
+  inputNombre.value = nombre.textContent;
+  nombre.replaceWith(inputNombre);
+
+  const inputDescripcion = document.createElement("input");
+  inputDescripcion.classList.add("Servicios__input");
+  inputDescripcion.value = descripcion.textContent;
+  descripcion.replaceWith(inputDescripcion);
+
+  const inputPrecio = document.createElement("input");
+  inputPrecio.classList.add("Servicios__input");
+  inputPrecio.value = precio.textContent;
+  precio.replaceWith(inputPrecio);
+
+  btnEditar.textContent = "Guardar";
+  btnEditar.classList.remove("btn-modificar");
+  btnEditar.classList.add("btn-guardar");
+
+  btnEditar.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const nuevoServicio = {
+      nombre_servicio: inputNombre.value.trim(),
+      descripcion: inputDescripcion.value.trim(),
+      precio: inputPrecio.value.trim()
+    };
+    try {
+      const confirmacion = await confirm("¿Actualizar el servicio?");
+      if (confirmacion.isConfirmed) {
+        const respuesta = await put(`Servicios/${id}`, nuevoServicio);
+        if (respuesta.ok) {
+          const ok = await success({ message: "Servicio actualizado con éxito" });
+          if (ok.isConfirmed) location.reload();
+        } else {
+          await error("No se pudo actualizar el servicio");
+        }
+      }
+    } catch (error) {
+      console.error("Error al actualizar el servicio:", nuevoServicio);
+      await error("Error inesperado al actualizar");
+    }
+  });
+};
+export const eliminarServicio = (btnEliminar, id) => {
+  btnEliminar.addEventListener("click", async () => {
+    try {
+      const confirmacion = await eliminar("¿Desea eliminar este servicio?");
+      if (confirmacion.isConfirmed) {
+        const respuesta = await del(`Servicios/${id}`);
+        if (respuesta.ok) {
+          const ok = await success({ message: "Servicio eliminado con éxito" });
+          if (ok.isConfirmed) location.reload();
+        } else {
+          await error("No se pudo eliminar el servicio");
+        }
+      }
+    } catch (error) {
+      console.error("Error al eliminar el servicio:", error);
+      await error("Error inesperado al eliminar");
+    }
+  });
+};
 
 
+//CLIENTES
 
 export const VehiculosPorId = (vehiculos,Usuarios) =>{
 
@@ -659,7 +933,6 @@ export const VehiculosPorId = (vehiculos,Usuarios) =>{
     seccionInfo.appendChild(cards);
   });
 }
-
 export const Clientesbyid = async () =>{
   const content = document.querySelector(".infodatos")
   const title = document.querySelector(".titleNombre") 
@@ -691,6 +964,7 @@ export const Clientesbyid = async () =>{
   infoconstrasena.classList.add("infotext")
   infoconstrasena.textContent = Usuarios.contrasena
 
+
   const btnEditar = document.createElement("button");
   btnEditar.textContent = "Editar";
   btnEditar.classList.add("btnUsuarios");
@@ -701,7 +975,7 @@ export const Clientesbyid = async () =>{
 
   btnEditar.addEventListener("click", async (e)=>{
     e.preventDefault();
-    EditarClientes(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar)
+    EditarClientes(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar,id,Usuarios.nombre)
    })
 
   title.appendChild(infonombre)
@@ -715,19 +989,429 @@ export const Clientesbyid = async () =>{
   buttons.appendChild(btnEditar)
   buttons.appendChild(btnEliminar)
 }
+export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar,id,name) =>{
+  const inputCedula = document.createElement("input");
+  inputCedula.classList.add("clienteModificacion__input");
+  inputCedula.value = infocedula.textContent;
+  infocedula.replaceWith(inputCedula);
 
-export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar) =>{
-  
+  const inputCorreo = document.createElement("input");
+  inputCorreo.classList.add("clienteModificacion__input");
+  inputCorreo.value = infocorreo.textContent;
+  infocorreo.replaceWith(inputCorreo);
+
+  const inputTelefono = document.createElement("input");
+  inputTelefono.classList.add("clienteModificacion__input");
+  inputTelefono.value = infotelefono.textContent;
+  infotelefono.replaceWith(inputTelefono);
+
+  const inputUsuario = document.createElement("input");
+  inputUsuario.classList.add("clienteModificacion__input");
+  inputUsuario.value = infousuario.textContent;
+  infousuario.replaceWith(inputUsuario);
+
+  const inputContrasena = document.createElement("input");
+  inputContrasena.classList.add("clienteModificacion__input");
+  inputContrasena.value = infoconstrasena.textContent;
+  infoconstrasena.replaceWith(inputContrasena);
+
+  // Cambiar el botón a "Guardar"
+  btnEditar.textContent = "Guardar";
+  btnEditar.classList.remove("btnUsuarios");
+  btnEditar.classList.add("btn-guardarClientes");
+
+  // Nueva acción al hacer clic en "Guardar"
+  btnEditar.addEventListener("click", async () => {
+    const nuevoUsuario = {
+      nombre: name,
+      cedula: inputCedula.value.trim(),
+      correo: inputCorreo.value.trim(),
+      telefono: inputTelefono.value.trim(),
+      usuario: inputUsuario.value.trim(),
+      contrasena: inputContrasena.value.trim(),
+      rol_id: 2
+    };
+    try {
+      const confirmacion = await confirm("Actualizar");
+      if (confirmacion.isConfirmed) {
+        const respuesta = await put(`Usuarios/${id}`, nuevoUsuario);
+        if (respuesta.ok) {
+            if ((await success({ message: "Usuario Actualizado con éxito" })).isConfirmed) {
+            location.reload();
+          } else {
+            await error("No se pudo actualizar el usuario");
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Error al actualizar usuario:", err);
+      await error("Error inesperado al actualizar");
+    }
+  });
 }
+export const MostrarReparacionescliente = (reparaciones) => {
+   const seccionInfo = document.querySelector(".ReparacionesUsuarios");
+    seccionInfo.innerHTML = "";
 
+  reparaciones.forEach((element) => {
+    const card = document.createElement("div");
+    card.classList.add("reparacionesUsuarios");
 
+    const body = document.createElement("div");
+    body.classList.add("interfazreparaciones__body");
 
-export const MostrarServicios = async (servicios) =>{
-  const contentServicios = document.querySelector(".servicios-listado")
+    const infoWrapper = document.createElement("div");
+    infoWrapper.classList.add("interfazreparaciones__info");
+
+    // Títulos
+    const titulos = document.createElement("div");
+    titulos.classList.add("interfazreparaciones__contentCards");
+
+    const pPlaca = document.createElement("p");
+    pPlaca.classList.add("interfazreparaciones__titulonombre");
+    pPlaca.textContent = "Placa:";
+    titulos.appendChild(pPlaca);
+
+    const pUsuario = document.createElement("p");
+    pUsuario.classList.add("interfazreparaciones__titulonombre");
+    pUsuario.textContent = "Usuario:";
+    titulos.appendChild(pUsuario);
+
+    const pEstado = document.createElement("p");
+    pEstado.classList.add("interfazreparaciones__titulonombre");
+    pEstado.textContent = "Estado:";
+    titulos.appendChild(pEstado);
+
+    const pServicio = document.createElement("p");
+    pServicio.classList.add("interfazreparaciones__titulonombre");
+    pServicio.textContent = "Servicio:";
+    titulos.appendChild(pServicio);
+
+    // Contenido
+    const content = document.createElement("div");
+    content.classList.add("interfazreparaciones__contentCard");
+
+    const placa = document.createElement("p");
+    placa.classList.add("interfazreparaciones__datos");
+    placa.textContent = element.placa || "Sin placa";
+
+    const usuario = document.createElement("p");
+    usuario.classList.add("interfazreparaciones__datos");
+    usuario.textContent = element.cliente || "Sin usuario";
+
+    const estado = document.createElement("p");
+    estado.classList.add("interfazreparaciones__datos");
+    estado.textContent = element.nombre_estado || "Sin estado";
+
+    const servicio = document.createElement("p");
+    servicio.classList.add("interfazreparaciones__datos");
+    servicio.textContent = element.nombre_servicio || "Sin servicio";
+
+    content.appendChild(placa);
+    content.appendChild(usuario);
+    content.appendChild(estado);
+    content.appendChild(servicio);
+
+    // Estructura final
+    infoWrapper.appendChild(titulos);
+    infoWrapper.appendChild(content);
+    body.appendChild(infoWrapper);
+    card.appendChild(body);
+    seccionInfo.appendChild(card);
+  });
+};
+///Crear Servicios Mecanico
+
+export const MostrarReparaciones = async () =>{
+    const detalleServicio = await get (`Reparaciones`)
+      const contenedor = document.querySelector(".content__reparacion");
+      console.log(detalleServicio);
+      
+      const agrupados = {};
+      detalleServicio.forEach(item => {
+           if (!agrupados[item.detalle_id]) {
+        agrupados[item.detalle_id] = { ...item, productos: [] };
+        }
+        if (item.nombre_producto) {
+            agrupados[item.detalle_id].productos.push({
+                nombre: item.nombre_producto,
+                cantidad: item.cantidad_usada
+            });
+        }
+      });
+
+      Object.values(agrupados).forEach(element => {
+      const filacontent = document.createElement("div");
+      filacontent.classList.add("filacontent");
+      // N°
+      const colNum = document.createElement("p");
+      colNum.classList.add("columna__id");
+      colNum.textContent = element.detalle_id;
+      filacontent.appendChild(colNum);
+
+      // Servicio
+      const colServicio = document.createElement("p");
+      colServicio.classList.add("columna__info");
+      colServicio.textContent = element.nombre_servicio;
+      filacontent.appendChild(colServicio);
+
+      // Vehículo
+      const colVehiculo = document.createElement("p");
+      colVehiculo.classList.add("columna__infopeq");
+      colVehiculo.textContent = element.placa;
+      filacontent.appendChild(colVehiculo);
+
+      // Estado
+      const colEstado = document.createElement("p");
+      colEstado.classList.add("columna__infopeq");
+      colEstado.textContent = element.nombre_estado;
+      colEstado.classList.add("estado", element.nombre_estado.toLowerCase());
+      filacontent.appendChild(colEstado);
+
+      // Fecha
+      const colFecha = document.createElement("p");
+      const fecha = new Date(element.fecha);
+      colFecha.textContent = fecha.toISOString().split("T")[0];
+      colFecha.classList.add("columna__infopeq");
+      filacontent.appendChild(colFecha);
+
+      // Productos
+      const contentProductos = document.createElement("div")
+      contentProductos.classList.add("contentproducts");
+      element.productos.forEach(prod => {
+        const productoItem = document.createElement("p"); // o "p" si prefieres en bloque
+        productoItem.textContent = `${prod.nombre} - ${prod.cantidad} unidades`;
+        productoItem.classList.add("columna__infoproductos"); // estilo individual
+        contentProductos.appendChild(productoItem);
+    });
+    filacontent.appendChild(contentProductos);
+
+      // Observaciones
+      const colObservaciones = document.createElement("p");
+      colObservaciones.textContent = element.observaciones || "";
+      colObservaciones.classList.add("columna__info");
+      filacontent.appendChild(colObservaciones);
+
+      // Iconos
+      const iconoeditar = document.createElement("i");
+      iconoeditar.classList.add("bi", "bi-pencil", "icon_modificar");
+      filacontent.appendChild(iconoeditar);
+
+      const iconoeliminar = document.createElement("i");
+      iconoeliminar.classList.add("bi", "bi-trash", "icon_modificar");
+      filacontent.appendChild(iconoeliminar);
+      
+      iconoeditar.addEventListener("click", async =>{
+      EditarReparaciones( colServicio,colVehiculo,colEstado,colFecha,contentProductos,colObservaciones,iconoeditar,element,detalleServicio); 
+      })
+
+      iconoeliminar.addEventListener("click", async =>{
+      console.log( element.consumible_id)
+      ElimarReparaciones(element.detalle_id,  element.consumible_id); 
+      })
+      // Agregar fila al contenedor
+      contenedor.appendChild(filacontent);
+  });
+}
+export const CrearReparaciones = async () =>{
+    try {
+      const data = await get(`FormDataReparacion`);      
+      const reparaciones  = await get(`Reparaciones`)
+      console.log(data);
+      const selectVehiculos = document.getElementById("vehiculo_id");
+      selectVehiculos.innerHTML = "";
+      data.vehiculos.forEach(v => {
+          const option = document.createElement("option");
+          option.value = v.vehiculo_id;
+          option.textContent = `${v.vehiculo_id} - ${v.placa}`;;
+          selectVehiculos.appendChild(option);
+      });
+
+      // Recorrer servicios
+      const selectServicios = document.getElementById("servicio_id");
+      selectServicios.innerHTML = "";
+      data.servicios.forEach(s => {
+          const option = document.createElement("option");
+          option.value = s.servicio_id;
+          option.textContent = s.nombre_servicio;
+          selectServicios.appendChild(option);
+      });
+
+      // Recorrer estados
+      const selectEstados = document.getElementById("estado_id");
+      selectEstados.innerHTML = "";
+      data.estados.forEach(e => {
+          const option = document.createElement("option");
+          option.value = e.estado_id;
+          option.textContent = e.nombre_estado;
+          selectEstados.appendChild(option);
+      });
+
+      // Recorrer consumibles
+      const selectConsumibles = document.getElementById("producto_id");
+      selectConsumibles.innerHTML = "";
+      data.productos.forEach(p => {
+          const option = document.createElement("option");
+          option.value = p.producto_id;
+          option.textContent = p.nombre;
+          selectConsumibles.appendChild(option);
+      });
+
+      const idsUnicos = [];
+      const reparacionesUnicas = [];
+      reparaciones.forEach(r => {
+          if (!idsUnicos.includes(r.detalle_id)) { 
+              idsUnicos.push(r.detalle_id); 
+              reparacionesUnicas.push(r); // Guardamos el objeto completo
+          }
+      });
+      
+      const selectServicio = document.getElementById("detalle_id");
+      selectServicio.innerHTML = "";
+      reparacionesUnicas.forEach(r =>{
+            const option = document.createElement("option");
+            option.value = r.detalle_id;
+            option.textContent = `#${r.detalle_id} - ${r.nombre_servicio} - ${r.placa}`;
+            selectServicio.appendChild(option);
+      })
+
+    } catch (error) {
+        console.error(error);
+        alert("Error al cargar los datos del formulario");
+    }
+}
+export const EditarReparaciones = async (colServicio,colVehiculo,colEstado,colFecha,colProductos,colObservaciones,iconoeditar,element,data) =>{
+  // Peticiones a la API para traer opciones reales
+  const servicios = await get("Servicios");
+  const vehiculos = await get("Vehiculos");
+  const estados = await get("EstadosServicio");
+  const productos = await get("Productos");
+
+  // Servicio
+  const inputServicio = document.createElement("select");
+  inputServicio.classList.add("clienteModificacion__input");
+  servicios.forEach(s => {
+    const option = document.createElement("option");
+    option.value = s.servicio_id;
+    option.textContent = s.nombre_servicio;
+    if (s.nombre_servicio === element.nombre_servicio) option.selected = true;
+    inputServicio.appendChild(option);
+  });
+  colServicio.replaceWith(inputServicio);
+
+  // Vehículo
+  const inputVehiculo = document.createElement("select");
+  inputVehiculo.classList.add("clienteModificacion__input");
+  vehiculos.forEach(v => {
+    const option = document.createElement("option");
+    option.value = v.vehiculo_id;
+    option.textContent = v.placa;
+    if (v.placa === element.placa) option.selected = true;
+    inputVehiculo.appendChild(option);
+  });
+  colVehiculo.replaceWith(inputVehiculo);
+
+  // Estado
+  const inputEstado = document.createElement("select");
+  inputEstado.classList.add("clienteModificacion__input");
+  estados.forEach(e => {
+    const option = document.createElement("option");
+    option.value = e.estado_id;
+    option.textContent = e.nombre_estado;
+    if (e.nombre_estado === element.nombre_estado) option.selected = true;
+    inputEstado.appendChild(option);
+  });
+  colEstado.replaceWith(inputEstado);
+
+  // Fecha
+  const inputFecha = document.createElement("input");
+  inputFecha.type = "date";
+  inputFecha.classList.add("clienteModificacion__input");
+  inputFecha.value = new Date(element.fecha).toISOString().split("T")[0];
+  colFecha.replaceWith(inputFecha);
+
+  // Productos (select múltiple)
+  const inputProductos = document.createElement("select");
+  inputProductos.multiple = true;
+  inputProductos.classList.add("clienteModificacion__input");
+  productos.forEach(p => {
+  const option = document.createElement("option");
+  option.value = p.producto_id;               // el ID del producto
+  option.textContent = p.nombre;     // el nombre que se muestra
+  if (element.productos.includes(p.nombre_producto)) option.selected = true; // marcar seleccionados
+  inputProductos.appendChild(option);
+});
+colProductos.replaceWith(inputProductos);
+
+  // Observaciones
+  const inputObservaciones = document.createElement("input");
+  inputObservaciones.type = "text";
+  inputObservaciones.classList.add("clienteModificacion__input");
+  inputObservaciones.value = element.observaciones || "";
+  colObservaciones.replaceWith(inputObservaciones);
+
+  // Cambiar icono a guardar
+  iconoeditar.classList.remove("bi-pencil");
+  iconoeditar.classList.add("bi-check2");
+
+  // Guardar cambios
+  iconoeditar.addEventListener("click", async () => {
+    const reparacionActualizada = {
+      servicio_id: parseInt(inputServicio.value),
+      vehiculo_id: parseInt(inputVehiculo.value),
+      estado_id: parseInt(inputEstado.value),
+      fecha: inputFecha.value,
+      observaciones: inputObservaciones.value.trim()
+    };    
+
+    try {
+      const confirmacion = await confirm("actualizar reparación");
+      if (confirmacion.isConfirmed) {
+        const respuesta = await patch(`Reparaciones/${element.detalle_id}`, reparacionActualizada);
+        if (respuesta.ok) {
+          if ((await success({ message: "Reparación actualizada con éxito" })).isConfirmed) {
+            location.reload();
+          } else {
+            await error("No se pudo actualizar la reparación");
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Error al actualizar reparación:", err);
+      await error("Error inesperado al actualizar");
+    }
+  }, { once: true });
+}
+export const ElimarReparaciones = async (id,consumibleId) =>{
+  try {
+     const confirmacion = await eliminar("¿Desea eliminar esta reparación?");
+     if (confirmacion.isConfirmed) {
+       let respuesta;
+        if (consumibleId !== null && consumibleId !== undefined) {
+            // Si tiene consumible, elimina ambos
+            respuesta = await del(`Reparaciones/${id}/${consumibleId}`);
+        } else {
+            // Si no tiene consumible, elimina solo el detalle
+            respuesta = await del(`Reparaciones/${id}`);
+        }
+      if (respuesta.ok) {
+        const ok = await success({ message: "Reparación eliminada con éxito" });
+        if (ok.isConfirmed) location.reload();
+      } else {
+        await error("No se pudo eliminar la reparación");
+      }
+    }
+  } catch (err) {
+    console.error("Error al eliminar la reparación:", err);
+    await error("Error inesperado al eliminar");
+  }
+}
+export const informacionServicios = (servicios) =>{
+const contentServicios = document.querySelector(".servicios-listado")
 
   servicios.forEach(servicios => {
     const cards = document.createElement("div");
-    cards.classList.add("listado__cardservicios");
+    cards.classList.add("info__servicios");
 
     const body = document.createElement("div");
     body.classList.add("listado__bodyservicios");
@@ -782,28 +1466,101 @@ export const MostrarServicios = async (servicios) =>{
     info.appendChild(Nombres);
     info.appendChild(descripciongrupo);
     info.appendChild(precios);
-
-    // ---- Botones ----
-    const botones = document.createElement("div");
-    botones.classList.add("listadoServicios__button");
-
-    const btnEliminar = document.createElement("button");
-    btnEliminar.classList.add("listadoServicios__buttones");
-    btnEliminar.textContent = "Eliminar";
-    botones.appendChild(btnEliminar);
-
-    const btneditar = document.createElement("button");
-    btneditar.classList.add("listadoServicios__buttones");
-    btneditar.textContent = "Editar";
-    botones.appendChild(btneditar);
-
+  
     // Armamos la tarjeta
     body.appendChild(info);
-    body.appendChild(botones);
     cards.appendChild(body);
     contentServicios.appendChild(cards);
+  })
+}
+export const mostrarVehiculosMecanico = (vehiculos,Usuarios) =>{
+  const seccionInfo = document.querySelector(".mecanicoVehiculos__content");
+
+  vehiculos.forEach((element) => {
+    const cards = document.createElement("div");
+    cards.classList.add("mecanicovehiculos__cards");
+
+    const body = document.createElement("div");
+    body.classList.add("interfazvehiculos__body");
+
+    const infoWrapper = document.createElement("div");
+    infoWrapper.classList.add("interfazvehiculos__info");
+
+    const titulos = document.createElement("div");
+    titulos.classList.add("interfazvehiculos__contentCards");
+
+    const pMarca = document.createElement("p");
+    pMarca.classList.add("interfazvehiculos__titulonombre");
+    pMarca.textContent = "Marca:";
+    titulos.appendChild(pMarca);
+
+    const pPlaca = document.createElement("p");
+    pPlaca.classList.add("interfazvehiculos__titulonombre");
+    pPlaca.textContent = "Placa:";
+    titulos.appendChild(pPlaca);
+
+    const pModelo = document.createElement("p");
+    pModelo.classList.add("interfazvehiculos__titulonombre");
+    pModelo.textContent = "Modelo:";
+    titulos.appendChild(pModelo);
+
+    const pUsuario = document.createElement("p");
+    pUsuario.classList.add("interfazvehiculos__titulonombre");
+    pUsuario.textContent = "Usuario:";
+    titulos.appendChild(pUsuario);
+
+    const content = document.createElement("div");
+    content.classList.add("interfazvehiculos__contentCard");
+
+    const nombre = document.createElement("p");
+    nombre.classList.add("interfazvehiculos__marca");
+    nombre.textContent = element.marca;
+
+    const placa = document.createElement("p");
+    placa.classList.add("interfazvehiculos__placa");
+    placa.textContent = element.placa;
+
+    const modelo = document.createElement("p");
+    modelo.classList.add("interfazvehiculos__modelo");
+    modelo.textContent = element.modelo;
+
+    const usuarioId = document.createElement("p");
+    usuarioId.classList.add("interfazvehiculos__usuarioId");
+
+    const usuariosFiltrados = Usuarios.filter((usuario) => {
+      // Verifica que el ID del usuario sea el mismo que el del elemento actual
+      const mismoUsuario = usuario.usuario_id === element.usuario_id;
+
+      // Verifica que el rol sea exactamente 2
+      const esRolCliente = usuario.rol_id === 2;
+
+      // Solo retorna aquellos que cumplan ambas condiciones
+      return mismoUsuario && esRolCliente;
+    });
+
+    if (usuariosFiltrados.length > 0) {
+    usuarioId.textContent = usuariosFiltrados[0].usuario;
+    } else {
+      
+      usuarioId.textContent = "Sin usuario asignado";
+    }
+
+    content.appendChild(nombre);
+    content.appendChild(placa);
+    content.appendChild(modelo);
+    content.appendChild(usuarioId);
+
+  
+    // Estructura final del card
+    infoWrapper.appendChild(titulos);
+    infoWrapper.appendChild(content);
+    body.appendChild(infoWrapper);
+    cards.appendChild(body);
+    seccionInfo.appendChild(cards);
   });
 }
+
+
 //VALIDACIONES 
 
 export const contarCamposFormulario = (formulario) => {
@@ -992,3 +1749,9 @@ export const validarPlacas = (event) =>{
   }
   return true;
 }
+export const recogerDatos=(form) => {
+  const campos = [...form.elements].filter(item => item.hasAttribute('id') && item.hasAttribute('required'));
+  let datos = {};
+  campos.forEach(campo => datos[campo.id] = campo.value);
+  return datos;
+}   

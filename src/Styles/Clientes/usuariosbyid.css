@@ -1,4 +1,4 @@
-@import url('variables.css');
+@import url('../variables.css');
 
 .informacionPerfil{
  width: 100%;
@@ -76,6 +76,22 @@ padding: 10px;
 
 }
 .btnUsuarios{
+height: 80%;
+width: 20%;
+border: none;
+border-radius: 15px;
+background-color: var(--color--BotonClientes);
+color: var(--color--fondotextos);
+}
+
+.clienteModificacion__input{
+ width: 85%;
+ height: 23px;
+ border: none;
+ padding: 5px;
+ border-radius: 15px;
+}
+.btn-guardarClientes{
 height: 80%;
 width: 20%;
 border: none;

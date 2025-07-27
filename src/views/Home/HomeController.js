@@ -3,11 +3,7 @@ import { get , login} from "../../Helpers/api.js";
 import "../../Styles/Home.css";
 
 export default (parametros = null) => {
-    const formulario = document.querySelector("form");
-    if (!formulario) {
-      console.warn("No se encontró el formulario");
-      return;
-    }
+    const formulario = document.querySelector("#formulario");
     if (formulario.dataset.listener === "true") {
     return;
     }
@@ -30,6 +26,15 @@ export default (parametros = null) => {
       const roles = await get("Roles");
 
       const user = usuarios.find((usu) => usu.usuario === usuariovalor);
+      if (!user) {
+      await error("Usuario incorrecto");
+      return;
+      }
+      const contrasena = usuarios.find((usu) => usu.contrasena === contraseniavalor);
+      if (!contrasena) {
+      await error("Contraseña incorrecta");
+      return;
+      }
       const rolUsuario = roles.find((rol) => rol.rol_id === user.rol_id);
 
       const { token } = await login(usuariovalor, contraseniavalor);

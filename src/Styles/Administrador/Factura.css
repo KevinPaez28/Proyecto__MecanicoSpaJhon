@@ -1,0 +1,22 @@
+@import url("../variables.css");
+
+.header__buton{
+ width: 80%;
+ height: 15vh;
+ display: flex;
+ padding: 20px;
+ align-items: center;
+}
+.button__factura{
+ width: 160px;
+ height: 30px;
+ border: none;
+ border-radius: 15px;
+ text-align: center;
+background-color: var(--color--principal);
+color: rgb(255, 255, 255);
+font-family: var(--font-buttons);
+font-size: 1.1rem;
+font-weight: 600;
+}
+

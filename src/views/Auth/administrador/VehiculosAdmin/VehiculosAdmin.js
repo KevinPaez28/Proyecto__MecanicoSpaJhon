@@ -1,6 +1,6 @@
 import { get, post } from "../../../../Helpers/api";
 import { contarCamposFormulario, limpiar, validarLetras, validarMinimo, Vehiculos } from "../../../../Helpers/Modules/modules";
-import "../../../../Styles/VehiculosAdmin.css";
+import "../../../../Styles/Administrador/VehiculosAdmin.css";
 import { confirmacion,success,error  } from "../../../../Helpers/alertas";
 
 
@@ -16,11 +16,19 @@ export default async (parametros = null) =>{
   const cerrar = document.getElementById("cerrarvehiculos");
   const btnRegistrar = document.getElementById("registrar_vehiculos");
   const form = document.querySelector("#formVehiculo");
-  // const usuario = document.getElementById("usuario_id")
   const modelo = document.querySelector("#modelo");
   const marca = document.querySelector("#marca")
   const Usuario = document.querySelector("#usuario_id")
-
+  const cerrarSesion = document.getElementById("cerrar_sesion");
+   cerrarSesion.addEventListener("click", async (e) => {
+     e.preventDefault(); // Evita que redireccione inmediatamente
+     const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
+     if (confirmacionCerrar.isConfirmed) {
+       // Si necesitas limpiar datos de sesión
+       // localStorage.clear();
+       window.location.href = "#/Home"; 
+     }
+   });
   Vehiculos(vehiculos, usuarios);
   // Abrir y cerrar el diálogo
   btnRegistrar.addEventListener("click", () => {

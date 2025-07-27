@@ -39,13 +39,13 @@
       <div class = "lateral__border">
         <i class="bi bi-clipboard2-fill lateral__icons"></i>
       </div>
-      <a href="" class = "lateral__text">facturacion</a>
+        <a href="#/administrador/factura" class = "lateral__text">facturacion</a>
     </div>
     <div class="lateral__menu">
       <div class = "lateral__border">
         <i class="bi bi-box-arrow-left lateral__icons"></i>
       </div>
-      <a href="#/Home" class = "lateral__text">Cerrar sesion</a>
+        <a href="#/Home" id="cerrar_sesion" class="lateral__text">Cerrar sesión</a>
     </div>
   </div>
 
@@ -69,17 +69,17 @@
 
         <div class="servicios-formulario-grupo">
           <label for="nombreServicio" class="servicios-label">Nombre del Servicio</label>
-          <input id="nombreServicio" type="text" class="servicios-input" required minlength="3" />
+          <input id="nombre_servicio" type="text" class="servicios-input" required minlength="3" />
         </div>
 
         <div class="servicios-formulario-grupo">
           <label for="descripcionServicio" class="servicios-label">Descripcion</label>
-          <textarea id="descripcionServicio" class="servicios-input" required ></textarea>
+          <textarea id="descripcion" class="servicios-input" required ></textarea>
         </div>
 
         <div class="servicios-formulario-grupo">
           <label for="precioServicio" class="servicios-label">Precio</label>
-          <input id="precioServicio" type="number" class="servicios-input" required minlength="3" />
+          <input id="precio" type="number" class="servicios-input" required minlength="3" step="0.001"/>
         </div>
 
         <div class="servicios-formulario-botones">

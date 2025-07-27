@@ -1,0 +1,19 @@
+@import url('../variables.css');
+
+.mecanicoVehiculos__content{
+width: 80%;
+height: 100vh;
+border: 1px solid #000;
+display: flex;
+gap: 35px;
+padding: 35px 10px ;
+flex-wrap: wrap;
+}
+.mecanicovehiculos__cards{
+width: 25%;
+height: 165px;
+background-color: var(--color--cardvehiculos);
+border-radius: 15px;
+overflow-y: scroll;
+scrollbar-width: none;
+}

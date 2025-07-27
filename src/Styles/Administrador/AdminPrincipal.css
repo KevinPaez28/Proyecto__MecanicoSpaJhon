@@ -1,4 +1,4 @@
-@import url('variables.css');
+@import url('../variables.css');
 .bodyAdmin{
   display: flex;
 }
@@ -74,14 +74,14 @@ color: rgb(25, 25, 26);
   width: 100%;
 }
 
-.contentadmin__menu p {
+.contentadmin__menu {
   font-family: var(--font--principalateral);
   font-size: 1.5rem;
   font-weight: 500;
 }
 
 .contentadmin__menu h2{
-    font-family: var(--font--principalateral);
+  font-family: var(--font--principalateral);
   font-size: 2.0rem;
   font-weight: 600;
 }
@@ -89,8 +89,7 @@ color: rgb(25, 25, 26);
 .menu__resumen { 
   grid-area: resumen;
   display: flex;
-  gap: 10px;
-  
+  gap: 10px
  }
  
  .menu__info{
@@ -110,81 +109,146 @@ color: rgb(25, 25, 26);
   text-align: center;
   color: rgb(255, 255, 255);
  }
- .menu__text{
-  text-align: center;
-  font-size: 25px;
-  color: rgb(7, 7, 7);
-
- }
 
 .menu__calendario { 
   grid-area: calendario;
   background-color: rgb(192, 190, 190);
   border-radius: 15px;
+  padding-top: 10px;
  }
  
 .menu__ordenes { 
-  grid-area: ordenes; 
- background-color: rgb(192, 190, 190);
-  border-radius: 15px;
+grid-area: ordenes; 
+background-color: rgb(192, 190, 190);
+border-radius: 15px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 0px 20px;
+padding-top: 10px;
 }
 .menu__ventas { 
-  grid-area: ventas;
- background-color: rgb(192, 190, 190);
-  border-radius: 15px; 
+grid-area: ventas;
+background-color: rgb(192, 190, 190);
+border-radius: 15px; 
+padding-top: 10px;
+
 }
 .menu__empleados { 
-  grid-area: empleados; 
- background-color: rgb(192, 190, 190);
-  border-radius: 15px;
-    overflow-y: auto;
-   scrollbar-width: none;
-   padding: 0px 20px;
+grid-area: empleados; 
+background-color: rgb(192, 190, 190);
+border-radius: 15px;
+overflow-y: auto;
+scrollbar-width: none;
+padding: 0px 20px;
+  padding-top: 10px;
+
+}
+.menu__text{
+font-size: 1.4rem;
+font-family: var(--font-Title);
+font-weight: 700;
+text-align: center;
+color: #22272c;
 }
 .menu__empleadosNombres{
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  width: 100%;
-  padding: 15px;
-  width: 90%;
+display: flex;
+justify-content: space-between;
+text-align: center;
+width: 100%;
+padding: 15px;
+width: 90%;
 }
-.Menu__empleados-nombres > p{
-    text-align: center;
-}
+.menu__empleadosNombres > p{
+text-align: center;
+font-size: 1.4rem;
+font-family: var(--font-Title);
+font-weight: 600
 
+}
+.menu__empleadosReparaciones{
+display: flex;
+text-align: center;
+padding: 10px;
+width: 100%;
+}
+.menu__empleadosReparaciones{
+text-align: center;
+font-size: 1.4rem;
+font-family: var(--font-Title);
+font-weight: 600
+}
+.menu__titleReparacioens
+{
+width: 120px;
+height: 25px;
+
+}
+.Menu__reparaciones-datos{
+width: 120px;
+height: 40px;
+text-align: center;
+}
+.menu__trabajos{
+width: 100%;
+height: 160px;
+}
+.menu__fechas{
+width: 100%;
+height: 80%;
+}
+.Menu__fechas-content{
+width: 100%;
+height: 20%;
+padding: 20px 5px;
+}
+.menu__fechasDatos{
+font-size: 0.95rem;
+font-weight: 600;
+text-align: center;
+}
+.Menu__reparaciones-content{
+display: flex;
+justify-content: center;  
+padding: 0px 5px;
+gap: 10px;
+text-align: center;
+margin-bottom: 12px;
+}
+.Menu__reparaciones-content > p{
+font-size: 1.1rem;
+height: 10%;
+}
 .Menu__empleados-content{
-  display: flex; 
-  justify-content: space-between;
-  width: 90%;
+display: flex; 
+justify-content: space-between;
+width: 90%;
 }
 .Menu__empleados-content >p {
-  font-size: 1.1rem;
+font-size: 1.1rem;
 }
 .Menu__empleados-pnombres{
-  width: 120px ;
-  height: 40px;
-  text-align: center; 
+width: 120px ;
+height: 40px;
+text-align: center; 
 }
 .Menu__empleados-pcedula{
-  width: 115px ;
-  height: 40px;
-  text-align: center;
+width: 115px ;
+height: 40px;
+text-align: center;
 }
 .Menu__empleados-prol{
-  width: 80px ;
-  height: 40px;
-  text-align: center;
+width: 80px ;
+height: 40px;
+text-align: center;
 }
-
 
 .menu__reportes { 
-  grid-area: reportes; 
- background-color: rgb(192, 190, 190);
-  border-radius: 15px;
+grid-area: reportes; 
+background-color: rgb(192, 190, 190);
+border-radius: 15px;
 }
 .menu__notificaciones { 
-  grid-area: notificaciones; 
- background-color: rgb(192, 190, 190);
-  border-radius: 15px;
+grid-area: notificaciones; 
+background-color: rgb(192, 190, 190);
+border-radius: 15px;
 }

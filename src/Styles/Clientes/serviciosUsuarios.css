@@ -1,0 +1,8 @@
+@import url('../variables.css');
+
+.info__servicios{
+width: 30%;
+height: 33%;
+border-radius: 15px;
+background-color: var(--color--cardsVehiculosclientes);
+}

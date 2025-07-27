@@ -1,7 +1,7 @@
 import {get, post} from "../../../../Helpers/api" 
 import { Categorias_Productos, limpiar, validarMinimo, contarCamposFormulario, validarLetras, validarNumeros} from "../../../../Helpers/Modules/modules"
 import { confirmacion,success,error  } from "../../../../Helpers/alertas";
-import "../../../../Styles/CategoriasProductos.css";
+import "../../../../Styles/Administrador/CategoriasProductos.css";
 
 export default async (parametros = null) =>{
   
@@ -17,8 +17,16 @@ export default async (parametros = null) =>{
   const Precio = document.querySelector("#Precio");
   const Unidad = document.querySelector("#stock");
   const formularioproductos = document.querySelector('#productos');
-
-  
+  const cerrarSesion = document.getElementById("cerrar_sesion");
+  cerrarSesion.addEventListener("click", async (e) => {
+    e.preventDefault(); // Evita que redireccione inmediatamente
+    const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
+    if (confirmacionCerrar.isConfirmed) {
+      // Si necesitas limpiar datos de sesión
+      // localStorage.clear();
+      window.location.href = "#/Home"; 
+    }
+  });
   // Validar y crear Categorías
   const CrearCategorias = async (event) => {
     event.preventDefault();

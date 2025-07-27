@@ -1,0 +1,52 @@
+@import url('../variables.css');
+
+.ReparacionesUsuarios{
+ width: 100%;
+ height: 100vh;
+ display: flex;
+ padding: 20px;
+ gap: 25px;
+}
+.reparacionesUsuarios{
+ width: 22%;
+ height: 45%;
+ background-color: var(--color--cardsVehiculosclientes);
+ border-radius: 20px;
+}
+.interfazreparaciones__body{
+    width: 80%;
+    height: 100%;
+    text-align: center;
+}
+.interfazreparaciones__info{
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    align-items: center;
+}
+.interfazreparaciones__contentCard{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 80%;
+    justify-content: space-between;
+}
+.interfazreparaciones__contentCards{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 80%;
+    justify-content: space-between;
+}
+.interfazreparaciones__titulonombre{
+    font-size: 1rem;
+    font-family: var(--font_bodyIngresovehiculos);
+    font-weight: 500;
+    height: 26px;
+}
+.interfazreparaciones__datos{
+    height: 26px;
+    font-size: 1rem;
+    font-family: var(--font_bodyIngresovehiculos);
+    font-weight: 400;
+}

@@ -1,0 +1,262 @@
+@import url('../variables.css');
+
+.content__mecanico{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+.panel_lateral {
+  width: 20%;
+  height: 100vh;
+  background-color: #636161;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  list-style-type: none;
+}
+.panel_title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #f1f1f1;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.panel_menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.panel_iconbox {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel_icon {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.panel_text {
+  font-size: 18px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.content__info{
+  width:80%;
+  height: 100%;
+}
+.header__mecanico{
+  height: 15%;
+  width: 100%;
+  display: flex;
+  padding: 0px 25px;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__titulo{
+ font-family: var(--font-Title);
+ font-size: 1.9rem; 
+ font-weight: 600;
+}
+.header__buttones{
+  display: flex;
+  gap: 20px;
+  height: 80%;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
+}
+.content__datos{
+  width: 100%;
+  height: 80%;
+  padding: 0px 10px;
+}
+.content__tabla{
+  width: 100%;
+  height: 100%;
+}
+.contendor__header{
+  width: 100%;
+  height: 10%;
+  align-items: center;
+  display: flex;
+  gap: 46px;
+  padding: 0px 10px;
+  border-bottom: 3px solid #505050;
+  font-family: var( --font-Title);
+  font-weight: 600;
+}
+.button_reparaciones{
+  width: 180px;
+  height: 40px;
+  border:none;
+  border-radius: 15px;
+  font-family: var(--font-Title);
+  font-size: 0.9rem; 
+  font-weight: 600;
+  background-color: var(--color--buttonProductos);}
+.button__Productos{
+ width: 180px;
+ height: 40px;
+ border:none;
+ border-radius: 15px;
+ font-family: var(--font-Title);
+ font-size: 0.9rem; 
+ font-weight: 600;
+ background-color: var(--color--buttonProductos);
+}
+.contenedor__title{
+  width: 165px;
+  height: 30px;
+}
+.content__reparacion{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.filacontent{
+  display: flex;
+  width: 100%;
+  padding: 7px 10px;
+  height: 50px;
+  gap: 30px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #000;
+  align-items: center;
+}
+.columna__id{
+  height: 55%;
+  width: 20px;
+}
+.columna__info{
+  width: 165px;
+  height: 30px;
+  padding:0px 5px;
+}
+.contenedor__titlepeq{
+  width: 120px;
+  height: 30px;
+}
+.columna__infopeq{
+  width: 130px;
+  height: 30px;
+}
+.contentproducts{
+  width:160px;
+  height: 100%;
+  overflow-y: scroll;
+}
+.columna__infoproductos{
+  width: 100%;
+}
+.insertarServicios{
+  position: fixed; 
+  padding: 20px;
+  border: none;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  height:52%;
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.359);
+}
+.insertar_productos{
+  position: fixed; 
+  padding: 20px;
+  border: none;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  height:40%;
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.359);
+}
+.content__form{
+  display: flex;
+}
+.formServicios{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  height: 330px;
+  background-color:var( --color--cardsVehiculosclientes);
+  border-radius: 10px;
+}
+.formProductos{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 250px;
+  background-color:var( --color--cardsVehiculosclientes);
+  border-radius: 10px;
+}
+.content__inputs{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  height: 290px;
+  padding: 5px 10px;
+  flex-wrap: wrap;
+}
+.fila__info{
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  width: 250px;
+  height: 55px;
+}
+.ingreso__datos{
+  width: 70%;
+  height: 70%;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 5px;
+}
+.observaciones{
+  height: 100%;
+}
+.fila__text{
+  font-family: var(--font-Title);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.content__buttones{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+.buttonservicios{
+  width: 90px;
+  font-size: 1rem;
+  height: 25px;
+  border-radius: 15px;
+  border: none;
+  background-color: var( --color--buttonProductos);
+}
+.icon_modificar{
+font-size: 25px;
+color: rgb(58, 58, 61);
+}
+.clienteModificacion__input{
+  background-color: #928e8e;
+}

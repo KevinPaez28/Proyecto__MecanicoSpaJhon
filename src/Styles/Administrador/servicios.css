@@ -1,4 +1,4 @@
-@import url("variables.css");
+@import url('../variables.css');
 
 .interfaz-servicios {
   width: 80%;
@@ -156,8 +156,8 @@
 .listado__infoServicios{
   display: flex;
   flex-direction: column;
-  height: 70%;
-  gap: 20px;
+  height: 60%;
+  gap: 10px;
   padding: 10px 30px;
 }
 .listado__tituloServicios{
@@ -175,6 +175,7 @@
   font-family: var(--font--principalContent);
   font-weight: 500;
   width: 170px;
+  height: 30px;
   font-size: 0.9rem;
   width: 90%;
 }
@@ -192,4 +193,12 @@
   border-radius: 15px;
   background-color: var(--color--buttoncards);
   color: var(--color--blancocontent);
+}
+
+.Servicios__input{
+  width: 70%;
+  border: none;
+  border-radius: 10px;
+  padding: 0px 8px;
+  height:30px;
 }

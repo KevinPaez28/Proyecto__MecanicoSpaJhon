@@ -1,4 +1,4 @@
-import "../../../../Styles/usuarioPrincipal.css";
+import "../../../../Styles/Clientes/usuarioPrincipal.css";
 import { VehiculosPorId } from "../../../../Helpers/Modules/modules";
 import { get } from "../../../../Helpers/api";
 

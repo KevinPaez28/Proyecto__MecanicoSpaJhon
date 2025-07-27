@@ -37,6 +37,19 @@ export const put = async (endpoint, info) => {
     console.log(error)
   }
 }
+export const patch= async(endpoint, data) => {
+  try {
+    return await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const del=async(endpoint)=>{
   return await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}`,{

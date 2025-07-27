@@ -1,13 +1,22 @@
 import { get , post } from "../../../../Helpers/api";
 import { confirmacion,success,error  } from "../../../../Helpers/alertas";
 import { contarCamposFormulario,validar,validarCorreo,validarMinimo,validarCedula,validarContrasenia,validarLetras,validarNumeros,validarMaximo,limpiar,ModificarUsuarios } from "../../../../Helpers/Modules/modules"
-import "../../../../Styles/registerEmpleado.css";
+import "../../../../Styles/Administrador/registerEmpleado.css";
 
 export default async () => {
   const select = document.querySelector("select")
   const usuarios = await get('Usuarios'); 
   const roles = await get('Roles'); 
-
+  const cerrarSesion = document.getElementById("cerrar_sesion");
+   cerrarSesion.addEventListener("click", async (e) => {
+     e.preventDefault(); // Evita que redireccione inmediatamente
+     const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
+     if (confirmacionCerrar.isConfirmed) {
+       // Si necesitas limpiar datos de sesión
+       // localStorage.clear();
+       window.location.href = "#/Home"; 
+     }
+   });
   roles.forEach(element => {
       const option = document.createElement('option');
       option.setAttribute('value', element.rol_id); 
@@ -43,8 +52,6 @@ export default async () => {
       datos['correo'] = datos['correo'].trim();
       datos['usuario'] = datos['usuario'].trim();
       datos['contrasena'] = datos['contrasena'].trim();
-
-      delete datos['documento']; 
 
       const respuesta = await post('Usuarios', datos);
       const confirm = await confirmacion("¿Desea Crear el usuario?")
