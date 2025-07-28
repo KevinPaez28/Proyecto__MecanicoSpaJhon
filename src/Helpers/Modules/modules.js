@@ -1,4 +1,4 @@
-import { get , del, put, patch } from "../api.js";
+import { get , del, put, patch,post } from "../api.js";
 import { confirm ,success,error,eliminar} from "../alertas.js";
 export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) =>  {
   try {
@@ -95,6 +95,7 @@ export const fechaPlacaServicio = async () =>{
 
 export const TotalDeClientes = async (usuarios) => {
   const reparaciones = await get (`Reparaciones`)
+  const totalFacturas = await get (`facturas/totalventas`)
   const elementosMenuNumbers = document.querySelectorAll('.menu__numbers');
   if (!elementosMenuNumbers || elementosMenuNumbers.length === 0) return;
 
@@ -105,6 +106,10 @@ export const TotalDeClientes = async (usuarios) => {
   // Contar consultas en proceso
   const consultasEnProceso = reparaciones.filter(consulta => consulta.nombre_estado === 'Procesando');
   elementosMenuNumbers[1].textContent = consultasEnProceso.length;
+
+  elementosMenuNumbers[2].textContent = `$${Number(totalFacturas).toLocaleString('es-CO')}`;
+
+
 };
 
 export const ModificarUsuarios = (usuarios, Roles) => {
@@ -1049,8 +1054,9 @@ export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,in
     }
   });
 }
-export const MostrarReparacionescliente = (reparaciones) => {
+export const MostrarReparacionescliente = (reparaciones,facturas) => {
    const seccionInfo = document.querySelector(".ReparacionesUsuarios");
+   const seccionfactura = document.querySelector(".facturas")
     seccionInfo.innerHTML = "";
 
   reparaciones.forEach((element) => {
@@ -1118,15 +1124,126 @@ export const MostrarReparacionescliente = (reparaciones) => {
     body.appendChild(infoWrapper);
     card.appendChild(body);
     seccionInfo.appendChild(card);
+   
   });
+  facturas.forEach((element)=>{
+     const card = document.createElement("div");
+    card.classList.add("facturasUsuarios");
+
+    const infoWrapper = document.createElement("div");
+    infoWrapper.classList.add("interfazfacturas__info");
+
+    // ---- Títulos ----
+    const titulos = document.createElement("div");
+    titulos.classList.add("interfazfacturas__contentCards");
+
+    const pFactura = document.createElement("p");
+    pFactura.classList.add("interfazfacturas__titulonombre");
+    pFactura.textContent = "Factura N°:";
+    titulos.appendChild(pFactura);
+
+    const pEmpresa = document.createElement("p");
+    pEmpresa.classList.add("interfazfacturas__titulonombre");
+    pEmpresa.textContent = "Empresa:";
+    titulos.appendChild(pEmpresa);
+
+    const pNIT = document.createElement("p");
+    pNIT.classList.add("interfazfacturas__titulonombre");
+    pNIT.textContent = "NIT:";
+    titulos.appendChild(pNIT);
+
+    const pDireccion = document.createElement("p");
+    pDireccion.classList.add("interfazfacturas__titulonombre");
+    pDireccion.textContent = "Dirección:";
+    titulos.appendChild(pDireccion);
+
+    const pCorreo = document.createElement("p");
+    pCorreo.classList.add("interfazfacturas__titulonombre");
+    pCorreo.textContent = "Correo:";
+    titulos.appendChild(pCorreo);
+
+    const pRepresentante = document.createElement("p");
+    pRepresentante.classList.add("interfazfacturas__titulonombre");
+    pRepresentante.textContent = "Representante:";
+    titulos.appendChild(pRepresentante);
+
+    const pFecha = document.createElement("p");
+    pFecha.classList.add("interfazfacturas__titulonombre");
+    pFecha.textContent = "Fecha:";
+    titulos.appendChild(pFecha);
+
+    const pImpuestos = document.createElement("p");
+    pImpuestos.classList.add("interfazfacturas__titulonombre");
+    pImpuestos.textContent = "Impuestos:";
+    titulos.appendChild(pImpuestos);
+
+    const pTotal = document.createElement("p");
+    pTotal.classList.add("interfazfacturas__titulonombre");
+    pTotal.textContent = "Total:";
+    titulos.appendChild(pTotal);
+
+    // ---- Contenido ----
+    const content = document.createElement("div");
+    content.classList.add("interfazfacturas__contentCard");
+
+    const facturaId = document.createElement("p");
+    facturaId.classList.add("interfazfacturas__datos");
+    facturaId.textContent = element.factura_id;
+
+    const empresa = document.createElement("p");
+    empresa.classList.add("interfazfacturas__datos");
+    empresa.textContent = element.empresa;
+
+    const nit = document.createElement("p");
+    nit.classList.add("interfazfacturas__datos");
+    nit.textContent = element.nit;
+
+    const direccion = document.createElement("p");
+    direccion.classList.add("interfazfacturas__datos");
+    direccion.textContent = element.direccion || "Sin dirección";
+
+    const correo = document.createElement("p");
+    correo.classList.add("interfazfacturas__datos");
+    correo.textContent = element.correo || "Sin correo";
+
+    const representante = document.createElement("p");
+    representante.classList.add("interfazfacturas__datos");
+    representante.textContent = element.representante_legal || "Sin representante";
+
+    const fecha = document.createElement("p");
+    fecha.classList.add("interfazfacturas__datos");
+    fecha.textContent = `${element.fecha_emision[2]}/${element.fecha_emision[1]}/${element.fecha_emision[0]}`;
+
+    const impuestos = document.createElement("p");
+    impuestos.classList.add("interfazfacturas__datos");
+    impuestos.textContent = `$${element.impuestos.toLocaleString('es-CO')}`;
+
+    const total = document.createElement("p");
+    total.classList.add("interfazfacturas__datos");
+    total.textContent = `$${element.total.toLocaleString('es-CO')}`;
+
+    content.appendChild(facturaId);
+    content.appendChild(empresa);
+    content.appendChild(nit);
+    content.appendChild(direccion);
+    content.appendChild(correo);
+    content.appendChild(representante);
+    content.appendChild(fecha);
+    content.appendChild(impuestos);
+    content.appendChild(total);
+
+    // ---- Armamos la card ----
+    infoWrapper.appendChild(titulos);
+    infoWrapper.appendChild(content);
+    card.appendChild(infoWrapper);
+    seccionfactura.appendChild(card);
+  })
 };
 ///Crear Servicios Mecanico
 
 export const MostrarReparaciones = async () =>{
     const detalleServicio = await get (`Reparaciones`)
-      const contenedor = document.querySelector(".content__reparacion");
-      console.log(detalleServicio);
-      
+      const contenedor = document.querySelector(".content__reparacion");      
       const agrupados = {};
       detalleServicio.forEach(item => {
            if (!agrupados[item.detalle_id]) {
@@ -1138,9 +1255,11 @@ export const MostrarReparaciones = async () =>{
                 cantidad: item.cantidad_usada
             });
         }
+
       });
 
       Object.values(agrupados).forEach(element => {
+  
       const filacontent = document.createElement("div");
       filacontent.classList.add("filacontent");
       // N°
@@ -1183,8 +1302,9 @@ export const MostrarReparaciones = async () =>{
         productoItem.textContent = `${prod.nombre} - ${prod.cantidad} unidades`;
         productoItem.classList.add("columna__infoproductos"); // estilo individual
         contentProductos.appendChild(productoItem);
-    });
-    filacontent.appendChild(contentProductos);
+      });
+      filacontent.appendChild(contentProductos);
+
 
       // Observaciones
       const colObservaciones = document.createElement("p");
@@ -1192,32 +1312,42 @@ export const MostrarReparaciones = async () =>{
       colObservaciones.classList.add("columna__info");
       filacontent.appendChild(colObservaciones);
 
-      // Iconos
+      const divContent = document.createElement("div")
+      divContent.classList.add("divbuttons")
       const iconoeditar = document.createElement("i");
       iconoeditar.classList.add("bi", "bi-pencil", "icon_modificar");
-      filacontent.appendChild(iconoeditar);
+      divContent.appendChild(iconoeditar)
+      filacontent.appendChild(divContent);
 
       const iconoeliminar = document.createElement("i");
       iconoeliminar.classList.add("bi", "bi-trash", "icon_modificar");
-      filacontent.appendChild(iconoeliminar);
+      divContent.appendChild(iconoeliminar)
       
       iconoeditar.addEventListener("click", async =>{
       EditarReparaciones( colServicio,colVehiculo,colEstado,colFecha,contentProductos,colObservaciones,iconoeditar,element,detalleServicio); 
       })
 
       iconoeliminar.addEventListener("click", async =>{
-      console.log( element.consumible_id)
-      ElimarReparaciones(element.detalle_id,  element.consumible_id); 
+      ElimarReparaciones(element.detalle_id,  element.consumible_id, element.usuario_id); 
       })
+
+      if (element.nombre_estado === "Finalizado") {
+          const iconoFactura = document.createElement("i");
+          iconoFactura.classList.add("bi", "bi-receipt", "icon_factura"); 
+          iconoFactura.title = "Generar Factura";
+          divContent.appendChild(iconoFactura)
+          iconoFactura.addEventListener("click", async () => {
+              await generarFactura(element);
+          });
+      }
       // Agregar fila al contenedor
       contenedor.appendChild(filacontent);
   });
 }
-export const CrearReparaciones = async () =>{
+export const MostrarselectsMecanicos = async () =>{
     try {
       const data = await get(`FormDataReparacion`);      
       const reparaciones  = await get(`Reparaciones`)
-      console.log(data);
       const selectVehiculos = document.getElementById("vehiculo_id");
       selectVehiculos.innerHTML = "";
       data.vehiculos.forEach(v => {
@@ -1273,6 +1403,15 @@ export const CrearReparaciones = async () =>{
             option.value = r.detalle_id;
             option.textContent = `#${r.detalle_id} - ${r.nombre_servicio} - ${r.placa}`;
             selectServicio.appendChild(option);
+      })
+
+      const selectServiciofactura = document.getElementById("detalle_idfactura");
+      selectServiciofactura.innerHTML = "";
+      reparacionesUnicas.forEach(r =>{
+            const option = document.createElement("option");
+            option.value = r.detalle_id;
+            option.textContent = `#${r.detalle_id} - ${r.nombre_servicio} - ${r.placa}`;
+            selectServiciofactura.appendChild(option);
       })
 
     } catch (error) {
@@ -1380,26 +1519,35 @@ colProductos.replaceWith(inputProductos);
       console.error("Error al actualizar reparación:", err);
       await error("Error inesperado al actualizar");
     }
-  }, { once: true });
+  });
 }
-export const ElimarReparaciones = async (id,consumibleId) =>{
+export const ElimarReparaciones = async (id,consumibleId,usuario_id) =>{
   try {
-     const confirmacion = await eliminar("¿Desea eliminar esta reparación?");
-     if (confirmacion.isConfirmed) {
-       let respuesta;
-        if (consumibleId !== null && consumibleId !== undefined) {
-            // Si tiene consumible, elimina ambos
+    const confirmacion = await eliminar("¿Desea eliminar esta reparación?");
+    if (confirmacion.isConfirmed) {
+          const facturasResponse = await get(`facturas`);
+          const factura = facturasResponse.find(f => f.usuario_id === usuario_id);
+
+          // 2. Si hay factura, eliminarla
+          if (factura) {
+            await del(`facturas/detalles/${factura.factura_id}`);
+            await del(`facturas/${factura.factura_id}`);
+          }
+
+          // 3. Eliminar la reparación
+          let respuesta;
+          if (consumibleId !== null && consumibleId !== undefined) {
             respuesta = await del(`Reparaciones/${id}/${consumibleId}`);
-        } else {
-            // Si no tiene consumible, elimina solo el detalle
+          } else {
             respuesta = await del(`Reparaciones/${id}`);
+          }
+
+        if (respuesta.ok) {
+            const ok = await success({ message: "Reparación y factura eliminadas con éxito" });
+            if (ok.isConfirmed) location.reload();
+        } else {
+            await error("No se pudo eliminar la reparación");
         }
-      if (respuesta.ok) {
-        const ok = await success({ message: "Reparación eliminada con éxito" });
-        if (ok.isConfirmed) location.reload();
-      } else {
-        await error("No se pudo eliminar la reparación");
-      }
     }
   } catch (err) {
     console.error("Error al eliminar la reparación:", err);
@@ -1560,9 +1708,164 @@ export const mostrarVehiculosMecanico = (vehiculos,Usuarios) =>{
   });
 }
 
+//FACTURAS
 
-//VALIDACIONES 
+export const generarFactura = async (reparacion) =>{
+  const response = await get(`FormDataReparacion`);
+  const subtotal = 0;
+      // Recorremos los productos de la reparación y buscamos su precio en el catálogo
+       let total = 0;
 
+        // 2. Sumar los productos de la reparación
+        reparacion.productos.forEach(p => {
+            const productoCatalogo = response.productos.find(prod => prod.nombre === p.nombre);
+            if (productoCatalogo) {
+                total += productoCatalogo.precio * (p.cantidad || 1);
+            }
+        });
+
+        // 3. Sumar el precio del servicio
+        const servicioCatalogo = response.servicios.find(serv => serv.nombre_servicio === reparacion.nombre_servicio);
+        if (servicioCatalogo && servicioCatalogo.precio) {
+            total += servicioCatalogo.precio;
+        }
+
+      const factura = {
+      usuario_id: reparacion.usuario_id,
+      empresa_id: 1, // ID del taller
+      fecha_emision: new Date().toISOString().split('T')[0],
+      subtotal: subtotal,
+      total: total
+    };
+    const confirmacion = await confirm("¿Desea crear la factura?");
+    if (confirmacion.isConfirmed) {
+      const respuesta = await post('facturas', factura); // factura es el objeto que ya armaste
+
+      if (respuesta?.ok) {
+          if ((await success({ message: "Factura registrada con éxito" })).isConfirmed) {
+              location.reload();
+          }
+      } else {
+          await error("No se pudo crear la factura", "");
+      }
+    }
+}
+export const generarFacturasAdmin = async() =>{
+    const facturas = await get(`facturas/completa`)
+    const seccionfactura = document.querySelector(".facturasAdmin")
+    facturas.forEach((element)=>{
+    const card = document.createElement("div");
+    card.classList.add("facturasAdmincontent");
+
+    const infoWrapper = document.createElement("div");
+    infoWrapper.classList.add("interfazfacturas__infoadmin");
+
+    // ---- Títulos ----
+    const titulos = document.createElement("div");
+    titulos.classList.add("interfazfacturas__contentCards");
+
+    const pFactura = document.createElement("p");
+    pFactura.classList.add("interfazfacturas__titulonombre");
+    pFactura.textContent = "Factura N°:";
+    titulos.appendChild(pFactura);
+
+    const pEmpresa = document.createElement("p");
+    pEmpresa.classList.add("interfazfacturas__titulonombre");
+    pEmpresa.textContent = "Empresa:";
+    titulos.appendChild(pEmpresa);
+
+    const pNIT = document.createElement("p");
+    pNIT.classList.add("interfazfacturas__titulonombre");
+    pNIT.textContent = "NIT:";
+    titulos.appendChild(pNIT);
+
+    const pDireccion = document.createElement("p");
+    pDireccion.classList.add("interfazfacturas__titulonombre");
+    pDireccion.textContent = "Dirección:";
+    titulos.appendChild(pDireccion);
+
+    const pCorreo = document.createElement("p");
+    pCorreo.classList.add("interfazfacturas__titulonombre");
+    pCorreo.textContent = "Correo:";
+    titulos.appendChild(pCorreo);
+
+    const pRepresentante = document.createElement("p");
+    pRepresentante.classList.add("interfazfacturas__titulonombre");
+    pRepresentante.textContent = "Representante:";
+    titulos.appendChild(pRepresentante);
+
+    const pFecha = document.createElement("p");
+    pFecha.classList.add("interfazfacturas__titulonombre");
+    pFecha.textContent = "Fecha:";
+    titulos.appendChild(pFecha);
+
+    const pImpuestos = document.createElement("p");
+    pImpuestos.classList.add("interfazfacturas__titulonombre");
+    pImpuestos.textContent = "Impuestos:";
+    titulos.appendChild(pImpuestos);
+
+    const pTotal = document.createElement("p");
+    pTotal.classList.add("interfazfacturas__titulonombre");
+    pTotal.textContent = "Total:";
+    titulos.appendChild(pTotal);
+
+    // ---- Contenido ----
+    const content = document.createElement("div");
+    content.classList.add("interfazfacturas__contentCard");
+
+    const facturaId = document.createElement("p");
+    facturaId.classList.add("interfazfacturas__datos");
+    facturaId.textContent = element.factura_id;
+
+    const empresa = document.createElement("p");
+    empresa.classList.add("interfazfacturas__datos");
+    empresa.textContent = element.empresa;
+
+    const nit = document.createElement("p");
+    nit.classList.add("interfazfacturas__datos");
+    nit.textContent = element.nit;
+
+    const direccion = document.createElement("p");
+    direccion.classList.add("interfazfacturas__datos");
+    direccion.textContent = element.direccion || "Sin dirección";
+
+    const correo = document.createElement("p");
+    correo.classList.add("interfazfacturas__datos");
+    correo.textContent = element.correo || "Sin correo";
+
+    const representante = document.createElement("p");
+    representante.classList.add("interfazfacturas__datos");
+    representante.textContent = element.representante_legal || "Sin representante";
+
+    const fecha = document.createElement("p");
+    fecha.classList.add("interfazfacturas__datos");
+    fecha.textContent = `${element.fecha_emision[2]}/${element.fecha_emision[1]}/${element.fecha_emision[0]}`;
+
+    const impuestos = document.createElement("p");
+    impuestos.classList.add("interfazfacturas__datos");
+    impuestos.textContent = `$${element.impuestos.toLocaleString('es-CO')}`;
+
+    const total = document.createElement("p");
+    total.classList.add("interfazfacturas__datos");
+    total.textContent = `$${element.total.toLocaleString('es-CO')}`;
+
+    content.appendChild(facturaId);
+    content.appendChild(empresa);
+    content.appendChild(nit);
+    content.appendChild(direccion);
+    content.appendChild(correo);
+    content.appendChild(representante);
+    content.appendChild(fecha);
+    content.appendChild(impuestos);
+    content.appendChild(total);
+
+    // ---- Armamos la card ----
+    infoWrapper.appendChild(titulos);
+    infoWrapper.appendChild(content);
+    card.appendChild(infoWrapper);
+    seccionfactura.appendChild(card);
+  })
+}
 export const contarCamposFormulario = (formulario) => {
   const campos = [...formulario.elements].filter(campo => campo.hasAttribute('required'));
   return campos.length;
@@ -1680,6 +1983,8 @@ export const validarContrasenia = (campo) => {
 
   return true;
 };
+
+
 
 export const limpiar = (campo) => {
   if (campo.nextElementSibling) campo.nextElementSibling.remove();

@@ -22,5 +22,8 @@ export default async () =>{
   console.log(localStorage);
   
   const reparaciones = await get(`Reparaciones/usuario/${id}`);
-  MostrarReparacionescliente(reparaciones);   
+  
+  const facturas = await get(`facturas/completa/${id}`)
+  MostrarReparacionescliente(reparaciones,facturas);  
+   
 }

@@ -1,52 +1,99 @@
 @import url('../variables.css');
 
+.content_repacionesFacturas{
+display: flex;
+height: 100vh;
+width: 100%;
+}
 .ReparacionesUsuarios{
- width: 100%;
- height: 100vh;
+ width: 50%;
+ height: 50%;
  display: flex;
  padding: 20px;
  gap: 25px;
 }
 .reparacionesUsuarios{
- width: 22%;
- height: 45%;
+ width: 50%;
+ height: 70%;
  background-color: var(--color--cardsVehiculosclientes);
  border-radius: 20px;
 }
+.facturas{
+ width: 50%;
+ height: 100%;
+}
 .interfazreparaciones__body{
-    width: 80%;
-    height: 100%;
-    text-align: center;
+width: 80%;
+height: 100%;
+text-align: center;
 }
 .interfazreparaciones__info{
-    display: flex;
-    justify-content: space-around;
-    height: 100%;
-    align-items: center;
+display: flex;
+justify-content: space-around;
+height: 100%;
+align-items: center;
 }
 .interfazreparaciones__contentCard{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 80%;
-    justify-content: space-between;
+display: flex;
+flex-direction: column;
+width: 50%;
+height: 80%;
+justify-content: space-between;
 }
 .interfazreparaciones__contentCards{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 80%;
-    justify-content: space-between;
+display: flex;
+flex-direction: column;
+width: 50%;
+height: 80%;
+justify-content: space-between;
 }
 .interfazreparaciones__titulonombre{
-    font-size: 1rem;
-    font-family: var(--font_bodyIngresovehiculos);
-    font-weight: 500;
-    height: 26px;
+font-size: 1rem;
+font-family: var(--font_bodyIngresovehiculos);
+font-weight: 500;
+height: 26px;
 }
 .interfazreparaciones__datos{
-    height: 26px;
-    font-size: 1rem;
-    font-family: var(--font_bodyIngresovehiculos);
-    font-weight: 400;
+height: 26px;
+font-size: 1rem;
+font-family: var(--font_bodyIngresovehiculos);
+font-weight: 400;
+}
+.facturas{
+ width: 50%;
+ height: 80vh;
+ overflow-y: scroll;
+}
+.facturasUsuarios{
+  width: 100%;
+  height: 60%;
+}
+.interfazfacturas__info{
+  padding:10px;
+  display: flex;
+  width: 55%;
+  height: 100%;
+  justify-content: center;
+  background-color: #b6b4b4;
+  margin-top: 20px;
+}
+.interfazfacturas__contentCards{
+ font-size: 1.1rem;
+ font-family: var(--font-Title);
+ font-weight: 600;
+ display: flex;
+ flex-direction: column;
+ height: 100%;
+ width: 40%;
+ justify-content: space-between;
+}
+.interfazfacturas__contentCard{
+display: flex;
+flex-direction: column;
+height: 100%;
+width: 50%;
+justify-content: space-between;
+font-size: 1rem;
+font-family: var(--font_bodyIngresovehiculos);
+font-weight: 400;
 }

@@ -18,12 +18,6 @@
       <a href="#/mecanico/Vehiculos" class="panel_text">Vehiculos</a>
     </div>
 
-    <div class="panel_menu">
-      <div class="panel_iconbox">
-        <i class="panel_icon fa-solid fa-calendar-check"></i>
-      </div>
-      <span class="panel_text">Citas</span>
-    </div>
     <div class="panel_menu" id="btnCerrarSesion">
       <div class="panel_iconbox">
         <i class="panel_icon fa-solid fa-right-from-bracket"></i>
@@ -36,8 +30,9 @@
     <div class="header__mecanico">
       <div class="header__titulo">Reparaciones</div>
       <div class="header__buttones">
-        <button class="button_reparaciones">Agregar Reparaciones</button>
-        <button class="button__Productos">Productos Consumidos</button>
+        <button class="buttones_infomecanico" id="button_reparaciones">Agregar Reparaciones</button>
+        <button class="buttones_infomecanico" id="button__Productos">Productos Consumidos</button>
+        <button class="buttones_infomecanico" id="button__factura">Generar Factura</button>
       </div>
     </div>
     <div class="content__datos ">
@@ -115,5 +110,17 @@
       </form>
     </div>
   </dialog>
+    <dialog class="generar__facturas" id="dialogfacturas">
+     <form action="" class="formFacturas" id="insertar__facturas">
+        <div class="content__facturas">
+          <label class="fila__text">N° de Servicio:</label>
+          <select class="ingreso__factura" id="detalle_idfactura" required></select>
+        </div>
+        <div class="content__buttones">
+          <button type="submit" class="buttonservicios" id="generarfactura">Generar</button>
+          <button  type="button" class="close__factura buttonservicios">Close</button>
+        </div>
+      </form>
+   </dialog>
   <script type="module" src="principalMecanico.js"></script>
 </div>

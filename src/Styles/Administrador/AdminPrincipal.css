@@ -63,12 +63,12 @@ color: rgb(25, 25, 26);
 .contentadmin__menu {
   display: grid;
   grid-template-areas: 
-    "resumen resumen resumen resumen notificaciones"
-    "calendario calendario ordenes ordenes notificaciones"
-    "calendario calendario ordenes ordenes notificaciones"
-    "reportes reportes empleados empleados notificaciones"
-    "reportes reportes empleados empleados notificaciones";
-  grid-template-columns: repeat(4, 1fr) 250px;
+    "resumen resumen resumen resumen "
+    "calendario calendario ordenes ordenes "
+    "calendario calendario ordenes ordenes "
+    "reportes reportes empleados empleados "
+    "reportes reportes empleados empleados ";
+  grid-template-columns: repeat(3, 1fr) 250px;
   grid-template-rows: repeat(5, 1fr) ;
   gap: 20px;
   width: 100%;
@@ -202,7 +202,7 @@ height: 20%;
 padding: 20px 5px;
 }
 .menu__fechasDatos{
-font-size: 0.95rem;
+font-size: 1.3rem;
 font-weight: 600;
 text-align: center;
 }
