@@ -18,6 +18,7 @@ export default async () => {
      }
    });
   roles.forEach(element => {
+    console.log(element)
       const option = document.createElement('option');
       option.setAttribute('value', element.rol_id); 
       option.textContent = element.nombre;          
@@ -53,22 +54,21 @@ export default async () => {
       datos['usuario'] = datos['usuario'].trim();
       datos['contrasena'] = datos['contrasena'].trim();
 
-      const respuesta = await post('Usuarios', datos);
-      const confirm = await confirmacion("¿Desea Crear el usuario?")
-      if(confirm.isConfirmed){
-        if((await success({ message: "Usuario Registrado con exito"})).isConfirmed){
-          if (respuesta?.ok) {
+     const respuesta = await post('Usuarios', datos);
+      const confirm = await confirmacion("¿Desea Crear el usuario?");
+      if (confirm.isConfirmed) {
+        if (respuesta.ok) {
+          if ((await success({ message: "Usuario Registrado con exito"})).isConfirmed) {
             formulario.reset();
-          } else {
-            await error("No se pudo crear el usuario", "");
           }
+        } else {
+          await error(respuesta.data.error || "No se pudo crear el usuario", "");
         }
+      } else {
+        await error("Faltan campos válidos",""); 
       }
-    } else {
-      await error("Faltan campos válidos","");
-    }
   };
-
+}
 
   formulario.addEventListener('submit', nuevoUsuario);
 

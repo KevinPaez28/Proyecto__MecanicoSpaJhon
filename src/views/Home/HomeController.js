@@ -38,7 +38,7 @@ export default (parametros = null) => {
       const rolUsuario = roles.find((rol) => rol.rol_id === user.rol_id);
 
       const { token } = await login(usuariovalor, contraseniavalor);
-
+      console.log(token)
       if (!token) {
         await error("Datos incorrectos");
       } else {

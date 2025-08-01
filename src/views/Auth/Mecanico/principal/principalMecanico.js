@@ -70,7 +70,6 @@ export default async () =>{
         }
         datos['servicio_id'] = Number(datos['servicio_id']);
         datos['vehiculo_id'] = Number(datos['vehiculo_id']);
-        datos['usuario_id'] = Number(vehiculo.usuario_id);
         datos['estado_id'] = Number(datos['estado_id']);
         datos['fecha'] = datos['fecha'].trim();
         datos['observaciones'] = datos['observaciones'].trim();    
@@ -123,11 +122,9 @@ export default async () =>{
     const reparacion = await get(`Reparaciones/${detalleId}`);
     if (!reparacion) return await error("No se encontró la reparación");
 
-    console.log(detalleId);
 
     // 2. Obtener catálogo
     const datosFactura = await get("FormDataReparacion");
-    console.log("Servicios disponibles:", datosFactura.servicios);
 
     const idServicio = Number(reparacion.servicio_id);
 
@@ -146,6 +143,8 @@ export default async () =>{
     // 3. Buscar factura del usuario
     const facturas = await get("facturas");
     const factura = facturas.find(f => f.usuario_id === reparacion.usuario_id);
+    console.log(facturas)
+    console.log(reparacion.usuario_id)
     if (!factura) return await error("El usuario no tiene factura generada");
 
     // 4. Armar detalles
@@ -157,8 +156,9 @@ export default async () =>{
         precio_unitario: servicioEncontrado.precio,
         total: servicioEncontrado.precio
     }];
-
-    if (reparacion.producto_id) {
+    console.log(reparacion.producto_id);
+    
+      if (reparacion.producto_id) {
         const productoEncontrado = datosFactura.productos.find(
             p => Number(p.producto_id) === Number(reparacion.producto_id)
         );
@@ -172,7 +172,7 @@ export default async () =>{
             precio_unitario: productoEncontrado.precio,
             total: productoEncontrado.precio * reparacion.cantidad_usada
         });
-    }
+      }
 
     console.log("Detalles a enviar:", detalles);
 

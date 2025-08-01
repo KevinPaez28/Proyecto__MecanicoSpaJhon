@@ -23,7 +23,7 @@ export default (parametros = null) =>{
     const datos = validar(event);
     console.log("Datos validados:", datos);
     if (Object.keys(datos).length === cantidadCampos) {
-      datos['rol_id'] = 3;
+      datos['rol_id'] = 2;
       
       datos['cedula'] = datos['cedula'].trim();
       datos['telefono'] = datos['telefono'].trim();

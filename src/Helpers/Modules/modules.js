@@ -92,7 +92,6 @@ export const fechaPlacaServicio = async () =>{
     contenedor.appendChild(reparacion_content);
   });
 }
-
 export const TotalDeClientes = async (usuarios) => {
   const reparaciones = await get (`Reparaciones`)
   const totalFacturas = await get (`facturas/totalventas`)
@@ -256,22 +255,21 @@ export const editarUsuarios = async (nombre,cedula,telefono,usuarioText,btnEdita
     const paramns = id;
     try {
     const respuesta = await put(`Usuarios/${paramns}`, nuevoUsuario);
-    dialog.close()
-    const confirmacion = await confirm("Actualizar")
-
-     if(confirmacion.isConfirmed){
-      if((await success({ message: "Usuario Actualizado con exito"})).isConfirmed){
-        if (respuesta.ok) {
-          location.reload();  
-        } else {
-           await error("No se pudo actualizar el usuario");
+      dialog.close()
+    const confirmacion = await confirm("¿Desea actualizar el usuario?");
+    if (confirmacion.isConfirmed) {
+      if (respuesta.ok) {
+        if ((await success({ message: "Usuario actualizado con éxito" })).isConfirmed) {
+          location.reload();
         }
+      } else {
+        await error(respuesta.data?.error || "No se pudo actualizar el usuario");
       }
-     }
-    } catch (error) {
-      console.error("Error al actualizar usuario:", nuevoUsuario);
-       await error(" Error inesperado al actualizar");
     }
+  } catch (error) {
+    console.error("Error al actualizar usuario:", error);
+    await error("Error inesperado al actualizar");
+  }
   });
 };
 export const eliminarUsuarioPorId = async (id) => {
@@ -460,20 +458,20 @@ export const EditarVehiculos = (nombre, placa, modelo, btnEditar) =>{
 
         const confirmacion = await confirm("actualizar")
 
-        if(confirmacion.isConfirmed){
-          if((await success({ message: "Vehiculo Actualizado con exito"})).isConfirmed){
+        if (confirmacion.isConfirmed) {
             if (respuesta.ok) {
-            location.reload();
+              if ((await success({ message: "Vehículo actualizado con éxito" })).isConfirmed) {
+                location.reload();
+              }
             } else {
-              alert("Error al actualizar vehículo");
+              await error(respuesta.data?.error || "Error al actualizar vehículo");
+              location.reload();
             }
           }
+        } catch (error) {
+          console.error("Error:", error);
+          await error("Error inesperado");
         }
-        
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Error inesperado");
-      }
    });
 };
 
@@ -1037,22 +1035,24 @@ export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,in
       rol_id: 2
     };
     try {
-      const confirmacion = await confirm("Actualizar");
+      const respuesta = await put(`Usuarios/${id}`, nuevoUsuario);
+
+     const confirmacion = await confirm("¿Desea actualizar el usuario?");
       if (confirmacion.isConfirmed) {
-        const respuesta = await put(`Usuarios/${id}`, nuevoUsuario);
         if (respuesta.ok) {
-            if ((await success({ message: "Usuario Actualizado con éxito" })).isConfirmed) {
+          if ((await success({ message: "Usuario actualizado con éxito" })).isConfirmed) {
             location.reload();
-          } else {
-            await error("No se pudo actualizar el usuario");
           }
+        } else {
+          await error(respuesta.data?.error || "No se pudo actualizar el usuario");
+          location.reload()
         }
       }
-    } catch (err) {
-      console.error("Error al actualizar usuario:", err);
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
       await error("Error inesperado al actualizar");
     }
-  });
+    });
 }
 export const MostrarReparacionescliente = (reparaciones,facturas) => {
    const seccionInfo = document.querySelector(".ReparacionesUsuarios");
@@ -1142,6 +1142,11 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     pFactura.textContent = "Factura N°:";
     titulos.appendChild(pFactura);
 
+    const pCliente = document.createElement("p");
+    pCliente.classList.add("interfazfacturas__titulonombre");
+    pCliente.textContent = "Cliente:";
+    titulos.appendChild(pCliente);
+
     const pEmpresa = document.createElement("p");
     pEmpresa.classList.add("interfazfacturas__titulonombre");
     pEmpresa.textContent = "Empresa:";
@@ -1182,6 +1187,16 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     pTotal.textContent = "Total:";
     titulos.appendChild(pTotal);
 
+    const pPlaca = document.createElement("p");
+    pPlaca.classList.add("interfazfacturas__titulonombre");
+    pPlaca.textContent = "Placa:";
+    titulos.appendChild(pPlaca);
+
+    const pConsumidos = document.createElement("p");
+    pConsumidos.classList.add("interfazfacturas__titulonombre");
+    pConsumidos.textContent = "Productos/Servicios:";
+    titulos.appendChild(pConsumidos);
+
     // ---- Contenido ----
     const content = document.createElement("div");
     content.classList.add("interfazfacturas__contentCard");
@@ -1189,6 +1204,10 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     const facturaId = document.createElement("p");
     facturaId.classList.add("interfazfacturas__datos");
     facturaId.textContent = element.factura_id;
+
+    const cliente = document.createElement("p");
+    cliente.classList.add("interfazfacturas__datos");
+    cliente.textContent = element.cliente || "Sin cliente";
 
     const empresa = document.createElement("p");
     empresa.classList.add("interfazfacturas__datos");
@@ -1222,7 +1241,18 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     total.classList.add("interfazfacturas__datos");
     total.textContent = `$${element.total.toLocaleString('es-CO')}`;
 
+    const placa = document.createElement("p");
+    placa.classList.add("interfazfacturas__datos");
+    placa.textContent = element.detalles.length > 0 && element.detalles[1].placa ? element.detalles[1].placa : "Sin placa";
+
+    const consumidos = document.createElement("p");
+    consumidos.classList.add("interfazfacturas__datos");
+    consumidos.textContent = element.detalles.length > 0 
+        ? element.detalles.map(d => `${d.descripcion} (x${d.cantidad})`).join(", ")
+        : "Sin consumos";
+
     content.appendChild(facturaId);
+    content.appendChild(cliente);
     content.appendChild(empresa);
     content.appendChild(nit);
     content.appendChild(direccion);
@@ -1231,6 +1261,8 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     content.appendChild(fecha);
     content.appendChild(impuestos);
     content.appendChild(total);
+    content.appendChild(placa);
+    content.appendChild(consumidos);
 
     // ---- Armamos la card ----
     infoWrapper.appendChild(titulos);
@@ -1712,35 +1744,48 @@ export const mostrarVehiculosMecanico = (vehiculos,Usuarios) =>{
 
 export const generarFactura = async (reparacion) =>{
   const response = await get(`FormDataReparacion`);
-  const subtotal = 0;
-      // Recorremos los productos de la reparación y buscamos su precio en el catálogo
-       let total = 0;
+  // 1. Obtener usuario_id (si la reparación no lo trae)
+  let usuarioId = reparacion.usuario_id;
+  if (!usuarioId && reparacion.cliente) {
+      const usuario = response.usuarios.find(u => u.nombre === reparacion.cliente);
+      if (!usuario) return await error("No se encontró el usuario para esta reparación");
+      usuarioId = usuario.usuario_id;
+  }
 
-        // 2. Sumar los productos de la reparación
-        reparacion.productos.forEach(p => {
-            const productoCatalogo = response.productos.find(prod => prod.nombre === p.nombre);
-            if (productoCatalogo) {
-                total += productoCatalogo.precio * (p.cantidad || 1);
-            }
-        });
+  // 2. Calcular total de la reparación
+  let total = 0;
 
-        // 3. Sumar el precio del servicio
-        const servicioCatalogo = response.servicios.find(serv => serv.nombre_servicio === reparacion.nombre_servicio);
-        if (servicioCatalogo && servicioCatalogo.precio) {
-            total += servicioCatalogo.precio;
-        }
+  // Sumar productos usados
+  reparacion.productos.forEach(p => {
+      const productoCatalogo = response.productos.find(prod => prod.producto_id === p.producto_id);
+      if (productoCatalogo) {
+          total += productoCatalogo.precio * (p.cantidad || 1);
+      }
+  });
 
-      const factura = {
-      usuario_id: reparacion.usuario_id,
+  // Sumar precio del servicio
+  const servicioCatalogo = response.servicios.find(serv => serv.servicio_id === reparacion.servicio_id);
+  if (servicioCatalogo) {
+      total += servicioCatalogo.precio;
+  }
+
+  // Subtotal (si no hay impuestos separados)
+  const subtotal = total;
+
+  // 3. Construir objeto factura
+  const factura = {
+      usuario_id: usuarioId,
       empresa_id: 1, // ID del taller
       fecha_emision: new Date().toISOString().split('T')[0],
       subtotal: subtotal,
       total: total
-    };
-    const confirmacion = await confirm("¿Desea crear la factura?");
-    if (confirmacion.isConfirmed) {
-      const respuesta = await post('facturas', factura); // factura es el objeto que ya armaste
-
+  };
+  console.log(factura);
+  
+  // 4. Confirmar y enviar
+  const confirmacion = await confirm("¿Desea crear la factura?");
+  if (confirmacion.isConfirmed) {
+      const respuesta = await post('facturas', factura);
       if (respuesta?.ok) {
           if ((await success({ message: "Factura registrada con éxito" })).isConfirmed) {
               location.reload();
@@ -1748,7 +1793,7 @@ export const generarFactura = async (reparacion) =>{
       } else {
           await error("No se pudo crear la factura", "");
       }
-    }
+  }
 }
 export const generarFacturasAdmin = async() =>{
     const facturas = await get(`facturas/completa`)

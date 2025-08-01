@@ -40,52 +40,53 @@ export default async (parametros = null) =>{
   });
 
   // Manejo del formulario
-  const CrearVehiculos = async (event) => {
+const CrearVehiculos = async (event) => {
     event.preventDefault();
     
-    const contarcampos = contarCamposFormulario(form);
-    let completados = 0;
-    let datos = {};
+   const contarcampos = contarCamposFormulario(form);
+  let completados = 0;
+  let datos = {};
 
-    for (let i = 0; i < form.elements.length; i++) {
-      const campo = form.elements[i];
-
-      if (campo.hasAttribute('required')) {
-        if (validarMinimo(campo)) {
-          limpiar(campo);
-          datos[campo.id.toLowerCase()] = campo.value.trim();
-          completados++;
-        }
+  for (let i = 0; i < form.elements.length; i++) {
+    const campo = form.elements[i];
+    if (campo.hasAttribute('required')) {
+      if (validarMinimo(campo)) {
+        limpiar(campo);
+        datos[campo.id.toLowerCase()] = campo.value.trim();
+        completados++;
       }
     }
-    const usuarioId = datos["usuario_id"];
-    const usuarioEncontrado = usuarios.find(u => u.usuario === usuarioId);
-    
-    if (usuarioEncontrado) {
+  }
+
+  const usuarioId = datos["usuario_id"];
+  const usuarioEncontrado = usuarios.find(u => u.usuario === usuarioId);
+
+  if (usuarioEncontrado) {
     datos["usuario_id"] = usuarioEncontrado.usuario_id;
-    } else {
-        dialogo.close()
-          await error(" El usuario no está registrado.");
+  } else {
+    dialogo.close();
+    await error("El usuario no está registrado.");
     return; 
-    }
+  }
 
-    if (completados === contarcampos) {
-      dialogo.close();
-      const confirm = await confirmacion("¿Desea Crear el usuario?")
-      if(confirm.isConfirmed){
-        const respuesta = await post('Vehiculos', datos);
-        if((await success({ message: "vehiculo Registrado con exito"})).isConfirmed){
-          if (respuesta?.ok) {
-          location.reload();  
-          } else {
-            await error("No se pudo crear el Vehiculo", "");
-          }
+  if (completados === contarcampos) {
+    dialogo.close();
+    const confirm = await confirmacion("¿Desea Crear el Vehiculo?");
+    if (confirm.isConfirmed) {
+      const respuesta = await post('Vehiculos', datos);
+
+      if (respuesta.ok) {
+        if ((await success({ message: "Vehículo registrado con éxito"})).isConfirmed) {
+          location.reload();
         }
+      } else {
+          await error(respuesta.data.error || "No se pudo crear el vehículo", "");
       }
-    } else {
-      error("Por favor completa todos los campos requeridos.");
     }
-  };
+  } else {
+    await error("Por favor completa todos los campos requeridos.");
+  }
+};
 
   modelo.addEventListener('blur', (event) => {
     if (validarMinimo(event.target)) limpiar(event.target);
