@@ -10,7 +10,7 @@
              <a class="button__info" href="#/cliente/servicios">Servicios Disponibles</a>
              <a class="button__info" href="#/cliente/historial">Historial de Servicios</a>
              <a class="button__info" href="#/cliente/informacion">Informacion Usuario</a>
-             <a class="button__info">Cerrar Sesion</a>
+             <a class="button__info" href="#/Home">Cerrar Sesion</a>
              <button id="registrar_vehiculos" class="button__info">Registrar Vehiculos</button>
             </div>
         </div>
@@ -19,7 +19,7 @@
     <div class="insertarUsuario__title">
       <p class="insertarUsuario__text">Registro de Vehiculos</p>
     </div>
-        <form class="formVehiculo__form" id="formVehiculo">
+        <form class="formVehiculo__form" id="formVehiculo" novalidate>
         <div class="formVehiculo__grupo">
             <label for="placa" class="formVehiculo__label">Placa:</label>
             <div class="form__inputtext">
@@ -43,7 +43,7 @@
         <div class="formVehiculo__grupo">
             <label for="usuario" class="formVehiculo__label">Usuario:</label>
             <div class="form__inputtext">
-            <input type="text" id="usuario_id" class="formVehiculo__input" placeholder="Usuario" min="5" max="20" required>
+            <input type="text" id="usuario" class="formVehiculo__input" placeholder="Usuario" min="5" max="20" required>
             </div>
         </div>    
         <div class="inserarUsuario__close">

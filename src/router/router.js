@@ -7,13 +7,9 @@ export const router = async (elemento) => {
 
   // Redirigir a Home si no hay segmentos
   if (segmentos.length === 0) {
-    redirigirARuta("Home");
+    redirigirARuta("#/Home");
     return;
   }
-
-  console.log("Hash detectado:", hash);
-  console.log("Segmentos:", segmentos);
-
   // Buscar la ruta y extraer parametros
   const resultadoRuta = encontrarRuta(routes, segmentos);
 
@@ -49,57 +45,39 @@ const redirigirARuta = (ruta) => {
   }
 };
 
-const encontrarRuta = (routes, segmentos) => {
+export const encontrarRuta = (routes, segmentos) => {  
   let rutaActual = routes;
   let rutaEncontrada = false;
-  let parametros = {};
+  let parametros = {};  
 
- const ultimo = segmentos[segmentos.length - 1];
-
-  // Verificamos si ese segmento contiene un signo de pregunta "?", lo que indica que hay parámetros
-  if (ultimo.includes("?")) {
-    
-    // Dividimos ese segmento en dos partes: antes del "?" y después del "?"
-    const partes = ultimo.split("?");
-
-    // La primera parte será el nombre limpio del segmento (por ejemplo: "principal")
-    const segmentoSinParametros = partes[0];
-
-    // La segunda parte son los parámetros (por ejemplo: "id=1&modo=editar")
-    const cadenaParametros = partes[1];
-
-    // Reemplazamos en el array el segmento original por el nombre limpio (sin los parámetros)
-    segmentos[segmentos.length - 1] = segmentoSinParametros;
-
-    // Convertimos la cadena de parámetros en un objeto clave-valor (por ejemplo: { id: "1", modo: "editar" })
-    parametros = extraerParametros(cadenaParametros);
+  if (segmentos.length === 3 && segmentos[2].includes("=")) {
+    parametros = extraerParametros(segmentos[2]);
+    segmentos.pop();
   }
-  // Recorremos los segmentos del hash para encontrar la ruta correspondiente
-  segmentos.forEach(segmento => {
+
+  for (let i = 0; i < segmentos.length; i++) {
+    const segmento = segmentos[i];
+
     if (rutaActual[segmento]) {
       rutaActual = rutaActual[segmento];
       rutaEncontrada = true;
     } else {
       rutaEncontrada = false;
+      break;
     }
 
-    // Si la ruta actual es un grupo de rutas
+    // 🔥 Aquí estaba la diferencia
     if (esGrupoRutas(rutaActual)) {
-      if (rutaActual["/"] && segmentos.length == 1) {
+      if (rutaActual["/"] && i === segmentos.length - 1) {
         rutaActual = rutaActual["/"];
         rutaEncontrada = true;
-      } else {
-        rutaEncontrada = false;
       }
     }
-  });
-
-  if (rutaEncontrada) {
-    return [rutaActual, parametros];
-  } else {
-    return null;
   }
+
+  return rutaEncontrada ? [rutaActual, parametros] : null;
 };
+
 
 // Extrae un objeto clave-valor desde un string de parámetros tipo "id=1&modo=editar"
 const extraerParametros = (parametros) => {

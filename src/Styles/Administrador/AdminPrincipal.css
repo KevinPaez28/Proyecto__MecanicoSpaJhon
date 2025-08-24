@@ -1,65 +1,10 @@
 @import url('../variables.css');
-.bodyAdmin{
-  display: flex;
-}
-.lateral{
-  width: 20%;
-  height: 100vh;
-  background-color: #38528a;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  font-family: var(--font--principalateral);
-  font-size: 0.6rem;
-  list-style-type: none; 
-  font-weight:700;
-}
-.lateral__title{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  color: rgb(219, 219, 219);
-  
-}
-.lateral__menu{
-  display: flex;
-  width: 100%;
-  height: 5vh;
-  align-items: center;
-  gap: 10px;
-}
-.lateral__border{
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.lateral__icons{
-font-size: 25px;
-color: rgb(25, 25, 26);
-}
-.lateral__titletext{
-  font-size: 30px;
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-}
-.lateral__text{
-  font-size: 18px;
-  text-decoration: none;
-  color: rgb(255, 255, 255);
- 
-}
-
 .contentadmin{
-  width: 80%;
+  width: 100%;
   height: 100vh;
   display: flex;
   padding:20px;
 }
-
-
 .contentadmin__menu {
   display: grid;
   grid-template-areas: 
@@ -115,6 +60,10 @@ color: rgb(25, 25, 26);
   background-color: rgb(192, 190, 190);
   border-radius: 15px;
   padding-top: 10px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 0px 20px;
+padding-top: 10px;
  }
  
 .menu__ordenes { 
@@ -196,6 +145,21 @@ height: 160px;
 width: 100%;
 height: 80%;
 }
+.menu__productos-content{
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+.menu__productoNombre{
+ font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+.menu__productoStock{
+font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
 .Menu__fechas-content{
 width: 100%;
 height: 20%;
@@ -224,7 +188,7 @@ justify-content: space-between;
 width: 90%;
 }
 .Menu__empleados-content >p {
-font-size: 1.1rem;
+font-size: 1rem;
 }
 .Menu__empleados-pnombres{
 width: 120px ;
@@ -246,6 +210,10 @@ text-align: center;
 grid-area: reportes; 
 background-color: rgb(192, 190, 190);
 border-radius: 15px;
+overflow-y: auto;
+  scrollbar-width: none;
+  padding: 0px 20px;
+padding-top: 10px;
 }
 .menu__notificaciones { 
 grid-area: notificaciones; 

@@ -10,20 +10,19 @@ export default async () =>{
   }
   
   if (id) { 
-    localStorage.setItem("usuarioid", id);
+    localStorage.setItem("cliente_id", id);
   } else {
-    id = localStorage.getItem("usuarioid");
+    id = localStorage.getItem("cliente_id");
   }
 
   if (!id) { 
     console.error("No se encontró un ID de usuario.");
     return;
   }
-  console.log(localStorage);
   
   const reparaciones = await get(`Reparaciones/usuario/${id}`);
   
-  const facturas = await get(`facturas/completa/${id}`)
+  const facturas = await get(`facturas/completa?usuario_id=${id}`)
   MostrarReparacionescliente(reparaciones,facturas);  
    
 }

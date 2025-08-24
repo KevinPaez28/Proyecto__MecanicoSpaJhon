@@ -1,7 +1,9 @@
 import { post } from "../../Helpers/api.js";
-import {  contarCamposFormulario,validar,validarCorreo,validarMinimo,validarCedula,validarContrasenia,validarLetras,validarNumeros,validarMaximo,limpiar } from "../../Helpers/Modules/modules.js"
+import {  contarCamposFormulario,validar,validarCorreo,validarMinimo,validarCedula,validarContrasenia,validarLetras,validarNumeros,validarMaximo,limpiar, validarFormularioCompleto } from "../../Helpers/Modules/modules.js"
+import { error, success ,confirmacion} from "../../Helpers/alertas.js";
 import "../../Styles/Signup.css";
-
+import "../../Components/formularioUsuarios.css";
+import "../../Components/botonesadmin.css";
 export default (parametros = null) =>{
 
   const cedula= document.querySelector("#cedula")
@@ -20,8 +22,8 @@ export default (parametros = null) =>{
   const nuevoUsuario = async (event) => {
     event.preventDefault();
 
-    const datos = validar(event);
-    console.log("Datos validados:", datos);
+    const datos = validar(event); 
+    validarFormularioCompleto(formulario)
     if (Object.keys(datos).length === cantidadCampos) {
       datos['rol_id'] = 2;
       
@@ -31,23 +33,28 @@ export default (parametros = null) =>{
       datos['correo'] = datos['correo'].trim();
       datos['usuario'] = datos['usuario'].trim();
       datos['contrasena'] = datos['contrasena'].trim();
+      datos['estado_usuario_id'] = 1
 
       delete datos['documento'];
       
-      console.log("Datos validados:", datos);
 
-      const respuesta = await post('Usuarios', datos); 
+        const respuesta = await post('Usuarios', datos);
 
-      if (respuesta?.ok) {
-        alert("Usuario creado correctamente");
-        formulario.reset();
-      } else {
-        alert("No se pudo crear el usuario");
-      }
+        if (respuesta.ok) {
+            if ((await success({ message: "Usuario registrado con éxito" })).isConfirmed) {
+                formulario.reset();
+            }
+            return respuesta.data; // <-- Aquí retornas lo que manda el backend
+        } else {
+            await error(respuesta.data?.error || "No se pudo crear el usuario", "");
+            return null;
+        }
     } else {
-      alert("Faltan campos válidos");
+        await error("Faltan campos válidos", "");
+        return null;
     }
-  };
+  }
+
 
   formulario.addEventListener('submit', nuevoUsuario);
 

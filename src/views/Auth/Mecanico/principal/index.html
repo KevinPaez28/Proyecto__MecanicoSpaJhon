@@ -3,7 +3,6 @@
 <div class="content__mecanico">
   <div class="panel_lateral">
     <h2 class="panel_title">Taller Pro</h2>
-
     <div class="panel_menu">
       <div class="panel_iconbox">
         <i class="panel_icon fa-solid fa-screwdriver-wrench"></i>
@@ -17,6 +16,12 @@
       </div>
       <a href="#/mecanico/Vehiculos" class="panel_text">Vehiculos</a>
     </div>
+    <div class="panel_menu">
+      <div class="panel_iconbox">
+        <i class="panel_icon bi bi-person-fill"></i>
+      </div>
+      <a href="#/mecanico/informacion" class="panel_text">Informacion Usuario</a>
+    </div>
 
     <div class="panel_menu" id="btnCerrarSesion">
       <div class="panel_iconbox">
@@ -24,7 +29,7 @@
       </div>
       <span class="panel_text">Cerrar sesión</span>
     </div>
-   
+
   </div>
   <div class="content__info">
     <div class="header__mecanico">
@@ -52,42 +57,41 @@
   </div>
   <dialog class="insertarServicios" id="dialogServicios">
     <div class="content__form">
-      <form action="" class="formServicios" id="insertar__servicios">
+      <form action="" class="formServicios" id="insertar__servicios" novalidate>
         <div class="content__inputs">
           <div class="fila__info">
             <label class="fila__text">Servicio:</label>
-            <select  class="ingreso__datos" id="servicio_id" required>
+            <select class="ingreso__datos" id="servicio_id" required>
               <option value="">Selecciona un servicio</option>
             </select>
           </div>
           <div class="fila__info">
             <label class="fila__text">Placa:</label>
-            <select  class="ingreso__datos" id="vehiculo_id" required></select>
+            <select class="ingreso__datos" id="vehiculo_id" required></select>
           </div>
           <div class="fila__info">
             <label class="fila__text">Fecha:</label>
-            <input class="ingreso__datos" type="date" id="fecha" required>
+            <input class="ingreso__datos" type="date" id="fecha" name="fecha" required>
           </div>
           <div class="fila__info">
             <label class="observaciones" class="fila__text">Observaciones:</label>
-            <textarea class="observaciones"  id="observaciones" required></textarea>
+            <textarea class="observaciones" id="observaciones" required></textarea>
           </div>
           <div class="fila__info">
             <label class="fila__text">Estado:</label>
-            <select class="ingreso__datos" id="estado_id" required></select> 
+            <select class="ingreso__datos" id="estado_id" required></select>
           </div>
         </div>
         <div class="content__buttones">
           <button type="submit" class="buttonservicios" id="guardarServicios">Guardar</button>
-          <button type="button" class="buttonservicios">Eliminar</button>
           <button class="close__servicios buttonservicios">Close</button>
-        </div>   
+        </div>
       </form>
     </div>
   </dialog>
   <dialog class="insertar_productos" id="dialogProductos">
     <div>
-      <form action="" class="formProductos" id="insertar__productos">
+      <form action="" class="formProductos" id="insertar__productos" novalidate>
         <div class="content__inputs">
           <div class="fila__info">
             <label class="fila__text">N° de Servicio:</label>
@@ -101,26 +105,26 @@
             <label class="fila__text">Productos Consumidos</label>
             <select class="ingreso__datos" id="producto_id" required></select>
           </div>
-       </div>
+        </div>
         <div class="content__buttones">
           <button type="submit" class="buttonservicios" id="guardarproductos">Guardar</button>
           <button type="button" class="buttonservicios">Eliminar</button>
-          <button  type="button" class="close__productos buttonservicios">Close</button>
-        </div>   
+          <button type="button" class="close__productos buttonservicios">Close</button>
+        </div>
       </form>
     </div>
   </dialog>
-    <dialog class="generar__facturas" id="dialogfacturas">
-     <form action="" class="formFacturas" id="insertar__facturas">
-        <div class="content__facturas">
-          <label class="fila__text">N° de Servicio:</label>
-          <select class="ingreso__factura" id="detalle_idfactura" required></select>
-        </div>
-        <div class="content__buttones">
-          <button type="submit" class="buttonservicios" id="generarfactura">Generar</button>
-          <button  type="button" class="close__factura buttonservicios">Close</button>
-        </div>
-      </form>
-   </dialog>
+  <dialog class="generar__facturas" id="dialogfacturas">
+    <form action="" class="formFacturas" id="insertar__facturas" novalidate>
+      <div class="content__facturas">
+        <label class="fila__text">N° de Servicio:</label>
+        <select class="ingreso__factura" id="detalle_idfactura" required></select>
+      </div>
+      <div class="content__buttones">
+        <button type="submit" class="buttonservicios" id="generarfactura">Generar</button>
+        <button type="button" class="close__factura buttonservicios">Close</button>
+      </div>
+    </form>
+  </dialog>
   <script type="module" src="principalMecanico.js"></script>
 </div>

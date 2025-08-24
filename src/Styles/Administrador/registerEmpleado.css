@@ -1,144 +1,85 @@
 @import url('../variables.css');
-.loginmecanico{
+
+.contentBloque{
+  padding: 10px;
+  width: 100%;
+  height: 100vh;
+}
+.contenidoAdmin{
+  width: 100%;
+  height: 65%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  height: 60vh;
+}
+.titleadmin{
+  height: 10vh;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-Title);
+ font-weight: 600;
+ font-size: 1.9rem;
+  text-align: center;
+  font-size: 25px;
+}
+.contenido{
+  display: flex;
+  flex-direction: column;
   gap: 10px;
+  height: 80vh;
+  overflow-x: auto; 
 }
-.loginmecanico__login{
-  width: 40%;
-  height: 50%;
-  border-radius: 30px;
-}
-.dialog__centrado{
-  position: fixed; 
-  padding: 20px;
-  border: none;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  height:50%;
-  border-radius: 12px;
-  transform: translate(-50%, -50%);
-  background-color: var( --color--principal);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.359);
-}
-.EliminarUsuario__Content{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0px 10px;
-}
-.EliminarUsuario__title{
-  display: flex;
-  justify-content: center;
-  height: 15%;
-  align-items: center;
-}
-.Eliminarusuario__text{
-  font-size: 1.2rem;
-  font-family:var(--font-Title);
-  font-weight: 600;
-}
-.EliminarUsuario__body{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 68%;
+.tabla-usuarios {
   width: 100%;
-  background-color: var(--color--fondologin);
-  border-radius: 20px;
-  margin:10px 0px;
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-.Menu__empleados-header{
-   display: flex;
-   width: 75%;
-  justify-content: space-evenly;
-   margin-top: 10px;
-   /* padding: 0px 10px; */
-}
-.empleadosContent{
-  display: flex;
-  justify-content: space-between;
-  height: 25%;
-  width:100% ;
-}
-.Menu__empleados-titulos{
-   font-family: var(--font-body);
-  color: var(--color--fondotextos);
-  font-size: 1.3rem;
-  width: 18%;
-  font-weight: 600;
-}
-.empleadosContent__info{
-  display: flex;
-  justify-content: space-evenly;
-  width: 75%;
-}
-.empleadosContent__datos{
-  width: 20%;
-  display: flex;
-  justify-content: space-between;
+  border-collapse: collapse;
   font-family: var(--font-body);
-  color: var(--color--fondotextos);
 }
-.empleadosContent__acciones{
-  width: 20%;
-  height: 100%;
-  display: flex;
-  gap: 5px;
+.tabla-usuarios th,
+.tabla-usuarios td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
 }
-.btn-modificar{
-  width: 50%;
-  height: 30px;
-  background-color:var(--color--buttonProductos) ;
-  border: none;
-  border-radius: 15px;
-  font-family: var(--font--principalContent);
+.tabla-usuarios th {
+  background-color: var(--color--fondologin);
+  color: var(--color--negro);
   font-weight: 600;
-}
-.EliminarUsuario__close{
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.btn-Eliminar{
-  width: 50%;
-  height: 30px;
-  background-color:var(--color--buttonEliminar) ;
-  border: none;
-  border-radius: 15px;
-  font-family: var(--font--principalContent);
-  font-weight: 600;
 }
-.buttonclose{
-  width: 15%;
-  height: 100%;
-  border-radius: 15px;
-  background-color: var( --color--fondologin);
-  color: var(--color--fondotextos);
-}
-
-.empleadosContent__input{
-  width: 95px;
-  background-color:var(--color--hoverForm) ;
+.tabla-usuarios button {
+  padding: 5px 10px;
   border: none;
   border-radius: 10px;
-  padding: 4px;
-}
-.btn-guardar{
-  width: 50%;
-  height: 30px;
-  background-color:var(--color--buttonEditado) ;
-  border: none;
-  border-radius: 15px;
-  font-family: var(--font--principalContent);
   font-weight: 600;
+  cursor: pointer;
+}
+
+.tabla-usuarios .btn-modificar {
+  background-color: var(--color--buttonProductos);
+  color: #fff;
+}
+
+.tabla-usuarios .btn-Eliminar {
+  background-color: var(--color--buttonEliminar);
+  color: #fff;
+}
+.form__inputtext{
+ width: 50%;
+ height: 5%;
+} 
+.mensaje-error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+.form__input{
+  border-radius: 5px;
+  height: 25px;
+  padding: 3px;
+  border: none;
 }

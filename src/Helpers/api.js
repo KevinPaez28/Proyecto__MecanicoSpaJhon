@@ -8,7 +8,7 @@ export const get = async (endpoint, params = {}) => {
       console.error("Error en GET:", data?.error || "Error desconocido");
       return null;
     }
-    return data; // Devuelve el JSON como antes
+    return data; 
   } catch (error) {
     console.error("Error en GET:", error);
     return null;
@@ -25,7 +25,6 @@ export const post = async (endpoint, data) => {
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.error("Error en POST:", responseData?.error || "Error desconocido");
       return { ok: false, data: responseData };
     }
 
@@ -104,15 +103,18 @@ export const login = async (usuario, contrasena) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ usuario, contrasena })
     });
+
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Login fallido:", data?.error || "Error desconocido");
-      return null;
+      // Retorna error con bandera ok: false
+      return { ok: false, error: data?.error || "Error desconocido al iniciar sesión" };
     }
-    return data;
+
+    // Si todo salió bien
+    return { ok: true, ...data };
   } catch (error) {
     console.error("Error en login:", error);
-    return null;
+    return { ok: false, error: "Error inesperado al iniciar sesión" };
   }
 };

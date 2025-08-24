@@ -11,7 +11,6 @@
       </div>
     </div>
    </div>
-
     <div class="registrarse">
       <img class="imagen__fondo" src="../../../public/Logo.png" alt="">
     <div class="content__logo">
@@ -20,7 +19,7 @@
     </div>
      <form id="formUsuario" class="formulario" novalidate>
           <div class="title">
-            <p class="form__text">Register</p>
+            <p class="form__text">Registrarse</p>
           </div>
 
           <div class="form__grupo">
@@ -28,7 +27,7 @@
               <label for="nombre">Nombre completo:</label>
             </div>
             <div class="form__inputtext">
-              <input type="text" id="nombre" class="form__input" placeholder="Nombre completo" min="5" required>
+              <input type="text" id="nombre" class="form__input" placeholder="Nombre completo" minlength="5" required>
             </div>
           </div>
 
@@ -37,7 +36,7 @@
               <label for="correo">Correo electrónico:</label>
             </div>
             <div class="form__inputtext">
-              <input type="email" id="correo" class="form__input" placeholder="Correo electrónico" required>
+              <input type="email" id="correo" class="form__input" placeholder="Correo electrónico" minlength="5" required>
             </div>
           </div>
 
@@ -64,7 +63,7 @@
             <label for="usuario">Nombre de usuario:</label>
             </div>
             <div class="form__inputtext">
-            <input type="text" id="usuario" class="form__input" placeholder="Nombre Usuario" min="5" required />
+            <input type="text" id="usuario" class="form__input" placeholder="Nombre Usuario" minlength="5" required />
             </div>
           </div>
 
@@ -82,5 +81,6 @@
           </div>
         </form>
     </div>
+    <script src="./RegisterController.js"></script>
   </div>
 </div>

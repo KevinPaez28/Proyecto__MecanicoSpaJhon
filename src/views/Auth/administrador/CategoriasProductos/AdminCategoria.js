@@ -22,8 +22,7 @@ export default async (parametros = null) =>{
     e.preventDefault(); // Evita que redireccione inmediatamente
     const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
     if (confirmacionCerrar.isConfirmed) {
-      // Si necesitas limpiar datos de sesión
-      // localStorage.clear();
+      localStorage.clear();
       window.location.href = "#/Home"; 
     }
   });
@@ -73,38 +72,49 @@ export default async (parametros = null) =>{
     event.preventDefault();
 
     const totalRequeridos = contarCamposFormulario(formularioproductos);
-    let completados = 0;
-    let datos = {};
+let completados = 0;
+let datos = {};
 
-    for (let i = 0; i < formularioproductos.elements.length; i++) {
-      const campo = formularioproductos.elements[i];
+for (let i = 0; i < formularioproductos.elements.length; i++) {
+  const campo = formularioproductos.elements[i];
 
-      if (campo.hasAttribute('required')) {
-        if (validarMinimo(campo)) {
-          limpiar(campo);
-          datos[campo.id.toLowerCase()] = campo.value.trim();
-          completados++;
-        }
-      }
+  if (campo.hasAttribute('required')) {
+    if (validarMinimo(campo)) {
+      limpiar(campo);
+      datos[campo.id.toLowerCase()] = campo.value.trim();
+      completados++;
     }
-    
-    if (completados === totalRequeridos) {
+  }
+}
 
-      const confirm = await confirmacion("¿Desea Crear el Productos?")
-      if(confirm.isConfirmed){
-        const respuesta = await post('Productos', datos);
-        if((await success({ message: "Productos Registrado con exito"})).isConfirmed){
-          if (respuesta?.ok) {
-            formularioproductos.reset();
-            location.reload()
-          } else {
-            await error("No se pudo crear el Productos", "");
-          }
-        }
+if (completados === totalRequeridos) {
+  const confirm = await confirmacion("¿Desea Crear el Producto?");
+  if (confirm.isConfirmed) {
+    const respuesta = await post('Productos', datos);
+
+    if (respuesta.ok) {
+      // Todo bien, producto creado
+      if ((await success({ message: "Producto registrado con éxito" })).isConfirmed) {
+        formularioproductos.reset();
+        location.reload();
       }
     } else {
-       await error("Por favor completa todos los campos requeridos.");
+      // Leer error desde la respuesta JSON
+      let errorMsg = "No se pudo crear el producto";
+      try {
+        const errorData = await respuesta.json();
+        if (errorData.error) {
+          errorMsg = errorData.error;
+        }
+      } catch (e) {
+        // no hacer nada, mantener mensaje por defecto
+      }
+      await error(errorMsg, "");
     }
+  }
+} else {
+  await error("Por favor completa todos los campos requeridos.");
+}
   };
 
   Nombre.addEventListener("blur", (event) => {

@@ -1,0 +1,23 @@
+.button__form {
+  display: inline-block;        /* Permite que el botón se adapte al contenido */
+  padding: 0.6em 1.5em;         /* Alto y ancho relativo al contenido */
+  border-radius: 50px;
+  background-color: var(--color--principal);
+  color: #fff;
+  font-family: var(--font-buttons);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;  
+  text-decoration: none;    /* Para que el padding no haga overflow */
+}
+
+.button__form--diseño_fondo:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--color--hoverForm);
+  transform: translateY(-2px);
+  color: black;
+}

@@ -1,6 +1,6 @@
-import { get , del, put, patch,post } from "../api.js";
-import { confirm ,success,error,eliminar} from "../alertas.js";
-export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) =>  {
+import { get, del, put, patch, post } from "../api.js";
+import { confirm, success, error, eliminar } from "../alertas.js";
+export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) => {
   try {
     if (!usuarios || !Array.isArray(usuarios)) {
       throw new Error("No se pudo obtener la lista de usuarios.");
@@ -37,40 +37,40 @@ export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) =>  {
     console.error('Error al obtener usuarios:', error);
   }
 }
-export const ObteneReparacionesadmin = async ()  =>{
-const reparaciones = await get (`Reparaciones/admin`)
-const contenedor = document.querySelector(".menu__trabajos");
-contenedor.innerHTML = "";
+export const ObteneReparacionesadmin = async () => {
+  const reparaciones = await get(`Reparaciones/admin`)
+  const contenedor = document.querySelector(".menu__trabajos");
+  contenedor.innerHTML = "";
 
-reparaciones.forEach(element => {
-  const reparacion_content = document.createElement("div");
-  reparacion_content.classList.add("Menu__reparaciones-content");
+  reparaciones.forEach(element => {
+    const reparacion_content = document.createElement("div");
+    reparacion_content.classList.add("Menu__reparaciones-content");
 
-  const pPlaca = document.createElement("p");
-  pPlaca.classList.add("Menu__reparaciones-datos");
-  pPlaca.textContent = element.placa;
+    const pPlaca = document.createElement("p");
+    pPlaca.classList.add("Menu__reparaciones-datos");
+    pPlaca.textContent = element.placa;
 
-  const pUsuario = document.createElement("p");
-  pUsuario.classList.add("Menu__reparaciones-datos");
-  pUsuario.textContent = element.cliente;
+    const pUsuario = document.createElement("p");
+    pUsuario.classList.add("Menu__reparaciones-datos");
+    pUsuario.textContent = element.cliente;
 
-  const pEstado = document.createElement("p");
-  pEstado.classList.add("Menu__reparaciones-datos");
-  pEstado.textContent = element.nombre_estado;
+    const pEstado = document.createElement("p");
+    pEstado.classList.add("Menu__reparaciones-datos");
+    pEstado.textContent = element.nombre_estado;
 
-  const pServicio = document.createElement("p");
-  pServicio.classList.add("Menu__reparaciones-datos");
-  pServicio.textContent = element.detalle_id;
+    const pServicio = document.createElement("p");
+    pServicio.classList.add("Menu__reparaciones-datos");
+    pServicio.textContent = element.detalle_id;
 
-  reparacion_content.appendChild(pServicio);
-  reparacion_content.appendChild(pPlaca);
-  reparacion_content.appendChild(pUsuario);
-  reparacion_content.appendChild(pEstado);
+    reparacion_content.appendChild(pServicio);
+    reparacion_content.appendChild(pPlaca);
+    reparacion_content.appendChild(pUsuario);
+    reparacion_content.appendChild(pEstado);
 
-  contenedor.appendChild(reparacion_content);
-});
+    contenedor.appendChild(reparacion_content);
+  });
 }
-export const fechaPlacaServicio = async () =>{
+export const fechaPlacaServicio = async () => {
   const reparaciones = await get(`Reparaciones/fecha`);
   const contenedor = document.querySelector(".menu__fechas");
   contenedor.innerHTML = "";
@@ -85,7 +85,7 @@ export const fechaPlacaServicio = async () =>{
     pInfo.textContent = `Fecha: ${element.fecha} | Placa: ${element.placa || 'N/A'} | Servicio: ${element.nombre_servicio || 'N/D'}`;
 
     // Ejemplo: mostrar cliente o estado en otro párrafo
-    
+
 
     reparacion_content.appendChild(pInfo);
 
@@ -93,8 +93,8 @@ export const fechaPlacaServicio = async () =>{
   });
 }
 export const TotalDeClientes = async (usuarios) => {
-  const reparaciones = await get (`Reparaciones`)
-  const totalFacturas = await get (`facturas/totalventas`)
+  const reparaciones = await get(`Reparaciones`)
+  const totalFacturas = await get(`facturas/totalventas`)
   const elementosMenuNumbers = document.querySelectorAll('.menu__numbers');
   if (!elementosMenuNumbers || elementosMenuNumbers.length === 0) return;
 
@@ -106,192 +106,64 @@ export const TotalDeClientes = async (usuarios) => {
   const consultasEnProceso = reparaciones.filter(consulta => consulta.nombre_estado === 'Procesando');
   elementosMenuNumbers[1].textContent = consultasEnProceso.length;
 
-  elementosMenuNumbers[2].textContent = `$${Number(totalFacturas).toLocaleString('es-CO')}`;
+  elementosMenuNumbers[2].textContent = `$${Number(totalFacturas.total).toLocaleString('es-CO')}`;
 
 
 };
+export const ProdcutosAgotados = async () => {
+  const productos = await get("Productos");
+  console.log(productos)
+  const contenedor = document.querySelector(".productos_cantidad");
+  // Filtrar productos con stock menor a 2
+  const pocosProductos = productos.filter(p => p.stock < 2);
 
-export const ModificarUsuarios = (usuarios, Roles) => {
+  pocosProductos.forEach(element => {
+    const productoCard = document.createElement("div");
+    productoCard.classList.add("menu__productos-content");
+
+    // Nombre del producto
+    const pNombre = document.createElement("p");
+    pNombre.classList.add("menu__productoNombre");
+    pNombre.textContent = `Producto: ${element.nombre}`;
+
+    // Stock
+    const pStock = document.createElement("p");
+    pStock.classList.add("menu__productoStock");
+    pStock.textContent = `Stock: ${element.stock}`;
+
+    // Añadir todo al card
+    productoCard.appendChild(pNombre);
+    productoCard.appendChild(pStock);
+
+    contenedor.appendChild(productoCard);
+  });
+}
+
+
+export const eliminarUsuarioPorId = async (id) => {
+  const dialog = document.getElementById("EliminarUsuario");
   try {
-    const dialogo = document.getElementById("EliminarUsuario");
-    const contenido = document.querySelector(".EliminarUsuario__Content");
+    dialog.close();
+    const confirm = await eliminar("¿Deseas desactivar el usuario?");
+    if (confirm.isConfirmed) {
+      const respuesta = await put(`Usuarios/${id}/desactivar`);
 
-    contenido.innerHTML = "";
-
-    const encabezado = document.createElement("div");
-    encabezado.classList.add("Menu__empleados-header");
-
-    const nombre__content = document.createElement("p");
-    nombre__content.classList.add("Menu__empleados-titulos");
-    nombre__content.textContent = "Nombre";
-
-    const cedula__content = document.createElement("p");
-    cedula__content.classList.add("Menu__empleados-titulos");
-    cedula__content.textContent = "Cédula";
-
-    const telefono = document.createElement("p");
-    telefono.classList.add("Menu__empleados-titulos");
-    telefono.textContent = "Teléfono";
-
-    const usuariotext = document.createElement("p");
-    usuariotext.classList.add("Menu__empleados-titulos");
-    usuariotext.textContent = "Usuario";
-
-    const rol__content = document.createElement("p");
-    rol__content.classList.add("Menu__empleados-titulos");
-    rol__content.textContent = "Rol";
-
-    encabezado.appendChild(nombre__content);
-    encabezado.appendChild(cedula__content);
-    encabezado.appendChild(telefono);
-    encabezado.appendChild(usuariotext);
-    encabezado.appendChild(rol__content);
-
-    contenido.appendChild(encabezado);
-
-    usuarios.forEach(usuario => {
-      const fila = document.createElement("div");
-      fila.classList.add("empleadosContent");
-
-      const datosDiv = document.createElement("div");
-      datosDiv.classList.add("empleadosContent__info");
-
-      const nombre = document.createElement("p");
-      nombre.classList.add("empleadosContent__datos");
-      nombre.textContent = usuario.nombre;
-
-      const cedula = document.createElement("p");
-      cedula.classList.add("empleadosContent__datos");
-      cedula.textContent = usuario.cedula;
-
-      const telefono = document.createElement("p");
-      telefono.classList.add("empleadosContent__datos");
-      telefono.textContent = usuario.telefono;
-
-      const usuarioText = document.createElement("p");
-      usuarioText.classList.add("empleadosContent__datos");
-      usuarioText.textContent = usuario.usuario;
-
-      const rol = document.createElement("p");
-      rol.classList.add("empleadosContent__datos");
-      const encontrado = Roles.find(r => r.rol_id === usuario.rol_id);
-      rol.textContent = encontrado ? encontrado.nombre : "Desconocido";
-
-      datosDiv.appendChild(nombre);
-      datosDiv.appendChild(cedula);
-      datosDiv.appendChild(telefono);
-      datosDiv.appendChild(usuarioText);
-      datosDiv.appendChild(rol);
-
-      const accionesDiv = document.createElement("div");
-      accionesDiv.classList.add("empleadosContent__acciones");
-
-      const btnEditar = document.createElement("button");
-      btnEditar.textContent = "Editar";
-      btnEditar.classList.add("btn-modificar");
-
-      const btnEliminar = document.createElement("button");
-      btnEliminar.textContent = "Eliminar";
-      btnEliminar.classList.add("btn-Eliminar");
-
-      btnEliminar.addEventListener("click", () => {
-        eliminarUsuarioPorId(usuario.usuario_id);
-      });
-
-      btnEditar.addEventListener("click", async () =>{
-        editarUsuarios(nombre,cedula,telefono,usuarioText,btnEditar,usuario.usuario_id,usuario.correo,usuario.contrasena,usuario.rol_id)
-      });
-      accionesDiv.appendChild(btnEditar);
-      accionesDiv.appendChild(btnEliminar);
-
-      fila.appendChild(datosDiv);
-      fila.appendChild(accionesDiv);
-
-      contenido.appendChild(fila);
-    });
-
-    dialogo.showModal();
-
-  } catch (error) {
-    console.error("Error al mostrar usuarios para eliminar:", error);
-  }
-};
-export const editarUsuarios = async (nombre,cedula,telefono,usuarioText,btnEditar,id,correo,contrasena,rol) =>{
-  const dialog = document.getElementById("EliminarUsuario")
-  const inputNombre = document.createElement("input");
-  inputNombre.classList.add("empleadosContent__input");
-  inputNombre.value = nombre.textContent;
-  nombre.replaceWith(inputNombre); 
-
-  const inputCedula = document.createElement("input");
-  inputCedula.classList.add("empleadosContent__input");
-  inputCedula.value = cedula.textContent;
-  cedula.replaceWith(inputCedula);
-
-  const inputTelefono = document.createElement("input");
-  inputTelefono.classList.add("empleadosContent__input");
-  inputTelefono.value = telefono.textContent;
-  telefono.replaceWith(inputTelefono);
-
-  const inputUsuario = document.createElement("input");
-  inputUsuario.classList.add("empleadosContent__input");
-  inputUsuario.value = usuarioText.textContent;
-  usuarioText.replaceWith(inputUsuario);
-
-  btnEditar.textContent = "Guardar";
-  btnEditar.classList.remove("btn-modificar");
-  btnEditar.classList.add("btn-guardar");
-
-  btnEditar.addEventListener("click", async () => {
-        const nuevoUsuario = {
-          nombre: inputNombre.value.trim(),
-          cedula: inputCedula.value.trim(),
-          telefono: inputTelefono.value.trim(),
-          usuario: inputUsuario.value.trim(),
-          correo: correo,       
-          contrasena: contrasena,
-          rol_id: rol
-        };
-    const paramns = id;
-    try {
-    const respuesta = await put(`Usuarios/${paramns}`, nuevoUsuario);
-      dialog.close()
-    const confirmacion = await confirm("¿Desea actualizar el usuario?");
-    if (confirmacion.isConfirmed) {
       if (respuesta.ok) {
-        if ((await success({ message: "Usuario actualizado con éxito" })).isConfirmed) {
+        const ok = await success({ message: "Usuario desactivado con éxito" });
+        if (ok.isConfirmed) {
           location.reload();
         }
       } else {
-        await error(respuesta.data?.error || "No se pudo actualizar el usuario");
+        const mensajeError = (typeof respuesta.data === "string")
+          ? respuesta.data
+          : (respuesta.data?.error || "No se pudo desactivar el usuario");
+        console.error("Error al desactivar el usuario:", mensajeError);
+        await error(mensajeError);
       }
     }
   } catch (error) {
-    console.error("Error al actualizar usuario:", error);
-    await error("Error inesperado al actualizar");
-  }
-  });
-};
-export const eliminarUsuarioPorId = async (id) => {
-  const dialog= document.getElementById("EliminarUsuario")
-    try {  
-        dialog.close();
-        const confirm = await eliminar("¿Deseas eliminar el usuario?");
-        if (confirm.isConfirmed) {
-          const respuesta = await del(`Usuarios/${id}`);
-          
-          if (respuesta.ok) {
-            const ok = await success({ message: "Usuario eliminado con éxito" });
-            if (ok.isConfirmed) {
-              location.reload();
-            }
-          } else {
-            await error("No se pudo eliminar el usuario");
-          }
-        }
-    } catch (error) {
-    console.error("Error al eliminar el usuario:", error);
-    await error("Error inesperado al eliminar");
+    console.error("Error inesperado al desactivar el usuario:", error);
+    await error("Error inesperado al desactivar");
   }
 };
 
@@ -329,7 +201,7 @@ export const Vehiculos = (vehiculos, Usuarios) => {
 
     const pUsuario = document.createElement("p");
     pUsuario.classList.add("interfazvehiculos__titulonombre");
-    pUsuario.textContent = "Usuario:";
+    pUsuario.textContent = "Propietario:";
     titulos.appendChild(pUsuario);
 
     const content = document.createElement("div");
@@ -351,20 +223,14 @@ export const Vehiculos = (vehiculos, Usuarios) => {
     usuarioId.classList.add("interfazvehiculos__usuarioId");
 
     const usuariosFiltrados = Usuarios.filter((usuario) => {
-      // Verifica que el ID del usuario sea el mismo que el del elemento actual
-      const mismoUsuario = usuario.usuario_id === element.usuario_id;
-
-      // Verifica que el rol sea exactamente 2
-      const esRolCliente = usuario.rol_id === 2;
-
-      // Solo retorna aquellos que cumplan ambas condiciones
+      const mismoUsuario = Number(usuario.usuario_id) === Number(element.usuario_id);
+      const esRolCliente = Number(usuario.rol_id) === 2;
       return mismoUsuario && esRolCliente;
     });
 
     if (usuariosFiltrados.length > 0) {
-    usuarioId.textContent = usuariosFiltrados[0].usuario;
+      usuarioId.textContent = usuariosFiltrados[0].nombre; // Mostrar nombre completo
     } else {
-      
       usuarioId.textContent = "Sin usuario asignado";
     }
 
@@ -381,7 +247,8 @@ export const Vehiculos = (vehiculos, Usuarios) => {
     btnEditar.classList.add("interfazvehiculos__buttones");
     btnEditar.textContent = "Editar";
     btnEditar.dataset.id = element.vehiculo_id;
-    btnEditar.dataset.usuarioId = element.usuario_id;
+    // PASAMOS EL NOMBRE DE USUARIO LOGIN para el backend
+    btnEditar.dataset.usuarioLogin = usuariosFiltrados.length > 0 ? usuariosFiltrados[0].usuario : "";
 
     const btnEliminar = document.createElement("button");
     btnEliminar.classList.add("interfazvehiculos__buttones");
@@ -390,91 +257,88 @@ export const Vehiculos = (vehiculos, Usuarios) => {
     botones.appendChild(btnEditar);
     botones.appendChild(btnEliminar);
 
-    btnEliminar.addEventListener("click" , () =>{
-      EliminarVehiculos(element.vehiculo_id)
-    })
+    btnEliminar.addEventListener("click", () => {
+      EliminarVehiculos(element.vehiculo_id);
+    });
 
     btnEditar.addEventListener("click", () => {
       EditarVehiculos(nombre, placa, modelo, btnEditar);
     });
 
-    
     // Estructura final del card
     infoWrapper.appendChild(titulos);
     infoWrapper.appendChild(content);
     body.appendChild(infoWrapper);
-    body.appendChild(botones); // AQUI se agregan fuera del info
+    body.appendChild(botones); // Se agregan fuera del info
     cards.appendChild(body);
     seccionInfo.appendChild(cards);
   });
 };
-export const EliminarVehiculos = async (id) =>{
+export const EliminarVehiculos = async (id) => {
   try {
-    const confirm = await eliminar ("Desea eliminar la informacion del Vehiculo?")
-    if(confirm.isConfirmed){
-      const respuesta = await del(`Vehiculos/${id}`)
+    const confirm = await eliminar("¿Desea eliminar la información del Vehículo?");
+    if (confirm.isConfirmed) {
+      const respuesta = await del(`Vehiculos/${id}`);
       if (respuesta.ok) {
-        const ok = await success({ message: "Informacion eliminada con éxito" });
-        if (ok.isConfirmed) {
-          location.reload();
-        }
+        const ok = await success({ message: "Información eliminada con éxito" });
+        if (ok.isConfirmed) location.reload();
       } else {
-        await error("No se pudo eliminar la informacion");
+        await error(respuesta.data?.error || "No se pudo eliminar la información");
       }
     }
   } catch (error) {
-    console.error("Error al eliminar el Vehiculo:", error);
+    console.error("Error inesperado al eliminar el vehículo:", error);
     await error("Error inesperado al eliminar");
   }
 };
-export const EditarVehiculos = (nombre, placa, modelo, btnEditar) =>{
-   const inputMarca = document.createElement("input");
-    inputMarca.classList.add("inputEditar");
-    inputMarca.value = nombre.textContent;
+export const EditarVehiculos = (nombre, placa, modelo, btnEditar) => {
+  const inputMarca = document.createElement("input");
+  inputMarca.classList.add("inputEditar");
+  inputMarca.value = nombre.textContent;
 
-    const inputPlaca = document.createElement("input");
-    inputPlaca.classList.add("inputEditar");
-    inputPlaca.value = placa.textContent;
+  const inputPlaca = document.createElement("input");
+  inputPlaca.classList.add("inputEditar");
+  inputPlaca.value = placa.textContent;
 
-    const inputModelo = document.createElement("input");
-    inputModelo.classList.add("inputEditar");
-    inputModelo.value = modelo.textContent;
+  const inputModelo = document.createElement("input");
+  inputModelo.classList.add("inputEditar");
+  inputModelo.value = modelo.textContent;
 
-    nombre.replaceWith(inputMarca);
-    placa.replaceWith(inputPlaca);
-    modelo.replaceWith(inputModelo);
+  nombre.replaceWith(inputMarca);
+  placa.replaceWith(inputPlaca);
+  modelo.replaceWith(inputModelo);
 
-    btnEditar.textContent = "Guardar";
+  btnEditar.textContent = "Guardar";
 
-    btnEditar.addEventListener("click", async () => {
-        const EditarVehiculo = {
-        marca: inputMarca.value.trim(),
-        placa: inputPlaca.value.trim(),
-        modelo: inputModelo.value.trim(),
-        usuario_id: btnEditar.dataset.usuarioId
-      };
-      try {
-        const respuesta = await put(`Vehiculos/${btnEditar.dataset.id}`, EditarVehiculo);
+  btnEditar.addEventListener("click", async () => {
+    const EditarVehiculo = {
+      marca: inputMarca.value.trim(),
+      placa: inputPlaca.value.trim(),
+      modelo: inputModelo.value.trim(),
+      usuario: btnEditar.dataset.usuarioLogin.trim(), // Enviamos usuario login aquí
+    };
+    console.log(EditarVehiculo);
+    try {
+      const respuesta = await put(`Vehiculos/${btnEditar.dataset.id}`, EditarVehiculo);
 
-        const confirmacion = await confirm("actualizar")
+      const confirmacion = await confirm("actualizar");
 
-        if (confirmacion.isConfirmed) {
-            if (respuesta.ok) {
-              if ((await success({ message: "Vehículo actualizado con éxito" })).isConfirmed) {
-                location.reload();
-              }
-            } else {
-              await error(respuesta.data?.error || "Error al actualizar vehículo");
-              location.reload();
-            }
+      if (confirmacion.isConfirmed) {
+        if (respuesta.ok) {
+          if ((await success({ message: "Vehículo actualizado con éxito" })).isConfirmed) {
+            location.reload();
           }
-        } catch (error) {
-          console.error("Error:", error);
-          await error("Error inesperado");
+        } else {
+          await error(respuesta.data?.error || "Error al actualizar vehículo");
+          location.reload();
         }
-   });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      await error("Error inesperado");
+    }
+  });
 };
-
 
 
 export const Categorias_Productos = (Categorias, Productos, select, contenedorPadre) => {
@@ -520,12 +384,11 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
     btnEliminar.classList.add("interfazcategorias__buttones");
     btnEliminar.textContent = "Eliminar";
 
-    let id_producto = ""
     let Productos_Categoriaid = element.categoria_id;
     const productosFiltrados = Productos.filter(p => p.categoria_id == element.categoria_id);
+
     if (productosFiltrados.length > 0) {
       productosFiltrados.forEach(p => {
-       
         const divProducto = document.createElement("div");
         divProducto.classList.add("interfazcategorias__productos_item");
 
@@ -538,16 +401,39 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
         const precio = document.createElement("p");
         precio.textContent = p.precio;
 
-        id_producto = p.producto_id;
-        
         divProducto.append(stock, nombreProducto, precio);
+
+        // Icono eliminar con evento para cada producto
+        const iconoEliminar = document.createElement("i");
+        iconoEliminar.classList.add("bi", "bi-trash", "icono_eliminar");
+
+        iconoEliminar.addEventListener("click", async () => {
+          try {
+            const confirm = await eliminar("¿Desea eliminar el Producto?");
+            if (confirm.isConfirmed) {
+              const respuesta = await del(`Productos/${p.producto_id}`);
+              if (respuesta.ok) {
+                const ok = await success({ message: "Producto eliminado con éxito" });
+                if (ok.isConfirmed) {
+                  location.reload();
+                }
+              } else {
+                await error("No se pudo eliminar el producto");
+              }
+            }
+          } catch (error) {
+            console.error("Error al eliminar el producto:", error);
+            await error("Error inesperado al eliminar");
+          }
+        });
+
+        divProducto.appendChild(iconoEliminar);
         productos.appendChild(divProducto);
 
-        btnEditar.addEventListener("click" , async (e) =>{
-        e.preventDefault();
-        editarProductos(stock,nombreProducto,precio,btnEditar,p.producto_id,element.categoria_id)
-         })
-       
+        btnEditar.addEventListener("click", (e) => {
+          e.preventDefault();
+          editarProductos(stock, nombreProducto, precio, btnEditar, p.producto_id, element.categoria_id);
+        });
       });
     } else {
       const sinProductos = document.createElement("em");
@@ -558,16 +444,33 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
     const botones = document.createElement("div");
     botones.classList.add("interfazcategorias__button");
 
-    btnEliminar.addEventListener("click", async () =>{
-          eliminarProductos(card, id_producto , Productos_Categoriaid ,btnEliminar)
-    })
-    
+    btnEliminar.addEventListener("click", async () => {
+      if (productosFiltrados.length === 0) {
+        try {
+          const confirmacion = await eliminar("La categoría está vacía. ¿Desea eliminarla?");
+          if (confirmacion.isConfirmed) {
+            const respuesta = await del(`Categorias/${Productos_Categoriaid}`);
+            if (respuesta.ok) {
+              const ok = await success({ message: "Categoría eliminada con éxito" });
+              if (ok.isConfirmed) location.reload();
+            } else {
+              await error("No se pudo eliminar la categoría");
+            }
+          }
+        } catch (error) {
+          console.error("Error al eliminar la categoría:", error);
+          await error("Error inesperado al eliminar");
+        }
+      } else {
+        await error("La categoría tiene productos, elimínelos primero");
+      }
+    });
 
     botones.append(btnEditar, btnEliminar);
 
     body.append(nombre, productos, botones);
     card.appendChild(body);
-    contenedorPadre.appendChild(card); 
+    contenedorPadre.appendChild(card);
 
     const option = document.createElement("option");
     option.value = element.categoria_id;
@@ -575,106 +478,121 @@ export const Categorias_Productos = (Categorias, Productos, select, contenedorPa
     select.appendChild(option);
   });
 };
-export const editarProductos = (stock,nombreProducto,precio,btnEditar,id,id_categoria) =>{
+
+export const editarProductos = (stock, nombreProducto, precio, btnEditar, id, id_categoria) => {
+  // Crear inputs para edición
   const inputNombre = document.createElement("input");
   inputNombre.classList.add("Categorias__input");
   inputNombre.value = nombreProducto.textContent;
-  nombreProducto.replaceWith(inputNombre)
+  nombreProducto.replaceWith(inputNombre);
 
   const inputStock = document.createElement("input");
   inputStock.classList.add("Categorias__input");
   inputStock.value = stock.textContent;
-  stock.replaceWith(inputStock)
+  stock.replaceWith(inputStock);
 
   const inputPrecio = document.createElement("input");
   inputPrecio.classList.add("Categorias__input");
   inputPrecio.value = precio.textContent;
-  precio.replaceWith(inputPrecio)
+  precio.replaceWith(inputPrecio);
 
+  // Cambiar texto y clases del botón
   btnEditar.textContent = "Guardar";
   btnEditar.classList.remove("btn-modificar");
   btnEditar.classList.add("btn-guardar");
 
-  btnEditar.addEventListener("click", async (e) => {
-  e.preventDefault();
-      const nuevaCategoria = {
-      nombre:inputNombre.value.trim(),
-      precio:inputPrecio.value.trim(),
-      stock:inputStock.value.trim(),
-      categoria_id : id_categoria
+  // Clonar el botón para quitar listeners antiguos y reemplazarlo
+  const nuevoBtn = btnEditar.cloneNode(true);
+  btnEditar.parentNode.replaceChild(nuevoBtn, btnEditar);
+
+  // Agregar listener nuevo para guardar cambios
+  nuevoBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const nuevaCategoria = {
+      nombre: inputNombre.value.trim(),
+      precio: inputPrecio.value.trim(),
+      stock: inputStock.value.trim(),
+      categoria_id: id_categoria
+    };
+
+    // Validación básica opcional
+    if (!nuevaCategoria.nombre || !nuevaCategoria.precio || !nuevaCategoria.stock) {
+      await error("Por favor, complete todos los campos.");
+      return;
     }
-    const paramns = id; 
+
     try {
-      const confirmacion = await confirm("Actualizar")
-      if (confirmacion.isConfirmed) {
-        const respuesta = await put(`Productos/${paramns}`, nuevaCategoria)
-        if (respuesta.ok) {
-            const ok = await success({ message: "Informacion Actualizada con éxito" });
-          if (ok.isConfirmed){
-            location.reload()
-          }else{
-            await error("No se pudo actualizar la Categoria")
-          }
-        }
-      }else{
-        
-      } 
-    } catch (error) {
-      console.error("Error al actualizar Categoria:", nuevaCategoria);
-       await error(" Error inesperado al actualizar");
-    }
-  })
-};
-export const eliminarProductos = (contenedor,id_producto, id_categoria ,btnEliminar) =>{
-  const contentfila = contenedor.querySelectorAll(".interfazcategorias__productos_item")
-  if (contentfila.length > 0) {
-    contentfila.forEach(fila =>{
-      const icono = document.createElement("i");
-      icono.classList.add("bi", "bi-trash","icono_eliminar");
-    
-      icono.addEventListener("click", async()=>{
-        try{ const confirm = await eliminar ("Desea eliminar el Producto?")
-          if(confirm.isConfirmed){
-            const respuesta = await del(`Productos/${id_producto}`)
-            if (respuesta.ok) {
-              const ok = await success({ message: "Producto eliminada con éxito" });
-              if (ok.isConfirmed) {
-                location.reload();
-              }
-            } else {
-              await error("No se pudo eliminar la Producto");
-            }
-          }
-        } catch (error) {
-          console.error("Error al eliminar el Producto:", error);
-          await error("Error inesperado al eliminar");
-        }
+      const confirmacion = await confirm("¿Desea actualizar el producto?");
+      if (!confirmacion.isConfirmed) return;
 
-      })
-      fila.appendChild(icono)
-    })
-  }else{
-    btnEliminar.addEventListener("click", async () => {
-      try {
-        const confirmacion = await eliminar("La categoría está vacía. ¿Desea eliminarla?");
-        if (confirmacion.isConfirmed) {
-          const respuesta = await del(`Categorias/${id_categoria}`);
-          if (respuesta.ok) {
-            const ok = await success({ message: "Categoría eliminada con éxito" });
-            if (ok.isConfirmed) location.reload();
-          } else {
-            await error("No se pudo eliminar la categoría");
-          }
-        }
-      } catch (error) {
-        console.error("Error al eliminar la categoría:", error);
-        await error("Error inesperado al eliminar");
+      const respuesta = await put(`Productos/${id}`, nuevaCategoria);
+
+      if (respuesta.ok) {
+        await success({ message: "Producto actualizado con éxito" });
+        location.reload();
+      } else {
+        await error("No se pudo actualizar el producto");
       }
-    });
-  }
-}
+    } catch (error) {
+      console.error("Error al actualizar producto:", error);
+      await error("Error inesperado al actualizar");
+    }
+  });
+};
 
-export const MostrarServicios = async (servicios) =>{
+
+// export const eliminarProductos = (contenedor, id_producto, id_categoria, btnEliminar) => {
+//   const contentfila = contenedor.querySelectorAll(".interfazcategorias__productos_item")
+//   if (contentfila.length > 0) {
+//     contentfila.forEach(fila => {
+//       const icono = document.createElement("i");
+//       icono.classList.add("bi", "bi-trash", "icono_eliminar");
+
+//       icono.addEventListener("click", async () => {
+//         try {
+//           const confirm = await eliminar("Desea eliminar el Producto?")
+//           if (confirm.isConfirmed) {
+//             const respuesta = await del(`Productos/${id_producto}`)
+//             if (respuesta.ok) {
+//               const ok = await success({ message: "Producto eliminada con éxito" });
+//               if (ok.isConfirmed) {
+//                 location.reload();
+//               }
+//             } else {
+//               await error("No se pudo eliminar la Producto");
+//             }
+//           }
+//         } catch (error) {
+//           console.error("Error al eliminar el Producto:", error);
+//           await error("Error inesperado al eliminar");
+//         }
+
+//       })
+//       fila.appendChild(icono)
+//     })
+//   } else {
+//     btnEliminar.addEventListener("click", async () => {
+//       try {
+//         const confirmacion = await eliminar("La categoría está vacía. ¿Desea eliminarla?");
+//         if (confirmacion.isConfirmed) {
+//           const respuesta = await del(`Categorias/${id_categoria}`);
+//           if (respuesta.ok) {
+//             const ok = await success({ message: "Categoría eliminada con éxito" });
+//             if (ok.isConfirmed) location.reload();
+//           } else {
+//             await error("No se pudo eliminar la categoría");
+//           }
+//         }
+//       } catch (error) {
+//         console.error("Error al eliminar la categoría:", error);
+//         await error("Error inesperado al eliminar");
+//       }
+//     });
+//   }
+// }
+
+export const MostrarServicios = async (servicios) => {
   const contentServicios = document.querySelector(".servicios-listado")
 
   servicios.forEach(servicios => {
@@ -749,12 +667,12 @@ export const MostrarServicios = async (servicios) =>{
     btnEliminar.textContent = "Eliminar";
     botones.appendChild(btnEliminar);
 
-    
-    btneditar.addEventListener("click",async=>{
+
+    btneditar.addEventListener("click", async => {
       editarServicios(nombre, descTexto, precio, btneditar, servicios.servicio_id)
 
     })
-    btnEliminar.addEventListener("click",async=>{
+    btnEliminar.addEventListener("click", async => {
       eliminarServicio(btnEliminar, servicios.servicio_id);
     })
     // Armamos la tarjeta
@@ -831,8 +749,7 @@ export const eliminarServicio = (btnEliminar, id) => {
 
 //CLIENTES
 
-export const VehiculosPorId = (vehiculos,Usuarios) =>{
-
+export const VehiculosPorId = (vehiculos, Usuarios) => {
   const seccionInfo = document.querySelector(".VehiculosUsuariosId");
   seccionInfo.innerHTML = "";
 
@@ -893,7 +810,7 @@ export const VehiculosPorId = (vehiculos,Usuarios) =>{
 
     usuarioId.textContent =
       usuariosFiltrados.length > 0
-        ? usuariosFiltrados[0].usuario
+        ? usuariosFiltrados[0].nombre
         : "Sin usuario asignado";
 
     content.appendChild(nombre);
@@ -901,7 +818,6 @@ export const VehiculosPorId = (vehiculos,Usuarios) =>{
     content.appendChild(modelo);
     content.appendChild(usuarioId);
 
-    // Crear contenedor de botones y colocarlo FUERA del contentCard
     const botones = document.createElement("div");
     botones.classList.add("Usuarios__buttones");
 
@@ -909,7 +825,8 @@ export const VehiculosPorId = (vehiculos,Usuarios) =>{
     btnEditar.classList.add("usuarios__button");
     btnEditar.textContent = "Editar";
     btnEditar.dataset.id = element.vehiculo_id;
-    btnEditar.dataset.usuarioId = element.usuario_id;
+    btnEditar.dataset.usuarioLogin =
+      usuariosFiltrados.length > 0 ? usuariosFiltrados[0].usuario : "";
 
     const btnEliminar = document.createElement("button");
     btnEliminar.classList.add("usuarios__button");
@@ -918,31 +835,44 @@ export const VehiculosPorId = (vehiculos,Usuarios) =>{
     botones.appendChild(btnEditar);
     botones.appendChild(btnEliminar);
 
-    btnEliminar.addEventListener("click" , () =>{
-      EliminarVehiculos(element.vehiculo_id)
-    })
+    btnEliminar.addEventListener("click", () => {
+      EliminarVehiculos(element.vehiculo_id);
+    });
 
     btnEditar.addEventListener("click", () => {
       EditarVehiculos(nombre, placa, modelo, btnEditar);
     });
 
-    
-    // Estructura final del card
     infoWrapper.appendChild(titulos);
     infoWrapper.appendChild(content);
     body.appendChild(infoWrapper);
-    body.appendChild(botones); // AQUI se agregan fuera del info
+    body.appendChild(botones);
     cards.appendChild(body);
     seccionInfo.appendChild(cards);
   });
-}
-export const Clientesbyid = async () =>{
+};
+export const Clientesbyid = async () => {
   const content = document.querySelector(".infodatos")
-  const title = document.querySelector(".titleNombre") 
-  const buttons = document.querySelector(".contentbuttons") 
-  const id = localStorage.getItem("usuarioid");
-  const Usuarios = await get (`Usuarios/${id}`)
+  const title = document.querySelector(".titleNombre")
+  const buttons = document.querySelector(".contentbuttons")
+  let id = localStorage.getItem("cliente_id");
+  const mecanicoId = localStorage.getItem("mecanico_id");
+  console.log(id);
+  console.log(mecanicoId);
 
+  let Usuarios = "";
+  if (mecanicoId) {
+    // Si existe mecanico_id
+    Usuarios = await get(`Usuarios/${mecanicoId}`);
+    id = mecanicoId;
+    console.log(id);
+  
+  }
+  else if (id) {
+    // Si existe usuario_id
+    Usuarios = await get(`Usuarios/${id}`);
+    console.log("Datos del cliente:", id);
+  }
   const infonombre = document.createElement("p")
   infonombre.classList.add("infotitlename")
   infonombre.textContent = Usuarios.nombre
@@ -976,10 +906,10 @@ export const Clientesbyid = async () =>{
   btnEliminar.textContent = "Eliminar";
   btnEliminar.classList.add("btnUsuarios");
 
-  btnEditar.addEventListener("click", async (e)=>{
+  btnEditar.addEventListener("click", async (e) => {
     e.preventDefault();
-    EditarClientes(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar,id,Usuarios.nombre)
-   })
+    EditarClientes(infocedula, infocorreo, infotelefono, infousuario, infoconstrasena, btnEditar, id, Usuarios.nombre)
+  })
 
   title.appendChild(infonombre)
   content.appendChild(infocedula)
@@ -992,7 +922,9 @@ export const Clientesbyid = async () =>{
   buttons.appendChild(btnEditar)
   buttons.appendChild(btnEliminar)
 }
-export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,infoconstrasena,btnEditar,id,name) =>{
+export const EditarClientes = (infocedula, infocorreo, infotelefono, infousuario, infoconstrasena, btnEditar, id, name) => {
+  console.log(id);
+  
   const inputCedula = document.createElement("input");
   inputCedula.classList.add("clienteModificacion__input");
   inputCedula.value = infocedula.textContent;
@@ -1032,12 +964,13 @@ export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,in
       telefono: inputTelefono.value.trim(),
       usuario: inputUsuario.value.trim(),
       contrasena: inputContrasena.value.trim(),
+      estado_usuario_id: 1,
       rol_id: 2
     };
     try {
       const respuesta = await put(`Usuarios/${id}`, nuevoUsuario);
 
-     const confirmacion = await confirm("¿Desea actualizar el usuario?");
+      const confirmacion = await confirm("¿Desea actualizar el usuario?");
       if (confirmacion.isConfirmed) {
         if (respuesta.ok) {
           if ((await success({ message: "Usuario actualizado con éxito" })).isConfirmed) {
@@ -1052,12 +985,12 @@ export const  EditarClientes =(infocedula,infocorreo,infotelefono,infousuario,in
       console.error("Error al actualizar usuario:", error);
       await error("Error inesperado al actualizar");
     }
-    });
+  });
 }
-export const MostrarReparacionescliente = (reparaciones,facturas) => {
-   const seccionInfo = document.querySelector(".ReparacionesUsuarios");
-   const seccionfactura = document.querySelector(".facturas")
-    seccionInfo.innerHTML = "";
+export const MostrarReparacionescliente = (reparaciones, facturas) => {
+  const seccionInfo = document.querySelector(".ReparacionesUsuarios");
+  const seccionfactura = document.querySelector(".facturas")
+  seccionInfo.innerHTML = "";
 
   reparaciones.forEach((element) => {
     const card = document.createElement("div");
@@ -1124,10 +1057,10 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     body.appendChild(infoWrapper);
     card.appendChild(body);
     seccionInfo.appendChild(card);
-   
+
   });
-  facturas.forEach((element)=>{
-     const card = document.createElement("div");
+  facturas.forEach((element) => {
+    const card = document.createElement("div");
     card.classList.add("facturasUsuarios");
 
     const infoWrapper = document.createElement("div");
@@ -1177,11 +1110,6 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     pFecha.textContent = "Fecha:";
     titulos.appendChild(pFecha);
 
-    const pImpuestos = document.createElement("p");
-    pImpuestos.classList.add("interfazfacturas__titulonombre");
-    pImpuestos.textContent = "Impuestos:";
-    titulos.appendChild(pImpuestos);
-
     const pTotal = document.createElement("p");
     pTotal.classList.add("interfazfacturas__titulonombre");
     pTotal.textContent = "Total:";
@@ -1192,10 +1120,10 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     pPlaca.textContent = "Placa:";
     titulos.appendChild(pPlaca);
 
-    const pConsumidos = document.createElement("p");
-    pConsumidos.classList.add("interfazfacturas__titulonombre");
-    pConsumidos.textContent = "Productos/Servicios:";
-    titulos.appendChild(pConsumidos);
+    const pProductos = document.createElement("p");
+    pProductos.classList.add("interfazfacturas__titulonombre");
+    pProductos.textContent = "Productos consumidos:";
+    titulos.appendChild(pProductos);
 
     // ---- Contenido ----
     const content = document.createElement("div");
@@ -1233,24 +1161,32 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     fecha.classList.add("interfazfacturas__datos");
     fecha.textContent = `${element.fecha_emision[2]}/${element.fecha_emision[1]}/${element.fecha_emision[0]}`;
 
-    const impuestos = document.createElement("p");
-    impuestos.classList.add("interfazfacturas__datos");
-    impuestos.textContent = `$${element.impuestos.toLocaleString('es-CO')}`;
-
     const total = document.createElement("p");
     total.classList.add("interfazfacturas__datos");
     total.textContent = `$${element.total.toLocaleString('es-CO')}`;
 
     const placa = document.createElement("p");
     placa.classList.add("interfazfacturas__datos");
-    placa.textContent = element.detalles.length > 0 && element.detalles[1].placa ? element.detalles[1].placa : "Sin placa";
+    placa.textContent = element.placa || "Sin placa";
 
-    const consumidos = document.createElement("p");
+    // ---- Lista de productos consumidos ----
+    const consumidos = document.createElement("ul");
     consumidos.classList.add("interfazfacturas__datos");
-    consumidos.textContent = element.detalles.length > 0 
-        ? element.detalles.map(d => `${d.descripcion} (x${d.cantidad})`).join(", ")
-        : "Sin consumos";
 
+    if (element.detalles && element.detalles.length > 0) {
+      element.detalles.forEach(d => {
+        const li = document.createElement("li");
+        const subtotal = d.cantidad * d.precio_unitario;
+        li.textContent = `${d.descripcion} - Cantidad: ${d.cantidad} - Precio: $${d.precio_unitario.toLocaleString('es-CO')} }`;
+        consumidos.appendChild(li);
+      });
+    } else {
+      const li = document.createElement("li");
+      li.textContent = "Sin consumos";
+      consumidos.appendChild(li);
+    }
+
+    // ---- Agregar datos a la card ----
     content.appendChild(facturaId);
     content.appendChild(cliente);
     content.appendChild(empresa);
@@ -1259,7 +1195,6 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
     content.appendChild(correo);
     content.appendChild(representante);
     content.appendChild(fecha);
-    content.appendChild(impuestos);
     content.appendChild(total);
     content.appendChild(placa);
     content.appendChild(consumidos);
@@ -1273,190 +1208,189 @@ export const MostrarReparacionescliente = (reparaciones,facturas) => {
 };
 ///Crear Servicios Mecanico
 
-export const MostrarReparaciones = async () =>{
-    const detalleServicio = await get (`Reparaciones`)
-      const contenedor = document.querySelector(".content__reparacion");      
-      const agrupados = {};
-      detalleServicio.forEach(item => {
-           if (!agrupados[item.detalle_id]) {
-        agrupados[item.detalle_id] = { ...item, productos: [] };
-        }
-        if (item.nombre_producto) {
-            agrupados[item.detalle_id].productos.push({
-                nombre: item.nombre_producto,
-                cantidad: item.cantidad_usada
-            });
-        }
-
+export const MostrarReparaciones = async () => {
+  const detalleServicio = await get(`Reparaciones`)
+  const contenedor = document.querySelector(".content__reparacion");
+  const agrupados = {};
+  detalleServicio.forEach(item => {
+    if (!agrupados[item.detalle_id]) {
+      agrupados[item.detalle_id] = { ...item, productos: [] };
+    }
+    if (item.nombre_producto) {
+      agrupados[item.detalle_id].productos.push({
+        nombre: item.nombre_producto,
+        cantidad: item.cantidad_usada
       });
+    }
 
-      Object.values(agrupados).forEach(element => {
-  
-      const filacontent = document.createElement("div");
-      filacontent.classList.add("filacontent");
-      // N°
-      const colNum = document.createElement("p");
-      colNum.classList.add("columna__id");
-      colNum.textContent = element.detalle_id;
-      filacontent.appendChild(colNum);
+  });
 
-      // Servicio
-      const colServicio = document.createElement("p");
-      colServicio.classList.add("columna__info");
-      colServicio.textContent = element.nombre_servicio;
-      filacontent.appendChild(colServicio);
+  Object.values(agrupados).forEach(element => {
 
-      // Vehículo
-      const colVehiculo = document.createElement("p");
-      colVehiculo.classList.add("columna__infopeq");
-      colVehiculo.textContent = element.placa;
-      filacontent.appendChild(colVehiculo);
+    const filacontent = document.createElement("div");
+    filacontent.classList.add("filacontent");
+    // N°
+    const colNum = document.createElement("p");
+    colNum.classList.add("columna__id");
+    colNum.textContent = element.detalle_id;
+    filacontent.appendChild(colNum);
 
-      // Estado
-      const colEstado = document.createElement("p");
-      colEstado.classList.add("columna__infopeq");
-      colEstado.textContent = element.nombre_estado;
-      colEstado.classList.add("estado", element.nombre_estado.toLowerCase());
-      filacontent.appendChild(colEstado);
+    // Servicio
+    const colServicio = document.createElement("p");
+    colServicio.classList.add("columna__info");
+    colServicio.textContent = element.nombre_servicio;
+    filacontent.appendChild(colServicio);
 
-      // Fecha
-      const colFecha = document.createElement("p");
-      const fecha = new Date(element.fecha);
-      colFecha.textContent = fecha.toISOString().split("T")[0];
-      colFecha.classList.add("columna__infopeq");
-      filacontent.appendChild(colFecha);
+    // Vehículo
+    const colVehiculo = document.createElement("p");
+    colVehiculo.classList.add("columna__infopeq");
+    colVehiculo.textContent = element.placa;
+    filacontent.appendChild(colVehiculo);
 
-      // Productos
-      const contentProductos = document.createElement("div")
-      contentProductos.classList.add("contentproducts");
-      element.productos.forEach(prod => {
-        const productoItem = document.createElement("p"); // o "p" si prefieres en bloque
-        productoItem.textContent = `${prod.nombre} - ${prod.cantidad} unidades`;
-        productoItem.classList.add("columna__infoproductos"); // estilo individual
-        contentProductos.appendChild(productoItem);
-      });
-      filacontent.appendChild(contentProductos);
+    // Estado
+    const colEstado = document.createElement("p");
+    colEstado.classList.add("columna__infopeq");
+    colEstado.textContent = element.nombre_estado;
+    colEstado.classList.add("estado", element.nombre_estado.toLowerCase());
+    filacontent.appendChild(colEstado);
+
+    // Fecha
+    const colFecha = document.createElement("p");
+    const fecha = new Date(element.fecha);
+    colFecha.textContent = fecha.toISOString().split("T")[0];
+    colFecha.classList.add("columna__infopeq");
+    filacontent.appendChild(colFecha);
+
+    // Productos
+    const contentProductos = document.createElement("div")
+    contentProductos.classList.add("contentproducts");
+    element.productos.forEach(prod => {
+      const productoItem = document.createElement("p"); // o "p" si prefieres en bloque
+      productoItem.textContent = `${prod.nombre} - ${prod.cantidad} unidades`;
+      productoItem.classList.add("columna__infoproductos"); // estilo individual
+      contentProductos.appendChild(productoItem);
+    });
+    filacontent.appendChild(contentProductos);
 
 
-      // Observaciones
-      const colObservaciones = document.createElement("p");
-      colObservaciones.textContent = element.observaciones || "";
-      colObservaciones.classList.add("columna__info");
-      filacontent.appendChild(colObservaciones);
+    // Observaciones
+    const colObservaciones = document.createElement("p");
+    colObservaciones.textContent = element.observaciones || "";
+    colObservaciones.classList.add("columna__info");
+    filacontent.appendChild(colObservaciones);
 
-      const divContent = document.createElement("div")
-      divContent.classList.add("divbuttons")
-      const iconoeditar = document.createElement("i");
-      iconoeditar.classList.add("bi", "bi-pencil", "icon_modificar");
-      divContent.appendChild(iconoeditar)
-      filacontent.appendChild(divContent);
+    const divContent = document.createElement("div")
+    divContent.classList.add("divbuttons")
+    const iconoeditar = document.createElement("i");
+    iconoeditar.classList.add("bi", "bi-pencil", "icon_modificar");
+    divContent.appendChild(iconoeditar)
+    filacontent.appendChild(divContent);
 
-      const iconoeliminar = document.createElement("i");
-      iconoeliminar.classList.add("bi", "bi-trash", "icon_modificar");
-      divContent.appendChild(iconoeliminar)
-      
-      iconoeditar.addEventListener("click", async =>{
-      EditarReparaciones( colServicio,colVehiculo,colEstado,colFecha,contentProductos,colObservaciones,iconoeditar,element,detalleServicio); 
-      })
+    const iconoeliminar = document.createElement("i");
+    iconoeliminar.classList.add("bi", "bi-trash", "icon_modificar");
+    divContent.appendChild(iconoeliminar)
 
-      iconoeliminar.addEventListener("click", async =>{
-      ElimarReparaciones(element.detalle_id,  element.consumible_id, element.usuario_id); 
-      })
+    iconoeditar.addEventListener("click", async => {
+      EditarReparaciones(colServicio, colVehiculo, colEstado, colFecha, contentProductos, colObservaciones, iconoeditar, element, detalleServicio);
+    })
 
-      if (element.nombre_estado === "Finalizado") {
-          const iconoFactura = document.createElement("i");
-          iconoFactura.classList.add("bi", "bi-receipt", "icon_factura"); 
-          iconoFactura.title = "Generar Factura";
-          divContent.appendChild(iconoFactura)
-          iconoFactura.addEventListener("click", async () => {
-              await generarFactura(element);
-          });
-      }
-      // Agregar fila al contenedor
-      contenedor.appendChild(filacontent);
+    iconoeliminar.addEventListener("click", async => {
+      ElimarReparaciones(element.detalle_id, element.consumible_id, element.usuario_id);
+    })
+    // Agregar fila al contenedor
+    contenedor.appendChild(filacontent);
   });
 }
-export const MostrarselectsMecanicos = async () =>{
-    try {
-      const data = await get(`FormDataReparacion`);      
-      const reparaciones  = await get(`Reparaciones`)
-      const selectVehiculos = document.getElementById("vehiculo_id");
-      selectVehiculos.innerHTML = "";
-      data.vehiculos.forEach(v => {
-          const option = document.createElement("option");
-          option.value = v.vehiculo_id;
-          option.textContent = `${v.vehiculo_id} - ${v.placa}`;;
-          selectVehiculos.appendChild(option);
-      });
+export const MostrarselectsMecanicos = async () => {
+  try {
+    const data = await get(`FormDataReparacion`);
+    const reparaciones = await get(`Reparaciones`)
+    const selectVehiculos = document.getElementById("vehiculo_id");
+    selectVehiculos.innerHTML = "";
+    data.vehiculos.forEach(v => {
+      const option = document.createElement("option");
+      option.value = v.vehiculo_id;
+      option.textContent = `${v.vehiculo_id} - ${v.placa}`;;
+      selectVehiculos.appendChild(option);
+    });
 
-      // Recorrer servicios
-      const selectServicios = document.getElementById("servicio_id");
-      selectServicios.innerHTML = "";
-      data.servicios.forEach(s => {
-          const option = document.createElement("option");
-          option.value = s.servicio_id;
-          option.textContent = s.nombre_servicio;
-          selectServicios.appendChild(option);
-      });
+    // Recorrer servicios
+    const selectServicios = document.getElementById("servicio_id");
+    selectServicios.innerHTML = "";
+    data.servicios.forEach(s => {
+      const option = document.createElement("option");
+      option.value = s.servicio_id;
+      option.textContent = s.nombre_servicio;
+      selectServicios.appendChild(option);
+    });
 
-      // Recorrer estados
-      const selectEstados = document.getElementById("estado_id");
-      selectEstados.innerHTML = "";
-      data.estados.forEach(e => {
-          const option = document.createElement("option");
-          option.value = e.estado_id;
-          option.textContent = e.nombre_estado;
-          selectEstados.appendChild(option);
-      });
+    // Recorrer estados
+    const selectEstados = document.getElementById("estado_id");
+    selectEstados.innerHTML = "";
+    data.estados.forEach(e => {
+      const option = document.createElement("option");
+      option.value = e.estado_id;
+      option.textContent = e.nombre_estado;
+      selectEstados.appendChild(option);
+    });
 
-      // Recorrer consumibles
-      const selectConsumibles = document.getElementById("producto_id");
-      selectConsumibles.innerHTML = "";
-      data.productos.forEach(p => {
-          const option = document.createElement("option");
-          option.value = p.producto_id;
-          option.textContent = p.nombre;
-          selectConsumibles.appendChild(option);
-      });
+    // Recorrer consumibles
+    const selectConsumibles = document.getElementById("producto_id");
+    selectConsumibles.innerHTML = "";
+    data.productos.forEach(p => {
+      const option = document.createElement("option");
+      option.value = p.producto_id;
+      option.textContent = p.nombre;
+      selectConsumibles.appendChild(option);
+    });
 
-      const idsUnicos = [];
-      const reparacionesUnicas = [];
-      reparaciones.forEach(r => {
-          if (!idsUnicos.includes(r.detalle_id)) { 
-              idsUnicos.push(r.detalle_id); 
-              reparacionesUnicas.push(r); // Guardamos el objeto completo
-          }
-      });
-      
-      const selectServicio = document.getElementById("detalle_id");
-      selectServicio.innerHTML = "";
-      reparacionesUnicas.forEach(r =>{
-            const option = document.createElement("option");
-            option.value = r.detalle_id;
-            option.textContent = `#${r.detalle_id} - ${r.nombre_servicio} - ${r.placa}`;
-            selectServicio.appendChild(option);
-      })
+    const idsUnicos = [];
+    const reparacionesUnicas = [];
+    reparaciones.forEach(r => {
+      if (!idsUnicos.includes(r.detalle_id)) {
+        idsUnicos.push(r.detalle_id);
+        reparacionesUnicas.push(r); // Guardamos el objeto completo
+      }
+    });
 
-      const selectServiciofactura = document.getElementById("detalle_idfactura");
-      selectServiciofactura.innerHTML = "";
-      reparacionesUnicas.forEach(r =>{
-            const option = document.createElement("option");
-            option.value = r.detalle_id;
-            option.textContent = `#${r.detalle_id} - ${r.nombre_servicio} - ${r.placa}`;
-            selectServiciofactura.appendChild(option);
-      })
+    const selectServicio = document.getElementById("detalle_id");
+    selectServicio.innerHTML = "";
+    reparacionesUnicas.forEach(r => {
+      const option = document.createElement("option");
+      option.value = r.detalle_id;
+      option.textContent = `#${r.detalle_id} - ${r.nombre_servicio} - ${r.placa}`;
+      selectServicio.appendChild(option);
+    })
 
-    } catch (error) {
-        console.error(error);
-        alert("Error al cargar los datos del formulario");
-    }
+    const selectServiciofactura = document.getElementById("detalle_idfactura");
+    selectServiciofactura.innerHTML = "";
+    reparacionesUnicas.forEach(r => {
+      const option = document.createElement("option");
+      option.value = r.detalle_id;
+      option.textContent = `#${r.detalle_id} - ${r.nombre_servicio} - ${r.placa}`;
+      selectServiciofactura.appendChild(option);
+    })
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al cargar los datos del formulario");
+  }
 }
-export const EditarReparaciones = async (colServicio,colVehiculo,colEstado,colFecha,colProductos,colObservaciones,iconoeditar,element,data) =>{
-  // Peticiones a la API para traer opciones reales
+export const EditarReparaciones = async (
+  colServicio,
+  colVehiculo,
+  colEstado,
+  colFecha,
+  colProductos,
+  colObservaciones,
+  iconoeditar,
+  element,
+  data
+) => {
+  // Peticiones a la API
   const servicios = await get("Servicios");
   const vehiculos = await get("Vehiculos");
   const estados = await get("EstadosServicio");
-  const productos = await get("Productos");
 
   // Servicio
   const inputServicio = document.createElement("select");
@@ -1501,19 +1435,6 @@ export const EditarReparaciones = async (colServicio,colVehiculo,colEstado,colFe
   inputFecha.value = new Date(element.fecha).toISOString().split("T")[0];
   colFecha.replaceWith(inputFecha);
 
-  // Productos (select múltiple)
-  const inputProductos = document.createElement("select");
-  inputProductos.multiple = true;
-  inputProductos.classList.add("clienteModificacion__input");
-  productos.forEach(p => {
-  const option = document.createElement("option");
-  option.value = p.producto_id;               // el ID del producto
-  option.textContent = p.nombre;     // el nombre que se muestra
-  if (element.productos.includes(p.nombre_producto)) option.selected = true; // marcar seleccionados
-  inputProductos.appendChild(option);
-});
-colProductos.replaceWith(inputProductos);
-
   // Observaciones
   const inputObservaciones = document.createElement("input");
   inputObservaciones.type = "text";
@@ -1525,26 +1446,38 @@ colProductos.replaceWith(inputProductos);
   iconoeditar.classList.remove("bi-pencil");
   iconoeditar.classList.add("bi-check2");
 
+  // 🔄 Resetear eventos previos
+  const nuevoIcono = iconoeditar.cloneNode(true);
+  iconoeditar.replaceWith(nuevoIcono);
+
   // Guardar cambios
-  iconoeditar.addEventListener("click", async () => {
+  nuevoIcono.addEventListener("click", async () => {
+    if (!validarFechaMinima(inputFecha)) {
+      await error("La fecha no puede ser menor que hoy.", "");
+      location.reload();
+      return;
+    }
+
     const reparacionActualizada = {
       servicio_id: parseInt(inputServicio.value),
       vehiculo_id: parseInt(inputVehiculo.value),
       estado_id: parseInt(inputEstado.value),
       fecha: inputFecha.value,
-      observaciones: inputObservaciones.value.trim()
-    };    
+      observaciones: inputObservaciones.value.trim(),
+      nombre_mecanico: element.nombre_mecanico
+    };
 
     try {
-      const confirmacion = await confirm("actualizar reparación");
+      const confirmacion = await confirm("¿Actualizar reparación?");
       if (confirmacion.isConfirmed) {
         const respuesta = await patch(`Reparaciones/${element.detalle_id}`, reparacionActualizada);
+        
         if (respuesta.ok) {
           if ((await success({ message: "Reparación actualizada con éxito" })).isConfirmed) {
             location.reload();
-          } else {
-            await error("No se pudo actualizar la reparación");
           }
+        } else {
+          await error("No se pudo actualizar la reparación");
         }
       }
     } catch (err) {
@@ -1552,42 +1485,68 @@ colProductos.replaceWith(inputProductos);
       await error("Error inesperado al actualizar");
     }
   });
-}
-export const ElimarReparaciones = async (id,consumibleId,usuario_id) =>{
+};
+
+export const ElimarReparaciones = async (detalleId, consumibleId, usuario_id) => {
   try {
     const confirmacion = await eliminar("¿Desea eliminar esta reparación?");
-    if (confirmacion.isConfirmed) {
-          const facturasResponse = await get(`facturas`);
-          const factura = facturasResponse.find(f => f.usuario_id === usuario_id);
+    if (!confirmacion.isConfirmed) return;
 
-          // 2. Si hay factura, eliminarla
-          if (factura) {
-            await del(`facturas/detalles/${factura.factura_id}`);
-            await del(`facturas/${factura.factura_id}`);
-          }
-
-          // 3. Eliminar la reparación
-          let respuesta;
-          if (consumibleId !== null && consumibleId !== undefined) {
-            respuesta = await del(`Reparaciones/${id}/${consumibleId}`);
-          } else {
-            respuesta = await del(`Reparaciones/${id}`);
-          }
-
-        if (respuesta.ok) {
-            const ok = await success({ message: "Reparación y factura eliminadas con éxito" });
-            if (ok.isConfirmed) location.reload();
-        } else {
-            await error("No se pudo eliminar la reparación");
-        }
+    // 1. Eliminar factura si existe
+    const facturasResponse = await get(`facturas`);
+    const factura = facturasResponse.find(f => f.usuario_id === usuario_id);
+    if (factura) {
+      const respFactura = await del(`facturas/${factura.factura_id}`);
+      if (!respFactura.ok) {
+        await error("No se pudo eliminar la factura asociada");
+        return;
+      }
     }
+
+    // 2. Si consumibleId está definido, buscar el producto_id real para eliminar
+    if (consumibleId !== null && consumibleId !== undefined) {
+      // Obtener todos los consumibles de esta reparación
+      const consumibles = await get(`Reparaciones/${detalleId}/consumibles`);
+      if (!Array.isArray(consumibles) || consumibles.length === 0) {
+        await error("No hay consumibles para esta reparación");
+        return;
+      }
+
+      // Buscar el consumible que coincida con consumibleId que tienes (que imagino es el id del consumible)
+      const consumible = consumibles.find(c => c.consumible_id === consumibleId);
+      if (!consumible) {
+        await error("Consumible no encontrado");
+        return;
+      }
+
+      // Usar el producto_id para eliminar correctamente
+      const productoId = consumible.producto_id;
+      const respConsumible = await del(`Reparaciones/${detalleId}/consumibles/${productoId}`);
+      if (!respConsumible.ok) {
+        await error("No se pudo eliminar el producto consumible");
+        return;
+      }
+    } else {
+      // Aquí sigue el flujo para eliminar toda la reparación y sus consumibles
+      const respReparacion = await del(`Reparaciones/${detalleId}`);
+      if (!respReparacion.ok) {
+        await error("No se pudo eliminar la reparación");
+        return;
+      }
+    }
+
+    const ok = await success({ message: "Reparación y factura eliminadas con éxito" });
+    if (ok.isConfirmed) location.reload();
+
   } catch (err) {
     console.error("Error al eliminar la reparación:", err);
     await error("Error inesperado al eliminar");
   }
 }
-export const informacionServicios = (servicios) =>{
-const contentServicios = document.querySelector(".servicios-listado")
+
+
+export const informacionServicios = (servicios) => {
+  const contentServicios = document.querySelector(".servicios-listado")
 
   servicios.forEach(servicios => {
     const cards = document.createElement("div");
@@ -1646,14 +1605,14 @@ const contentServicios = document.querySelector(".servicios-listado")
     info.appendChild(Nombres);
     info.appendChild(descripciongrupo);
     info.appendChild(precios);
-  
+
     // Armamos la tarjeta
     body.appendChild(info);
     cards.appendChild(body);
     contentServicios.appendChild(cards);
   })
 }
-export const mostrarVehiculosMecanico = (vehiculos,Usuarios) =>{
+export const mostrarVehiculosMecanico = (vehiculos, Usuarios) => {
   const seccionInfo = document.querySelector(".mecanicoVehiculos__content");
 
   vehiculos.forEach((element) => {
@@ -1719,9 +1678,9 @@ export const mostrarVehiculosMecanico = (vehiculos,Usuarios) =>{
     });
 
     if (usuariosFiltrados.length > 0) {
-    usuarioId.textContent = usuariosFiltrados[0].usuario;
+      usuarioId.textContent = usuariosFiltrados[0].usuario;
     } else {
-      
+
       usuarioId.textContent = "Sin usuario asignado";
     }
 
@@ -1730,7 +1689,7 @@ export const mostrarVehiculosMecanico = (vehiculos,Usuarios) =>{
     content.appendChild(modelo);
     content.appendChild(usuarioId);
 
-  
+
     // Estructura final del card
     infoWrapper.appendChild(titulos);
     infoWrapper.appendChild(content);
@@ -1742,14 +1701,14 @@ export const mostrarVehiculosMecanico = (vehiculos,Usuarios) =>{
 
 //FACTURAS
 
-export const generarFactura = async (reparacion) =>{
+export const generarFactura = async (reparacion) => {
   const response = await get(`FormDataReparacion`);
   // 1. Obtener usuario_id (si la reparación no lo trae)
   let usuarioId = reparacion.usuario_id;
   if (!usuarioId && reparacion.cliente) {
-      const usuario = response.usuarios.find(u => u.nombre === reparacion.cliente);
-      if (!usuario) return await error("No se encontró el usuario para esta reparación");
-      usuarioId = usuario.usuario_id;
+    const usuario = response.usuarios.find(u => u.nombre === reparacion.cliente);
+    if (!usuario) return await error("No se encontró el usuario para esta reparación");
+    usuarioId = usuario.usuario_id;
   }
 
   // 2. Calcular total de la reparación
@@ -1757,16 +1716,16 @@ export const generarFactura = async (reparacion) =>{
 
   // Sumar productos usados
   reparacion.productos.forEach(p => {
-      const productoCatalogo = response.productos.find(prod => prod.producto_id === p.producto_id);
-      if (productoCatalogo) {
-          total += productoCatalogo.precio * (p.cantidad || 1);
-      }
+    const productoCatalogo = response.productos.find(prod => prod.producto_id === p.producto_id);
+    if (productoCatalogo) {
+      total += productoCatalogo.precio * (p.cantidad || 1);
+    }
   });
 
   // Sumar precio del servicio
   const servicioCatalogo = response.servicios.find(serv => serv.servicio_id === reparacion.servicio_id);
   if (servicioCatalogo) {
-      total += servicioCatalogo.precio;
+    total += servicioCatalogo.precio;
   }
 
   // Subtotal (si no hay impuestos separados)
@@ -1774,31 +1733,31 @@ export const generarFactura = async (reparacion) =>{
 
   // 3. Construir objeto factura
   const factura = {
-      usuario_id: usuarioId,
-      empresa_id: 1, // ID del taller
-      fecha_emision: new Date().toISOString().split('T')[0],
-      subtotal: subtotal,
-      total: total
+    usuario_id: usuarioId,
+    empresa_id: 1, // ID del taller
+    fecha_emision: new Date().toISOString().split('T')[0],
+    subtotal: subtotal,
+    total: total
   };
   console.log(factura);
-  
+
   // 4. Confirmar y enviar
   const confirmacion = await confirm("¿Desea crear la factura?");
   if (confirmacion.isConfirmed) {
-      const respuesta = await post('facturas', factura);
-      if (respuesta?.ok) {
-          if ((await success({ message: "Factura registrada con éxito" })).isConfirmed) {
-              location.reload();
-          }
-      } else {
-          await error("No se pudo crear la factura", "");
+    const respuesta = await post('facturas', factura);
+    if (respuesta?.ok) {
+      if ((await success({ message: "Factura registrada con éxito" })).isConfirmed) {
+        location.reload();
       }
+    } else {
+      await error("No se pudo crear la factura", "");
+    }
   }
 }
-export const generarFacturasAdmin = async() =>{
-    const facturas = await get(`facturas/completa`)
-    const seccionfactura = document.querySelector(".facturasAdmin")
-    facturas.forEach((element)=>{
+export const generarFacturasAdmin = async () => {
+  const facturas = await get(`facturas/completa`)
+  const seccionfactura = document.querySelector(".facturasAdmin")
+  facturas.forEach((element) => {
     const card = document.createElement("div");
     card.classList.add("facturasAdmincontent");
 
@@ -1844,15 +1803,18 @@ export const generarFacturasAdmin = async() =>{
     pFecha.textContent = "Fecha:";
     titulos.appendChild(pFecha);
 
-    const pImpuestos = document.createElement("p");
-    pImpuestos.classList.add("interfazfacturas__titulonombre");
-    pImpuestos.textContent = "Impuestos:";
-    titulos.appendChild(pImpuestos);
 
     const pTotal = document.createElement("p");
     pTotal.classList.add("interfazfacturas__titulonombre");
     pTotal.textContent = "Total:";
     titulos.appendChild(pTotal);
+
+    // NUEVOS CAMPOS
+    const pNombre = document.createElement("p");
+    pNombre.classList.add("interfazfacturas__titulonombre");
+    pNombre.textContent = "Nombre del cliente:";
+    titulos.appendChild(pNombre);
+
 
     // ---- Contenido ----
     const content = document.createElement("div");
@@ -1886,13 +1848,16 @@ export const generarFacturasAdmin = async() =>{
     fecha.classList.add("interfazfacturas__datos");
     fecha.textContent = `${element.fecha_emision[2]}/${element.fecha_emision[1]}/${element.fecha_emision[0]}`;
 
-    const impuestos = document.createElement("p");
-    impuestos.classList.add("interfazfacturas__datos");
-    impuestos.textContent = `$${element.impuestos.toLocaleString('es-CO')}`;
+
 
     const total = document.createElement("p");
     total.classList.add("interfazfacturas__datos");
     total.textContent = `$${element.total.toLocaleString('es-CO')}`;
+
+    // NUEVOS CAMPOS
+    const nombre = document.createElement("p");
+    nombre.classList.add("interfazfacturas__datos");
+    nombre.textContent = element.cliente || "Sin cliente";
 
     content.appendChild(facturaId);
     content.appendChild(empresa);
@@ -1901,8 +1866,8 @@ export const generarFacturasAdmin = async() =>{
     content.appendChild(correo);
     content.appendChild(representante);
     content.appendChild(fecha);
-    content.appendChild(impuestos);
     content.appendChild(total);
+    content.appendChild(nombre);
 
     // ---- Armamos la card ----
     infoWrapper.appendChild(titulos);
@@ -1915,6 +1880,7 @@ export const contarCamposFormulario = (formulario) => {
   const campos = [...formulario.elements].filter(campo => campo.hasAttribute('required'));
   return campos.length;
 };
+
 
 export const validar = (event) => {
   event.preventDefault();
@@ -1979,7 +1945,6 @@ export const validar = (event) => {
 
   return info;
 };
-
 export const validarCorreo = (campo) => {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const correo = campo.value.trim();
@@ -1994,11 +1959,10 @@ export const validarCorreo = (campo) => {
   }
   return true;
 };
-
 export const validarCedula = (campo) => {
   const regex = /^\d{6,10}$/; // entre 6 y 10 números
   const cedula = campo.value.trim();
-  
+
   if (!regex.test(cedula)) {
     if (campo.nextElementSibling) campo.nextElementSibling.remove();
     const mensaje = document.createElement('span');
@@ -2010,14 +1974,13 @@ export const validarCedula = (campo) => {
   }
   return true;
 };
-
 export const validarContrasenia = (campo) => {
   const texto = campo.value.trim();
-  const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.{5,})/; 
+  const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.{5,})/;
 
   if (!regex.test(texto)) {
     const mensaje = document.createElement('span');
-    mensaje.textContent = "La contraseña debe tener al menos 5 caracteres, una mayúscula y un número.";3
+    mensaje.textContent = "La contraseña debe tener al menos 5 caracteres, una mayúscula y un número."; 3
     mensaje.classList.add("mensaje-error");
 
     if (campo.nextElementSibling) campo.nextElementSibling.remove();
@@ -2028,7 +1991,29 @@ export const validarContrasenia = (campo) => {
 
   return true;
 };
+export const validarFormularioCompleto = (formulario) => {
+  const camposRequeridos = [...formulario.elements].filter(el => el.hasAttribute('required'));
+  let formularioCompleto = true;
 
+  // Eliminar mensaje general previo si existe
+  const mensajePrevio = formulario.querySelector('.mensaje-error-general');
+  if (mensajePrevio) mensajePrevio.remove();
+
+  camposRequeridos.forEach(campo => {
+    const valor = campo.value.trim();
+    if (!valor) {
+      formularioCompleto = false;
+
+      // Solo marca el campo si aún no tiene mensaje
+      if (!campo.classList.contains('border--red')) {
+        campo.classList.add('border--red');
+      }
+    } else {
+      campo.classList.remove('border--red'); // Limpia el rojo si ya fue corregido
+    }
+  });
+  return formularioCompleto; // true o false
+};
 
 
 export const limpiar = (campo) => {
@@ -2041,13 +2026,13 @@ export const validarLetras = (event) => {
 
   const permitidas = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/;
 
-  if (!permitidas.test(tecla) && tecla!="Backspace" ) {
+  if (!permitidas.test(tecla) && tecla != "Backspace") {
     event.preventDefault();
   }
 };
 
 export const validarMinimo = (campo) => {
- const texto = campo.value.trim();
+  const texto = campo.value.trim();
   let minimo = parseInt(campo.getAttribute('minlength') || campo.getAttribute('min') || "0");
 
   if (texto.length < minimo) {
@@ -2079,16 +2064,16 @@ export const validarNumeros = (event) => {
 
   const permitidas = /^[0-9]$/;
 
-  if (!permitidas.test(tecla) && tecla!="Backspace") {
+  if (!permitidas.test(tecla) && tecla != "Backspace") {
     event.preventDefault();
   }
 };
 
-export const validarPlacas = (event) =>{
+export const validarPlacas = (event) => {
   const regex = /^[A-Za-z]{3}[0-9]{2}[A-Za-z]{1}$/;
   const placa = campo.value.trim()
 
-  if(!regex.test(placa)){
+  if (!regex.test(placa)) {
     const mensaje = document.createElement('span');
     mensaje.textContent = "Placa Invalida"
     mensaje.classList.add("mensaje-error")
@@ -2099,9 +2084,37 @@ export const validarPlacas = (event) =>{
   }
   return true;
 }
-export const recogerDatos=(form) => {
+export const recogerDatos = (form) => {
   const campos = [...form.elements].filter(item => item.hasAttribute('id') && item.hasAttribute('required'));
   let datos = {};
   campos.forEach(campo => datos[campo.id] = campo.value);
   return datos;
-}   
+}
+
+export const validarFechaMinima = (campo) => {
+  const valor = campo.value;
+  if (!valor) return false;
+
+  const fechaSeleccionada = new Date(valor + "T00:00:00");
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+
+  if (fechaSeleccionada < hoy) {
+    let mensaje = campo.nextElementSibling;
+    if (!mensaje || !mensaje.classList.contains("mensaje-error")) {
+      mensaje = document.createElement('span');
+      mensaje.classList.add("mensaje-error");
+      campo.insertAdjacentElement('afterend', mensaje);
+    }
+    mensaje.textContent = "La fecha no puede ser menor que hoy";
+    campo.classList.add('border--red');
+    return false;
+  } else {
+    const mensaje = campo.nextElementSibling;
+    if (mensaje && mensaje.classList.contains("mensaje-error")) {
+      mensaje.remove();
+    }
+    campo.classList.remove('border--red');
+    return true;
+  }
+}

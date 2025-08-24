@@ -1,59 +1,9 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<div class = "bodyAdmin" >
-  <div class="lateral">
-    <div class ="lateral__title">
-      <p class="lateral__titletext">ADMIN</p>
-    </div>
-    <div class="lateral__menu">
-      <div class = "lateral__border">
-        <i class="bi bi-clipboard2-fill lateral__icons"></i>
-      </div>
-      <a href="#/administrador/principal" class = "lateral__text">Inicio</a>
-    </div>
-
-    <div class="lateral__menu">
-      <div class = "lateral__border">
-        <i class="bi bi-person-fill lateral__icons"></i>
-      </div>
-      <a href="#/administrador/RegisterEmpleados" class = "lateral__text">Registrar Empleado</a>
-    </div>
-    <div class="lateral__menu">
-      <div class = "lateral__border">
-        <i class="bi bi-car-front-fill lateral__icons"></i>
-      </div>
-      <a href="#/administrador/RegisterVehiculos" class = "lateral__text">Vehiculos</a>
-    </div>
-    <div class="lateral__menu">
-      <div class = "lateral__border">
-        <i class="bi bi-tag-fill lateral__icons"></i>
-      </div>
-      <a href="#/administrador/CategoriasProductos" class = "lateral__text">Categorias y Productos</a>
-    </div>
-    <div class="lateral__menu">
-        <div class = "lateral__border">
-          <i class="bi bi-gear-fill lateral__icons"></i>
-        </div>
-        <a href="#/administrador/Servicios" class = "lateral__text">Servicios</a>
-    </div>
-    <div class="lateral__menu">
-      <div class = "lateral__border">
-        <i class="bi bi-clipboard2-fill lateral__icons"></i>
-      </div>
-        <a href="#/administrador/factura" class = "lateral__text">facturacion</a>
-    </div>
-    <div class="lateral__menu">
-      <div class = "lateral__border">
-        <i class="bi bi-box-arrow-left lateral__icons"></i>
-      </div>
-        <a href="#/Home" id="cerrar_sesion" class="lateral__text">Cerrar sesión</a>
-    </div>
-  </div>
   <div class="interfazvehiculos">
     <div class="interfazVehiculos__header">
       <div class="interfazVehiculos__title">
         <p class="title__vehiculos">Vehiculos</p>
         <div class="title__button">
-        <button id="registrar_vehiculos" class="button__vehiculos">Registrar Vehiculos</button>
+        <button id="registrar_vehiculos" class="button__form button__form--diseño_fondo">Registrar Vehiculos</button>
        </div>
       </div>
     </div>
@@ -64,7 +14,7 @@
     <div class="insertarUsuario__title">
       <p class="insertarUsuario__text">Registro de Vehiculos</p>
     </div>
-    <form class="formVehiculo__form" id="formVehiculo">
+    <form class="formVehiculo__form" id="formVehiculo" novalidate>
       <div class="formVehiculo__grupo">
         <label for="placa" class="formVehiculo__label">Placa:</label>
         <div class="form__inputtext">
@@ -88,7 +38,7 @@
       <div class="formVehiculo__grupo">
         <label for="usuario" class="formVehiculo__label">Usuario:</label>
         <div class="form__inputtext">
-          <input type="text" id="usuario_id" class="formVehiculo__input" placeholder="Usuario" min="5" max="20" required>
+          <input type="text" id="usuario" class="formVehiculo__input" placeholder="Usuario" min="5" max="20" required>
         </div>
       </div>    
       <div class="inserarUsuario__close">
@@ -98,4 +48,3 @@
     </form>
   </dialog>
     <script type="module" src="/Javascript/appInterfazVehiculos.js"></script>
-</div>

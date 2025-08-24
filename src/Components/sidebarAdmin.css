@@ -1,0 +1,56 @@
+@import url('../Styles/variables.css');
+.bodyAdmin {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+.lateral{
+  width: 100%;
+  height: 100vh;
+  background-color: #38528a;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-family: var(--font--principalateral);
+  font-size: 0.6rem;
+  list-style-type: none; 
+  font-weight:700;
+}
+.lateral__title{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: rgb(219, 219, 219);
+  
+}
+.lateral__menu{
+  display: flex;
+  width: 100%;
+  height: 5vh;
+  align-items: center;
+  gap: 10px;
+}
+.lateral__border{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lateral__icons{
+font-size: 25px;
+color: rgb(25, 25, 26);
+}
+.lateral__titletext{
+  font-size: 30px;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+.lateral__text{
+  font-size: 18px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+ 
+}
+

@@ -1,0 +1,6 @@
+@import url('/src/Components/sidebarAdmin.css');
+@import url('/src/Components/formularioUsuarios.css');
+
+.sidebarContainer{
+    width: 20%;
+}

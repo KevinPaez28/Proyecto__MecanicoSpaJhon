@@ -13,6 +13,17 @@ export const confirm = (mensaje) => {
         })
 }
 
+export const confirmUsuario = (mensaje) => {
+    return Swal.fire({
+        title: "Precaución",
+        text: `¿${mensaje}?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí"
+        })
+}
 export const success = (data,extra ="") => {
     return Swal.fire({
         title: data.message,

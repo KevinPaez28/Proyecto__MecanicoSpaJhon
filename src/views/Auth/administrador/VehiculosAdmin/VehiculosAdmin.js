@@ -1,12 +1,12 @@
 import { get, post } from "../../../../Helpers/api";
-import { contarCamposFormulario, limpiar, validarLetras, validarMinimo, Vehiculos } from "../../../../Helpers/Modules/modules";
+import { contarCamposFormulario, limpiar, validarFormularioCompleto, validarLetras, validarMinimo, Vehiculos } from "../../../../Helpers/Modules/modules";
 import "../../../../Styles/Administrador/VehiculosAdmin.css";
-import { confirmacion,success,error  } from "../../../../Helpers/alertas";
+import { confirmacion, success, error } from "../../../../Helpers/alertas";
 
 
-export default async (parametros = null) =>{
-  
-// Cargar datos iniciales
+export default async (parametros = null) => {
+
+  // Cargar datos iniciales
   const vehiculos = await get('Vehiculos');
   const usuarios = await get('Usuarios');
 
@@ -18,17 +18,19 @@ export default async (parametros = null) =>{
   const form = document.querySelector("#formVehiculo");
   const modelo = document.querySelector("#modelo");
   const marca = document.querySelector("#marca")
-  const Usuario = document.querySelector("#usuario_id")
+  const Usuario = document.querySelector("#usuario")
   const cerrarSesion = document.getElementById("cerrar_sesion");
-   cerrarSesion.addEventListener("click", async (e) => {
-     e.preventDefault(); // Evita que redireccione inmediatamente
-     const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
-     if (confirmacionCerrar.isConfirmed) {
-       // Si necesitas limpiar datos de sesión
-       // localStorage.clear();
-       window.location.href = "#/Home"; 
-     }
-   });
+  cerrarSesion.addEventListener("click", async (e) => {
+    e.preventDefault(); // Evita que redireccione inmediatamente
+    const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
+    if (confirmacionCerrar.isConfirmed) {
+      localStorage.clear();
+      window.location.href = "#/Home"; 
+    }
+  });
+  console.log(vehiculos)
+  console.log(usuarios)
+
   Vehiculos(vehiculos, usuarios);
   // Abrir y cerrar el diálogo
   btnRegistrar.addEventListener("click", () => {
@@ -40,10 +42,14 @@ export default async (parametros = null) =>{
   });
 
   // Manejo del formulario
-const CrearVehiculos = async (event) => {
+  const CrearVehiculos = async (event) => {
     event.preventDefault();
-    
-   const contarcampos = contarCamposFormulario(form);
+     // Limpiar errores visuales anteriores
+  for (let i = 0; i < form.elements.length; i++) {
+    limpiar(form.elements[i]);
+  }
+
+  const contarcampos = contarCamposFormulario(form);
   let completados = 0;
   let datos = {};
 
@@ -58,44 +64,40 @@ const CrearVehiculos = async (event) => {
     }
   }
 
-  const usuarioId = datos["usuario_id"];
-  const usuarioEncontrado = usuarios.find(u => u.usuario === usuarioId);
-
-  if (usuarioEncontrado) {
-    datos["usuario_id"] = usuarioEncontrado.usuario_id;
-  } else {
+  if (completados !== contarcampos) {
     dialogo.close();
-    await error("El usuario no está registrado.");
-    return; 
+    await error("Por favor completa todos los campos requeridos.");
+    location.reload();
+    return;
   }
 
-  if (completados === contarcampos) {
-    dialogo.close();
-    const confirm = await confirmacion("¿Desea Crear el Vehiculo?");
-    if (confirm.isConfirmed) {
-      const respuesta = await post('Vehiculos', datos);
+  console.log(datos);
+  dialogo.close();
 
-      if (respuesta.ok) {
-        if ((await success({ message: "Vehículo registrado con éxito"})).isConfirmed) {
-          location.reload();
-        }
-      } else {
-          await error(respuesta.data.error || "No se pudo crear el vehículo", "");
-      }
+  const confirm = await confirmacion("¿Desea Crear el Vehículo?");
+  if (!confirm.isConfirmed) return;
+
+  const respuesta = await post('Vehiculos', datos);
+
+  if (respuesta.ok) {
+    if ((await success({ message: "Vehículo registrado con éxito" })).isConfirmed) {
+      location.reload();
     }
   } else {
-    await error("Por favor completa todos los campos requeridos.");
+    // Captura directa del mensaje del backend
+    const mensajeError = respuesta.data?.error || "No se pudo crear el vehículo";
+    await error(mensajeError, "");
   }
-};
+  };
 
   modelo.addEventListener('blur', (event) => {
     if (validarMinimo(event.target)) limpiar(event.target);
   });
-   Usuario.addEventListener('blur', (event) => {
+  Usuario.addEventListener('blur', (event) => {
     if (validarMinimo(event.target)) limpiar(event.target);
   });
-  marca.addEventListener('keydown' ,validarLetras);
-   marca.addEventListener('blur', (event) => {
+  marca.addEventListener('keydown', validarLetras);
+  marca.addEventListener('blur', (event) => {
     if (validarMinimo(event.target)) limpiar(event.target);
   })
   form.addEventListener("submit", CrearVehiculos);

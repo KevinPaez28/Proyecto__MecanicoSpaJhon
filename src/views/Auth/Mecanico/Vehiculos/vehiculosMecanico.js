@@ -8,13 +8,11 @@ export default async () =>{
   const usuarios = await get('Usuarios');
     mostrarVehiculosMecanico(vehiculos,usuarios)
     const cerrar_sesion = document.getElementById("btnCerrarSesion")
-
- cerrar_sesion.addEventListener("click", async () => {
-    const confirm = await confirmacion("¿Desea cerrar sesión?");
-    if (confirm.isConfirmed) {
-    // Limpiar datos si aplica
-    // localStorage.clear(); 
-    window.location.href = "#/Home";
-  }
- })
+  cerrar_sesion.addEventListener("click", async () => {
+      const confirmacionRespuesta = await confirmacion("¿Desea cerrar sesión?");
+      if (confirmacionRespuesta.isConfirmed) {
+        localStorage.clear();
+        window.location.href = "#/Home";
+      }
+    });
 }
