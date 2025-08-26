@@ -1,14 +1,67 @@
+import { jwtDecode } from "jwt-decode";
+
+/* ----------------- Manejo de Tokens ----------------- */
+export function isTokenExpired(token) {
+  try {
+    const { exp } = jwtDecode(token);
+    return Date.now() >= exp * 1000;
+  } catch {
+    return true; // si no se puede decodificar, lo consideramos inválido
+  }
+}
+
+export async function refreshAccessToken() {
+  const refreshToken = localStorage.getItem("refreshToken");
+  if (!refreshToken) return null;
+
+  try {
+    const res = await fetch("http://localhost:3000/api/refresh", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem("token", data.token); // guarda el nuevo access token
+      return data.token;
+    } else {
+      localStorage.clear();
+      redirigirARuta("#/Home");
+      return null;
+    }
+  } catch (err) {
+    console.error("Error al refrescar token:", err);
+    localStorage.clear();
+    redirigirARuta("#/Home");
+    return null;
+  }
+}
+
+export async function getAuthHeaders() {
+  let token = localStorage.getItem("token");
+  if (!token || isTokenExpired(token)) {
+    token = await refreshAccessToken();
+  }
+  return token
+    ? { "Content-Type": "application/json", Authorization: "Bearer " + token }
+    : { "Content-Type": "application/json" };
+}
+
+/* ----------------- Peticiones con headers ----------------- */
 export const get = async (endpoint, params = {}) => {
   try {
     const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}${queryString}`);
-    const data = await response.json();
+    const response = await fetch(`http://localhost:3000/api/${endpoint}${queryString}`, {
+      headers: await getAuthHeaders()
+    });
 
+    const data = await response.json();
     if (!response.ok) {
       console.error("Error en GET:", data?.error || "Error desconocido");
       return null;
     }
-    return data; 
+    return data;
   } catch (error) {
     console.error("Error en GET:", error);
     return null;
@@ -17,104 +70,110 @@ export const get = async (endpoint, params = {}) => {
 
 export const post = async (endpoint, data) => {
   try {
-    const response = await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}`, {
+    const response = await fetch(`http://localhost:3000/api/${endpoint}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: await getAuthHeaders(),
       body: JSON.stringify(data)
     });
     const responseData = await response.json();
 
-    if (!response.ok) {
-      return { ok: false, data: responseData };
-    }
+    return {
+      ok: response.ok,
+      message: responseData.message || "",
+      errors: responseData.erros || [],
+      data: responseData.data || null
+    };
 
-    return { ok: true, data: responseData };
   } catch (error) {
     console.error("Error en POST:", error);
-    return { ok: false, data: null };
+    return { ok: false, message: "Error inesperado", errors: [], data: null };
   }
 };
 
 export const put = async (endpoint, info) => {
   try {
-    const response = await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}`, {
+    const response = await fetch(`http://localhost:3000/api/${endpoint}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: await getAuthHeaders(),
       body: JSON.stringify(info)
     });
     const responseData = await response.json();
 
-    if (!response.ok) {
-      console.error("Error en PUT:", responseData?.error || "Error desconocido");
-      return { ok: false, data: responseData };
-    }
+    return {
+      ok: response.ok,
+      message: responseData.message || "",
+      errors: responseData.erros || [],
+      data: responseData.data || null
+    };
 
-    return { ok: true, data: responseData };
   } catch (error) {
-    console.error(error);
-    return { ok: false, data: null };
+    console.error("Error en PUT:", error);
+    return { ok: false, message: "Error inesperado", errors: [], data: null };
   }
 };
+
 export const patch = async (endpoint, data) => {
   try {
-    const response = await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}`, {
+    const response = await fetch(`http://localhost:3000/api/${endpoint}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: await getAuthHeaders(),
       body: JSON.stringify(data)
     });
-
     const responseData = await response.json();
 
-    if (!response.ok) {
-      console.error("Error en PATCH:", responseData?.error || "Error desconocido");
-      return { ok: false, data: responseData };
-    }
+    return {
+      ok: response.ok,
+      message: responseData.message || "",
+      errors: responseData.erros || [],
+      data: responseData.data || null
+    };
 
-    return { ok: true, data: responseData };
   } catch (error) {
     console.error("Error en PATCH:", error);
-    return { ok: false, data: null };
+    return { ok: false, message: "Error inesperado", errors: [], data: null };
   }
 };
+
 export const del = async (endpoint) => {
   try {
-    const response = await fetch(`http://localhost:8080/Proyecto_grado2/api/${endpoint}`, {
+    const response = await fetch(`http://localhost:3000/api/${endpoint}`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: await getAuthHeaders()
     });
     const responseData = await response.json();
 
-    if (!response.ok) {
-      console.error("Error en DELETE:", responseData?.error || "Error desconocido");
-      return { ok: false, data: responseData };
-    }
+    return {
+      ok: response.ok,
+      message: responseData.message || "",
+      errors: responseData.erros || [],
+      data: responseData.data || null
+    };
 
-    return { ok: true, data: responseData };
   } catch (error) {
-    console.error(error);
-    return { ok: false, data: null };
+    console.error("Error en DELETE:", error);
+    return { ok: false, message: "Error inesperado", errors: [], data: null };
   }
 };
 
 export const login = async (usuario, contrasena) => {
   try {
-    const response = await fetch("http://localhost:8080/Proyecto_grado2/api/auth/login", {
+    const response = await fetch("http://localhost:3000/api/Usuarios/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ usuario, contrasena })
     });
 
     const data = await response.json();
+    return {
+      ok: response.ok,
+      message: data.message || "",
+      errors: data.erros || [],
+      data: data.data || null,
+      token: data.token || null
+    };
 
-    if (!response.ok) {
-      // Retorna error con bandera ok: false
-      return { ok: false, error: data?.error || "Error desconocido al iniciar sesión" };
-    }
-
-    // Si todo salió bien
-    return { ok: true, ...data };
   } catch (error) {
     console.error("Error en login:", error);
-    return { ok: false, error: "Error inesperado al iniciar sesión" };
+    return { ok: false, message: "Error inesperado al iniciar sesión", errors: [], data: null, token: null };
   }
 };

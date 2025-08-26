@@ -1,20 +1,7 @@
-import { get } from "../../../../Helpers/api.js";
-// import "../../../../Styles/Administrador/registerEmpleado.css";
-import EditarEmpleados from "./Editar/EditarEmpleados.js";
-export default async () => {
-  // const dialogo = document.getElementById("EliminarUsuario");
-  // const btnEliminarUsuarios = document.getElementById("Eliminar");
-  // const cerrar = document.getElementById("cerrarDialogo");
-
-  // btnEliminarUsuarios.addEventListener("click", () => {
-  //   ModificarUsuarios(usuarios, roles);
-  //   dialogo.showModal();
-  // });
-
-  // cerrar.addEventListener("click", () => {
-  //   dialogo.close();
-  // });
-
+import { get, put } from "../../../../Helpers/api.js";
+import { confirm, error, success, eliminar } from "../../../../Helpers/alertas.js";
+import "../../../../Styles/Administrador/registerEmpleado.css";
+export default async (parametros = null) => {
   const MostrarUsuarios = async () => {
     const tbody = document.querySelector(".tabla-usuarios tbody");
     if (!tbody) return; // Si no existe la tabla, salir
@@ -24,33 +11,93 @@ export default async () => {
     const usuarios = await get("Usuarios");
     const Roles = await get("Roles");
 
-    usuarios.forEach(usuario => {
+    usuarios.data.forEach(usuario => {
       const tr = document.createElement("tr");
 
-      tr.innerHTML = `
-            <td>${usuario.nombre}</td>
-            <td>${usuario.cedula}</td>
-            <td>${usuario.telefono}</td>
-            <td>${usuario.usuario}</td>
-            <td>${Roles.find(r => r.rol_id === usuario.rol_id)?.nombre || "Desconocido"}</td>
-            <td>${usuario.estado_usuario_id === 1 ? "Activo" : "Inactivo"}</td>
-            <td>
-                <button class="btn-modificar">Editar</button>
-                <button class="btn-Eliminar">Eliminar</button>
-            </td>
-        `;
+      const tdNombre = document.createElement("td");
+      tdNombre.textContent = usuario.nombre;
 
-      // Eventos de botones
-      tr.querySelector(".btn-Eliminar").addEventListener("click", () => {
-        EditarEmpleados(tdNombre, tdCedula, tdTelefono, tdUsuario, tdRol, tdEstado, btnEditar, Roles); // tu función existente
+      const tdCedula = document.createElement("td");
+      tdCedula.textContent = usuario.cedula;
+
+      const tdTelefono = document.createElement("td");
+      tdTelefono.textContent = usuario.telefono;
+
+      const tdUsuario = document.createElement("td");
+      tdUsuario.textContent = usuario.usuario;
+
+      const tdRol = document.createElement("td");
+      const rolEncontrado = Roles.data.find(r => r.rol_id == usuario.rol_id);
+      tdRol.textContent = rolEncontrado.nombre_rol;
+      tdRol.dataset.rolId = usuario.rol_id;
+
+      const tdEstado = document.createElement("td");
+      tdEstado.textContent = usuario.id_estado === 1 ? "Activo" : "Inactivo";
+      tdEstado.dataset.estadoId = usuario.id_estado;
+
+      const tdAcciones = document.createElement("td");
+
+      const btnEditar = document.createElement("button");
+      btnEditar.textContent = "Editar";
+      btnEditar.classList.add("btn-modificar");
+      btnEditar.dataset.id = usuario.usuario_id;
+
+      const btnEliminar = document.createElement("button");
+      btnEliminar.textContent = "Eliminar";
+      btnEliminar.classList.add("btn-eliminar");
+
+      // Eventos
+      btnEditar.addEventListener("click", () => {
+        const idEmpleado = usuario.usuario_id;
+        localStorage.setItem("idEmpleadoEditar", idEmpleado);
+        window.location.hash = "#/administrador/Empleados/editar";
       });
 
-      tr.querySelector(".btn-modificar").addEventListener("click", () => {
-        editarUsuarios(usuario); // tu función existente
+
+      btnEliminar.addEventListener("click", () => {
+        const idEmpleado = usuario.usuario_id;
+        localStorage.setItem("idEmpleadoEditar", idEmpleado);
+        eliminarUsuarioPorId();
       });
 
+      tdAcciones.append(btnEditar, btnEliminar);
+
+      tr.append(tdNombre, tdCedula, tdTelefono, tdUsuario, tdRol, tdEstado, tdAcciones);
       tbody.appendChild(tr);
     });
   };
-  MostrarUsuarios()
-}
+
+  MostrarUsuarios();
+
+  const eliminarUsuarioPorId = async () => {
+    const id = localStorage.getItem("idEmpleadoEditar");
+    try {
+      const confirm = await eliminar("¿Deseas desactivar el usuario?");
+      if (confirm.isConfirmed) {
+        const respuesta = await put(`Usuarios/desactivar/${id}`);
+
+        if (respuesta.ok) {
+          const ok = await success({ message: "Usuario desactivado con éxito" });
+          if (ok.isConfirmed) {
+            // Aquí puedes hacer algo si quieres, por ejemplo recargar la lista
+            MostrarUsuarios();
+          }
+        } else {
+          // Mostrar los errores si existen
+          if (respuesta.errors.length > 0) {
+            let mensajes = respuesta.errors.map(e => `${e.campo}: ${e.message}`).join("\n");
+            console.error("Errores al desactivar el usuario:", mensajes);
+            await error("Errores al desactivar usuario", mensajes);
+          } else {
+            // Mensaje general
+            console.error("Error al desactivar el usuario:", respuesta.message);
+            await error("Error al desactivar usuario", respuesta.message || "No se pudo desactivar el usuario");
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error inesperado al desactivar el usuario:", error);
+      await error("Error inesperado al desactivar");
+    }
+  };
+};

@@ -14,7 +14,7 @@ import informacionMecanico from '../views/Auth/Mecanico/informacion/informacion.
 import HistorialServicios from '../views/Auth/usuarios/HistorialServicios/HistorialServicios.js'
 import factura from '../views/Auth/administrador/Factura/factura.js'
 import ListarEmpleados from '../views/Auth/administrador/Empleados/ListarEmpleados.js'
-import { EditarEmpleados } from '../views/Auth/administrador/Empleados/Editar/EditarEmpleados.js'
+import EditarEmpleados  from '../views/Auth/administrador/Empleados/Editar/EditarEmpleados.js'
 export const routes = {
   Home: {
     path: "Home/index.html",
@@ -44,8 +44,8 @@ export const routes = {
         private: true
       },
       editar:{ 
-        path: `Auth/administrador/Editar/index.html`,
-        Controller: EditarEmpleados,
+        path: `Auth/administrador/Empleados/Editar/index.html`,
+        controller: EditarEmpleados,
         private: true
       }
     },

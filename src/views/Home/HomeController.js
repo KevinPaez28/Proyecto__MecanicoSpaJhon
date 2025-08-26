@@ -29,18 +29,16 @@ export default (parametros = null) => {
     }
 
     try {
-      const usuarios = await get("Usuarios/todos");
+      const usuarios = await get("Usuarios");
       const roles = await get("Roles");
-
-      const user = usuarios.find((usu) => usu.usuario === usuariovalor);
-
+      const user = usuarios.data.find((usu) => usu.usuario == usuariovalor);
       if (!user) {
         await error("Usuario no encontrado.");
         return;
       }
 
       // Verificar si el usuario está desactivado
-      if (user.estado_usuario_id !== 1) {
+      if (user.id_estado !== 1) {
         const confirmacion = await confirmUsuario("Su usuario está desactivado. ¿Desea reactivarlo?");
         if (confirmacion) {
           const { ok, data } = await put(`Usuarios/activar/${user.usuario_id}`, {});
@@ -53,22 +51,24 @@ export default (parametros = null) => {
         return; // Detener el proceso de login hasta que el usuario intente nuevamente
       }
 
-      const rolUsuario = roles.find((rol) => rol.rol_id === user.rol_id);
-
+      const rolUsuario = roles.data.find((rol) => rol.rol_id === user.rol_id);
+      
       // Intentar login
       const result = await login(usuariovalor, contraseniavalor);
-
+      console.log(rolUsuario);
+      
       if (!result.ok) {
         await error(result.error);
         return;
       }
 
       // Si login exitoso
-      localStorage.setItem("token", result.token);
+      localStorage.setItem("token", result.data.accessToken);
+      localStorage.setItem("tokenrefresh", result.data.refreshToken);
       localStorage.setItem("usuario", JSON.stringify(user));
       await success({ message: "Usuario iniciado correctamente" });
 
-      const rutaRol = rolUsuario.nombre.toLowerCase();
+      const rutaRol = rolUsuario.nombre_rol.toLowerCase();
       location.hash = `#/${rutaRol}/principal`;
     } catch (e) {
       console.error("Error en el proceso de login:", e);

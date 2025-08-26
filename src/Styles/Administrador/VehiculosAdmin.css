@@ -2,7 +2,7 @@
 
 
 .interfazvehiculos{
- width: 80%;
+ width: 100%;
  height: 100vh;
 }
 .interfazVehiculos__header{
@@ -119,9 +119,7 @@ gap: 25px;
 .interfazcard__nombre{
   font-size: 1.1rem;
 }
-.title__button{
- width: 15%;
-}
+
 .button__vehiculos{
     width: 100%;
     height: 5vh;

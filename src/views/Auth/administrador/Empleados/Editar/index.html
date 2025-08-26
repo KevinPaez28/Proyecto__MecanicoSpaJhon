@@ -1,13 +1,22 @@
- <div class="loginmecanico">
-    <div id="EliminarUsuario" class="dialog__centrado">
-      <div class="EliminarUsuario__title">
-        <p class="Eliminarusuario__text">Eliminar Usuarios</p>
-      </div>
-      <div class="EliminarUsuario__body">
-        <div class="EliminarUsuario__Content"></div>
-      </div>
-      <div class="EliminarUsuario__close">
-        <button class="buttonclose" id="cerrarDialogo">Cerrar</button>
-      </div>
+<div class="contentBloque">
+    <div class="contenido">
+        <table class="tabla-usuarios">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cedula</th>
+                    <th>Telefono</th>
+                    <th>Usuario</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="tabla-usuarios tbody">
+                <!-- Aquí JS insertará los usuarios -->
+            </tbody>
+        </table>
     </div>
-  </div>
+</div>
+
+<script type="module" src="./EditarEmpleados.js"></script>

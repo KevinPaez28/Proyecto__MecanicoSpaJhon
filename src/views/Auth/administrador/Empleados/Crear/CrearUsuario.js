@@ -1,17 +1,18 @@
 import { get, post } from "../../../../../Helpers/api";
 import { contarCamposFormulario, validar, validarCorreo, validarMinimo, validarCedula, validarContrasenia, validarLetras, validarNumeros, validarMaximo, limpiar } from "../../../../../Helpers/Modules/modules";
+import { confirmacion, success, error } from "../../../../../Helpers/alertas.js";
 import "../../../../../Components/formularioUsuarios.css"
 import "../../../../../Components/botonesadmin.css"
 import "../../../../../Styles/Administrador/registerEmpleado.css"
-export default async () => {
+export default async (parametros = null) => {
     const select = document.querySelector("select")
     const usuarios = await get('Usuarios');
     const roles = await get('Roles');
-    roles.forEach(element => {
+    roles.data.forEach(element => {
         console.log(element)
         const option = document.createElement('option');
         option.setAttribute('value', element.rol_id);
-        option.textContent = element.nombre;
+        option.textContent = element.nombre_rol;
         select.append(option);
     });
 
@@ -36,17 +37,23 @@ export default async () => {
             datos['correo'] = datos['correo'].trim();
             datos['usuario'] = datos['usuario'].trim();
             datos['contrasena'] = datos['contrasena'].trim();
-            datos['estado_usuario_id'] = 1
-
+            datos['id_estado'] = 1
+            console.log(datos)
             const respuesta = await post('Usuarios', datos);
             const confirm = await confirmacion("¿Desea Crear el usuario?");
             if (confirm.isConfirmed) {
                 if (respuesta.ok) {
-                    if ((await success({ message: "Usuario Registrado con exito" })).isConfirmed) {
+                    if ((await success({ message: "Usuario Registrado con éxito" })).isConfirmed) {
                         formulario.reset();
                     }
                 } else {
-                    await error(respuesta.data.error || "No se pudo crear el usuario", "");
+                    // Mostrar los errores de validación si existen
+                    if (respuesta.errors.length > 0) {
+                        let mensajes = respuesta.errors.map(e => `${e.campo}: ${e.message}`).join("\n");
+                        await error("Errores de validación", mensajes);
+                    } else {
+                        await error("Error", respuesta.message || "No se pudo crear el usuario");
+                    }
                 }
             } else {
                 await error("Faltan campos válidos", "");

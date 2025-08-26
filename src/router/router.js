@@ -1,5 +1,5 @@
 import { routes } from "./routes";
-
+import { isTokenExpired, refreshAccessToken } from "../Helpers/api.js";
 // Función principal del enrutador SPA
 export const router = async (elemento) => {
   const hash = location.hash.slice(2); // Eliminamos "#/"
@@ -23,16 +23,28 @@ export const router = async (elemento) => {
 
   // Verificar acceso privado
   if (ruta.private) {
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
-    if (!usuario || (params?.id && parseInt(params.id) !== usuario.usuario_id)) {
-      alert("Acceso no autorizado");
-      location.hash = "#/Home";
-      return;
+    let token = localStorage.getItem("token");
+
+    // 👉 Si no hay token
+    if (!token) {
+      localStorage.clear();
+      redirigirARuta("#/Home");
+      return null;
+    }
+
+    // 👉 Si está vencido
+    if (isTokenExpired(token)) {
+      token = await refreshAccessToken();
+      if (!token) {
+        localStorage.clear();
+        redirigirARuta("#/Home");
+        return null;
+      }
     }
   }
 
   // Cargar la vista HTML y ejecutar el controlador JS
-  await cargarVista(ruta, elemento,params);
+  await cargarVista(ruta, elemento, params);
   // await ruta.controller(params);
 };
 
@@ -45,10 +57,10 @@ const redirigirARuta = (ruta) => {
   }
 };
 
-export const encontrarRuta = (routes, segmentos) => {  
+export const encontrarRuta = (routes, segmentos) => {
   let rutaActual = routes;
   let rutaEncontrada = false;
-  let parametros = {};  
+  let parametros = {};
 
   if (segmentos.length === 3 && segmentos[2].includes("=")) {
     parametros = extraerParametros(segmentos[2]);

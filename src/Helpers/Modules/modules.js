@@ -2,13 +2,13 @@ import { get, del, put, patch, post } from "../api.js";
 import { confirm, success, error, eliminar } from "../alertas.js";
 export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) => {
   try {
-    if (!usuarios || !Array.isArray(usuarios)) {
+    if (!usuarios) {
       throw new Error("No se pudo obtener la lista de usuarios.");
     }
 
     const empleados = document.querySelector(".menu__empleados-contenido");
     empleados.innerHTML = ""
-    usuarios.forEach(element => {
+    usuarios.data.forEach(element => {
       const empleados_content = document.createElement("div");
       empleados_content.classList.add("Menu__empleados-content");
 
@@ -23,8 +23,8 @@ export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) => {
       const pRol = document.createElement("p");
       pRol.classList.add("Menu__empleados-prol");
 
-      const rolEncontrado = Roles.find(r => r.rol_id == element.rol_id);
-      pRol.textContent = rolEncontrado ? rolEncontrado.nombre : "Desconocido";
+      const rolEncontrado = Roles.data.find(r => r.rol_id == element.rol_id);
+      pRol.textContent = rolEncontrado ? rolEncontrado.nombre_rol : "Desconocido";
 
       empleados_content.appendChild(pNombre);
       empleados_content.appendChild(pCedula);
@@ -42,7 +42,7 @@ export const ObteneReparacionesadmin = async () => {
   const contenedor = document.querySelector(".menu__trabajos");
   contenedor.innerHTML = "";
 
-  reparaciones.forEach(element => {
+  reparaciones.data.forEach(element => {
     const reparacion_content = document.createElement("div");
     reparacion_content.classList.add("Menu__reparaciones-content");
 
@@ -52,11 +52,11 @@ export const ObteneReparacionesadmin = async () => {
 
     const pUsuario = document.createElement("p");
     pUsuario.classList.add("Menu__reparaciones-datos");
-    pUsuario.textContent = element.cliente;
+    pUsuario.textContent = element.usuario;
 
     const pEstado = document.createElement("p");
     pEstado.classList.add("Menu__reparaciones-datos");
-    pEstado.textContent = element.nombre_estado;
+    pEstado.textContent = element.estado;
 
     const pServicio = document.createElement("p");
     pServicio.classList.add("Menu__reparaciones-datos");
@@ -75,7 +75,7 @@ export const fechaPlacaServicio = async () => {
   const contenedor = document.querySelector(".menu__fechas");
   contenedor.innerHTML = "";
 
-  reparaciones.forEach(element => {
+  reparaciones.data.forEach(element => {
     const reparacion_content = document.createElement("div");
     reparacion_content.classList.add("Menu__fechas-content");
 
@@ -95,27 +95,27 @@ export const fechaPlacaServicio = async () => {
 export const TotalDeClientes = async (usuarios) => {
   const reparaciones = await get(`Reparaciones`)
   const totalFacturas = await get(`facturas/totalventas`)
+  console.log(totalFacturas.data);
+  console.log(totalFacturas.data.total);
   const elementosMenuNumbers = document.querySelectorAll('.menu__numbers');
   if (!elementosMenuNumbers || elementosMenuNumbers.length === 0) return;
 
   // Contar clientes
-  const clientesFiltrados = usuarios.filter(usuario => usuario.rol_id === 2);
+  const clientesFiltrados = usuarios.data.filter(usuario => usuario.rol_id == 2);
   elementosMenuNumbers[0].textContent = clientesFiltrados.length;
 
   // Contar consultas en proceso
-  const consultasEnProceso = reparaciones.filter(consulta => consulta.nombre_estado === 'Procesando');
+  const consultasEnProceso = reparaciones.data.filter(consulta => consulta.nombre_estado === 'Procesando');
   elementosMenuNumbers[1].textContent = consultasEnProceso.length;
 
-  elementosMenuNumbers[2].textContent = `$${Number(totalFacturas.total).toLocaleString('es-CO')}`;
-
-
+  const totalNormal = Number(totalFacturas[0].total);
+  elementosMenuNumbers[2].textContent = totalNormal;
 };
 export const ProdcutosAgotados = async () => {
   const productos = await get("Productos");
-  console.log(productos)
   const contenedor = document.querySelector(".productos_cantidad");
   // Filtrar productos con stock menor a 2
-  const pocosProductos = productos.filter(p => p.stock < 2);
+  const pocosProductos = productos.data.filter(p => p.stock < 2);
 
   pocosProductos.forEach(element => {
     const productoCard = document.createElement("div");
@@ -139,7 +139,102 @@ export const ProdcutosAgotados = async () => {
   });
 }
 
+export const EditarEmpleados = (tdNombre, tdCedula, tdTelefono, tdUsuario, tdRol, tdEstado, btnEditar, Roles) => {
+  // Crear inputs dinámicos
+  const inputNombre = document.createElement("input");
+  inputNombre.classList.add("empleadosContent__input");
+  inputNombre.value = tdNombre.textContent;
 
+  const inputCedula = document.createElement("input");
+  inputCedula.classList.add("empleadosContent__input");
+  inputCedula.value = tdCedula.textContent;
+
+  const inputTelefono = document.createElement("input");
+  inputTelefono.classList.add("empleadosContent__input");
+  inputTelefono.value = tdTelefono.textContent;
+
+  const inputUsuario = document.createElement("input");
+  inputUsuario.classList.add("empleadosContent__input");
+  inputUsuario.value = tdUsuario.textContent;
+
+  // Select Roles
+  const selectRol = document.createElement("select");
+  selectRol.classList.add("empleadosContent__input");
+  Roles.forEach(r => {
+    const option = document.createElement("option");
+    option.value = r.rol_id;
+    option.textContent = r.nombre;
+    if (r.rol_id === parseInt(tdRol.dataset.rolId)) {
+      option.selected = true;
+    }
+    selectRol.appendChild(option);
+  });
+
+  // Select Estado
+  const selectEstado = document.createElement("select");
+  selectEstado.classList.add("empleadosContent__input");
+
+  const optionActivo = document.createElement("option");
+  optionActivo.value = "1";
+  optionActivo.textContent = "Activo";
+  if (tdEstado.dataset.estadoId === "1") optionActivo.selected = true;
+
+  const optionInactivo = document.createElement("option");
+  optionInactivo.value = "0";
+  optionInactivo.textContent = "Inactivo";
+  if (tdEstado.dataset.estadoId === "0") optionInactivo.selected = true;
+
+  selectEstado.appendChild(optionActivo);
+  selectEstado.appendChild(optionInactivo);
+
+  // Reemplazar contenido de la celda
+  tdNombre.textContent = "";
+  tdCedula.textContent = "";
+  tdTelefono.textContent = "";
+  tdUsuario.textContent = "";
+  tdRol.textContent = "";
+  tdEstado.textContent = "";
+
+  tdNombre.appendChild(inputNombre);
+  tdCedula.appendChild(inputCedula);
+  tdTelefono.appendChild(inputTelefono);
+  tdUsuario.appendChild(inputUsuario);
+  tdRol.appendChild(selectRol);
+  tdEstado.appendChild(selectEstado);
+
+  // Cambiar botón a "Guardar"
+  btnEditar.textContent = "Guardar";
+
+  btnEditar.addEventListener("click", async () => {
+    const nuevoUsuario = {
+      nombre: inputNombre.value.trim(),
+      cedula: inputCedula.value.trim(),
+      telefono: inputTelefono.value.trim(),
+      usuario: inputUsuario.value.trim(),
+      rol_id: parseInt(selectRol.value),
+      estado_usuario_id: parseInt(selectEstado.value),
+    };
+
+    try {
+      const confirmacion = await confirm("¿Desea actualizar este usuario?");
+      if (confirmacion.isConfirmed) {
+        const respuesta = await put(`Usuarios/${btnEditar.dataset.id}`, nuevoUsuario);
+
+        if (respuesta.ok) {
+          if ((await success({ message: "Usuario actualizado con éxito" })).isConfirmed) {
+            location.reload();
+          }
+        } else {
+          await error(respuesta.data?.error || "Error al actualizar usuario");
+          location.reload();
+        }
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      await error("Error inesperado al actualizar usuario");
+    }
+  });
+};
 export const eliminarUsuarioPorId = async (id) => {
   const dialog = document.getElementById("EliminarUsuario");
   try {
@@ -166,7 +261,6 @@ export const eliminarUsuarioPorId = async (id) => {
     await error("Error inesperado al desactivar");
   }
 };
-
 
 export const Vehiculos = (vehiculos, Usuarios) => {
   const seccionInfo = document.querySelector(".interfazVehiculos__content");
@@ -317,7 +411,6 @@ export const EditarVehiculos = (nombre, placa, modelo, btnEditar) => {
       modelo: inputModelo.value.trim(),
       usuario: btnEditar.dataset.usuarioLogin.trim(), // Enviamos usuario login aquí
     };
-    console.log(EditarVehiculo);
     try {
       const respuesta = await put(`Vehiculos/${btnEditar.dataset.id}`, EditarVehiculo);
 
@@ -857,21 +950,18 @@ export const Clientesbyid = async () => {
   const buttons = document.querySelector(".contentbuttons")
   let id = localStorage.getItem("cliente_id");
   const mecanicoId = localStorage.getItem("mecanico_id");
-  console.log(id);
-  console.log(mecanicoId);
+
 
   let Usuarios = "";
   if (mecanicoId) {
     // Si existe mecanico_id
     Usuarios = await get(`Usuarios/${mecanicoId}`);
     id = mecanicoId;
-    console.log(id);
-  
+
   }
   else if (id) {
     // Si existe usuario_id
     Usuarios = await get(`Usuarios/${id}`);
-    console.log("Datos del cliente:", id);
   }
   const infonombre = document.createElement("p")
   infonombre.classList.add("infotitlename")
@@ -923,8 +1013,7 @@ export const Clientesbyid = async () => {
   buttons.appendChild(btnEliminar)
 }
 export const EditarClientes = (infocedula, infocorreo, infotelefono, infousuario, infoconstrasena, btnEditar, id, name) => {
-  console.log(id);
-  
+
   const inputCedula = document.createElement("input");
   inputCedula.classList.add("clienteModificacion__input");
   inputCedula.value = infocedula.textContent;
@@ -1471,7 +1560,7 @@ export const EditarReparaciones = async (
       const confirmacion = await confirm("¿Actualizar reparación?");
       if (confirmacion.isConfirmed) {
         const respuesta = await patch(`Reparaciones/${element.detalle_id}`, reparacionActualizada);
-        
+
         if (respuesta.ok) {
           if ((await success({ message: "Reparación actualizada con éxito" })).isConfirmed) {
             location.reload();
@@ -1739,7 +1828,6 @@ export const generarFactura = async (reparacion) => {
     subtotal: subtotal,
     total: total
   };
-  console.log(factura);
 
   // 4. Confirmar y enviar
   const confirmacion = await confirm("¿Desea crear la factura?");
