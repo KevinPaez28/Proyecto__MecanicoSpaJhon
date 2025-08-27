@@ -1,64 +1,25 @@
-<div class="contentContainer">
   <div class="interfazcategorias">
     <div class="interfazcategorias__header">
-      <div class="interfazcategorias__fondo">
-        <!-- <img class="imagen__fondo" src="/Img/Logo.png" alt=""> -->
-      </div>
       <div class="interfazcategorias__title">
         <p class="interfazcategorias__titleProductos">Categorias y Productos</p>
+        <div>
+          <a href="#/administrador/Categorias/crear" d="registrar_vehiculos" class="button__form button__form--diseño_fondo">Registrar Categorias</a>
+          <a href="#/administrador/Productos/crear" d="registrar_vehiculos" class="button__form button__form--diseño_fondo">Registrar Productos</a>
+          <a href="#/administrador/Productos/editar" d="registrar_vehiculos" class="button__form button__form--diseño_fondo">Editar Productos</a>
+        </div>
+      </div>
+      <div class="title__button">
       </div>
     </div>
     <div class="interfazcategorias__content">
       <div class="interfazcategorias__contenedor">
         <div id="contenedorCategorias" class="contentCategorias"></div>
       </div>
-      <div class="interfazcategorias__insertar">
-        <div class="interfazinsertar__contenedor-categorias">
-          <form action="" class="interfazinsertar__formulario" id="categorias" novalidate>
-            <div class="interfazinsertar__formulario-titulo">
-              <p class="interfazinsertar__formulario-texto">Categorias</p>
-            </div>
-            <div class="interfazinsertar__formulario-grupo">
-              <label class="interfazinsertar__label" for="nombre">Nombre</label>
-              <input id="nombre" class="interfazinsertar__input" type="text" required min="5">
-            </div>
-            <div class="interfazinsertar__formulario-botones">
-              <button type="submit" class="interfazinsertar__boton">Guardar</button>
-            </div>
-          </form>
-        </div>
 
-        <div class="interfazinsertar__contenedor-productos">
-          <form action="" class="interfazinsertar__formulario" id="productos" novalidate>
-            <div class="interfazinsertar__formulario-titulo">
-              <p class="interfazinsertar__formulario-texto">Productos</p>
-            </div>
-            <div class="interfazinsertar__formulario-grupo">
-              <label class="interfazinsertar__label" for="nombre">Nombre de Productos</label>
-              <input id="Nombre" class="interfazinsertar__input" type="text" required min="5">
-            </div>
-            <div class="interfazinsertar__formulario-grupo">
-              <label class="interfazinsertar__label" for="categoria">Precio</label>
-              <input id="Precio" class="interfazinsertar__input" type="text" required min="2">
-            </div>
-            <div class="interfazinsertar__formulario-grupo">
-              <label class="interfazinsertar__label" for="categoria">Unidad</label>
-              <input id="stock" class="interfazinsertar__input" type="text" required min="1">
-            </div>
-            <div class="interfazinsertar__formulario-grupo">
-              <label class="interfazinsertar__label" for="rol">Categoria</label>
-              <select id="categoria_id" class="interfazinsertar__input" required>
-                <option value="">Selecciona una Categoria</option>
-              </select>
-            </div>
-            <div class="interfazinsertar__formulario-botones">
-              <button type="submit" class="interfazinsertar__boton">Guardar</button>
-            </div>
-          </form>
-        </div>
-      </div>
+
+
     </div>
-  </div>
-  <script type="module" src="./AdminCategoria.js"></script>
+</div>
+<script type="module" src="./AdminCategoria.js"></script>
 </div>
 </div>

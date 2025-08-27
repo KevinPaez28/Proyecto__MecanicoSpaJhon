@@ -4,68 +4,68 @@ import { error, confirmacion, success } from "../../../../Helpers/alertas";
 import { contarCamposFormulario, MostrarServicios, validarLetras, validarMinimo, limpiar, validarFormularioCompleto} from "../../../../Helpers/Modules/modules";
 
 export default async (parametros = null) => {
-//   const form = document.querySelector("#formularioServicios")
-//   const nombre = document.querySelector("#nombre_servicio")
-//   const descripcion = document.querySelector("#descripcion")
-//   const precio = document.querySelector("#precio")
-//   const servicios = await get("Servicios");
-//  const cerrarSesion = document.getElementById("cerrar_sesion");
-//   cerrarSesion.addEventListener("click", async (e) => {
-//     e.preventDefault(); // Evita que redireccione inmediatamente
-//     const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
-//     if (confirmacionCerrar.isConfirmed) {
-//       localStorage.clear();
-//       window.location.href = "#/Home"; 
-//     }
-//   });
-//   MostrarServicios(servicios)
+  const form = document.querySelector("#formularioServicios")
+  const nombre = document.querySelector("#nombre_servicio")
+  const descripcion = document.querySelector("#descripcion")
+  const precio = document.querySelector("#precio")
+  const servicios = await get("Servicios");
+ const cerrarSesion = document.getElementById("cerrar_sesion");
+  cerrarSesion.addEventListener("click", async (e) => {
+    e.preventDefault(); // Evita que redireccione inmediatamente
+    const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
+    if (confirmacionCerrar.isConfirmed) {
+      localStorage.clear();
+      window.location.href = "#/Home";
+    }
+  });
+  MostrarServicios(servicios)
 
-//   const crearServicios = async (event) => {
-//     event.preventDefault()
+  const crearServicios = async (event) => {
+    event.preventDefault()
 
-//   limpiar(form); // si tienes función para limpiar errores anteriores
+  limpiar(form); // si tienes función para limpiar errores anteriores
 
-//   const formularioValido = validarFormularioCompleto(form);
-//   if (!formularioValido) {
-//     await error("Por favor completa todos los campos requeridos.");
-//     return;
-//   }
+  const formularioValido = validarFormularioCompleto(form);
+  if (!formularioValido) {
+    await error("Por favor completa todos los campos requeridos.");
+    return;
+  }
 
-//   let datos = {};
-//   for (let i = 0; i < form.elements.length; i++) {
-//     const campo = form.elements[i];
+  let datos = {};
+  for (let i = 0; i < form.elements.length; i++) {
+    const campo = form.elements[i];
 
-//     if (campo.hasAttribute('required')) {
-//       limpiar(campo); // Borra errores visuales si los hay
-//       datos[campo.id.toLowerCase()] = campo.value.trim();
-//     }
-//   }
+    if (campo.hasAttribute('required')) {
+      limpiar(campo); // Borra errores visuales si los hay
+      datos[campo.id.toLowerCase()] = campo.value.trim();
+    }
+  }
 
-//   const confirm = await confirmacion("¿Desea crear el servicio?");
-//   if (confirm.isConfirmed) {
-//     const respuesta = await post('Servicios', datos);
+  const confirm = await confirmacion("¿Desea crear el servicio?");
+  if (confirm.isConfirmed) {
+    const respuesta = await post('Servicios', datos);
 
-//     if ((await success({ message: "Servicio registrado con éxito" })).isConfirmed) {
-//       if (respuesta?.ok) {
-//         location.reload();
-//       } else {
-//         await error("No se pudo crear el servicio.");
-//       }
-//     }
-//   }
-// }
-
-
-//   nombre.addEventListener('keydown', validarLetras);
-//   nombre.addEventListener('keydown', (event) => {
-//     if (validarMinimo(event.target)) limpiar(event.target);
-//   });
-//   descripcion.addEventListener('blur', (event) => {
-//     if (validarMinimo(event.target)) limpiar(event.target);
-//   });
+    if ((await success({ message: "Servicio registrado con éxito" })).isConfirmed) {
+      if (respuesta?.ok) {
+        location.reload();
+      } else {
+        await error("No se pudo crear el servicio.");
+      }
+    }
+  }
+}
 
 
+  nombre.addEventListener('keydown', validarLetras);
+  nombre.addEventListener('keydown', (event) => {
+    if (validarMinimo(event.target)) limpiar(event.target);
+  });
+  descripcion.addEventListener('blur', (event) => {
+    if (validarMinimo(event.target)) limpiar(event.target);
+  });
 
-//   form.addEventListener("submit", crearServicios);
+
+
+  form.addEventListener("submit", crearServicios);
 
 }

@@ -1,3 +1,8 @@
+.title__button {
+display: flex;
+height: 60%;
+
+}
 .button__form {
   display: inline-block;        /* Permite que el botón se adapte al contenido */
   padding: 0.6em 1.5em;         /* Alto y ancho relativo al contenido */

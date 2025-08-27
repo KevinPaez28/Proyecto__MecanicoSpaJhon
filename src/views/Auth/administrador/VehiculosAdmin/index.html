@@ -1,50 +1,14 @@
-  <div class="interfazvehiculos">
-    <div class="interfazVehiculos__header">
-      <div class="interfazVehiculos__title">
-        <p class="title__vehiculos">Vehiculos</p>
-        <div class="title__button">
-        <button id="registrar_vehiculos" class="button__form button__form--diseño_fondo">Registrar Vehiculos</button>
-       </div>
+<div class="interfazvehiculos">
+  <div class="interfazVehiculos__header">
+    <div class="interfazVehiculos__title">
+      <p class="title__vehiculos">Vehiculos</p>
+      <div class="title__button">
+        <a href="#/administrador/Vehiculos/crear" d="registrar_vehiculos" class="button__form button__form--diseño_fondo">Registrar Vehiculos</a>
       </div>
-    </div>
-    <div class="interfazVehiculos__content">
     </div>
   </div>
-  <dialog id="insertarvehiculos" class="dialog__centradoVehiculo">
-    <div class="insertarUsuario__title">
-      <p class="insertarUsuario__text">Registro de Vehiculos</p>
-    </div>
-    <form class="formVehiculo__form" id="formVehiculo" novalidate>
-      <div class="formVehiculo__grupo">
-        <label for="placa" class="formVehiculo__label">Placa:</label>
-        <div class="form__inputtext">
-        <input type="text" id="placa" class="formVehiculo__input" placeholder="Placa del vehículo" required maxlength="20">
-        </div>
-      </div>
-      <div class="formVehiculo__grupo">
-        <label for="marca" class="formVehiculo__label">Marca:</label>
-        <div class="form__inputtext">
-          <input type="text" id="marca" class="formVehiculo__input" placeholder="Marca del vehículo" required min="3" maxlength="20">
-        </div>
-      </div>
+  <div class="interfazVehiculos__content">
+  </div>
+</div>
 
-      <div class="formVehiculo__grupo">
-        <label for="modelo" class="formVehiculo__label">Modelo:</label>
-        <div class="form__inputtext">
-          <input type="text" id="modelo" class="formVehiculo__input" placeholder="Modelo del vehículo" required min="5" maxlength="20">
-        </div>
-      </div>
-      
-      <div class="formVehiculo__grupo">
-        <label for="usuario" class="formVehiculo__label">Usuario:</label>
-        <div class="form__inputtext">
-          <input type="text" id="usuario" class="formVehiculo__input" placeholder="Usuario" min="5" max="20" required>
-        </div>
-      </div>    
-      <div class="inserarUsuario__close">
-          <button type="submit" class="formVehiculo__btn" id="insertarvehiculos">Registrar Vehículo</button>
-          <button class="formVehiculo__btn" id="cerrarvehiculos">Cerrar</button>
-      </div>
-    </form>
-  </dialog>
-    <script type="module" src="/Javascript/appInterfazVehiculos.js"></script>
+<script type="module" src="./crear/crearvehiculos.js"></script>

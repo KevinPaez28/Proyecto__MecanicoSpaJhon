@@ -38,13 +38,14 @@ export default async (parametros = null) => {
             datos['usuario'] = datos['usuario'].trim();
             datos['contrasena'] = datos['contrasena'].trim();
             datos['id_estado'] = 1
-            console.log(datos)
             const respuesta = await post('Usuarios', datos);
             const confirm = await confirmacion("¿Desea Crear el usuario?");
             if (confirm.isConfirmed) {
                 if (respuesta.ok) {
                     if ((await success({ message: "Usuario Registrado con éxito" })).isConfirmed) {
                         formulario.reset();
+                        window.location.href = "#/administrador/Empleados";
+
                     }
                 } else {
                     // Mostrar los errores de validación si existen

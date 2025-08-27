@@ -14,7 +14,15 @@ import informacionMecanico from '../views/Auth/Mecanico/informacion/informacion.
 import HistorialServicios from '../views/Auth/usuarios/HistorialServicios/HistorialServicios.js'
 import factura from '../views/Auth/administrador/Factura/factura.js'
 import ListarEmpleados from '../views/Auth/administrador/Empleados/ListarEmpleados.js'
-import EditarEmpleados  from '../views/Auth/administrador/Empleados/Editar/EditarEmpleados.js'
+import EditarEmpleados from '../views/Auth/administrador/Empleados/Editar/EditarEmpleados.js'
+import crearvehiculos from '../views/Auth/administrador/VehiculosAdmin/crear/crearvehiculos.js'
+import editarvehiculos from '../views/Auth/administrador/VehiculosAdmin/editar/editarvehiculos.js'
+import crearcategorias from '../views/Auth/administrador/CategoriasProductos/Crear/crearCategorias.js'
+import CrearProductos from '../views/Auth/administrador/Productos/Crear/crearProductos.js'
+import editarproductos from '../views/Auth/administrador/Productos/editar/editarproductos.js'
+
+
+
 export const routes = {
   Home: {
     path: "Home/index.html",
@@ -43,26 +51,60 @@ export const routes = {
         controller: CrearEmpleados,
         private: true
       },
-      editar:{ 
+      editar: {
         path: `Auth/administrador/Empleados/Editar/index.html`,
         controller: EditarEmpleados,
         private: true
       }
     },
-    RegisterVehiculos: {
-      path: `Auth/administrador/VehiculosAdmin/index.html`,
-      controller: VehiculosAdmin,
-      private: true
+    Vehiculos: {
+      "/": {
+        path: `Auth/administrador/VehiculosAdmin/index.html`,
+        controller: VehiculosAdmin,
+        private: true
+      },
+      crear: {
+        path: `Auth/administrador/VehiculosAdmin/crear/index.html`,
+        controller:crearvehiculos,
+        private: true
+      },
+      editar: {
+        path: `Auth/administrador/VehiculosAdmin/editar/index.html`,
+        controller: editarvehiculos,
+        private: true
+      }
     },
-    CategoriasProductos: {
-      path: `Auth/administrador/CategoriasProductos/index.html`,
-      controller: AdminCategoria,
-      private: true
+    Categorias: {
+      "/":{
+        path: `Auth/administrador/CategoriasProductos/index.html`,
+        controller: AdminCategoria,
+        private: true
+      },
+      crear: {
+        path: `Auth/administrador/CategoriasProductos/crear/index.html`,
+        controller: crearcategorias,
+        private: true
+      }
+    },
+    Productos: {
+      crear: {
+        path: `Auth/administrador/Productos/Crear/index.html`,
+        controller: CrearProductos,
+        private: true
+      },
+      editar: {
+        path: `Auth/administrador/Productos/Editar/index.html`,
+        controller:editarproductos,
+        private: true
+      }
     },
     Servicios: {
+    "/": {
       path: `Auth/administrador/Servicios/index.html`,
       controller: servicios,
       private: true
+    },
+
     },
     factura: {
       path: `Auth/administrador/Factura/index.html`,

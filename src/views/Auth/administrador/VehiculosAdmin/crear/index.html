@@ -1,0 +1,41 @@
+<div id="insertarvehiculos" class="dialog__centradoVehiculo">
+    <div class="insertarUsuario__title">
+        <p class="insertarUsuario__text">Registro de Vehiculos</p>
+    </div>
+    <form class="formVehiculo__form" id="formVehiculo" novalidate>
+        <div class="formVehiculo__grupo">
+            <label for="placa" class="formVehiculo__label">Placa:</label>
+            <div class="form__inputtext">
+                <input type="text" id="placa" class="formVehiculo__input" placeholder="Placa del vehículo" required
+                    maxlength="20">
+            </div>
+        </div>
+        <div class="formVehiculo__grupo">
+            <label for="marca" class="formVehiculo__label">Marca:</label>
+            <div class="form__inputtext">
+                <input type="text" id="marca" class="formVehiculo__input" placeholder="Marca del vehículo" required
+                    min="3" maxlength="20">
+            </div>
+        </div>
+
+        <div class="formVehiculo__grupo">
+            <label for="modelo" class="formVehiculo__label">Modelo:</label>
+            <div class="form__inputtext">
+                <input type="text" id="modelo" class="formVehiculo__input" placeholder="Modelo del vehículo" required
+                    min="5" maxlength="20">
+            </div>
+        </div>
+
+        <div class="formVehiculo__grupo">
+            <label for="usuario" class="formVehiculo__label">Usuario:</label>
+            <div class="form__inputtext">
+                <input type="text" id="usuario" class="formVehiculo__input" placeholder="Usuario" min="5" max="20"
+                    required>
+            </div>
+        </div>
+        <div class="inserarUsuario__close">
+            <button type="submit" class="formVehiculo__btn" id="insertarvehiculos">Registrar Vehículo</button>
+        </div>
+    </form>
+    <script src="crearvehiculos.js"></script>
+</div>

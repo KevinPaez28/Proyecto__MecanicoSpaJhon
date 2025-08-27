@@ -1,114 +1,127 @@
 @import url('../variables.css');
 
 
-.interfazvehiculos{
- width: 100%;
- height: 100vh;
+.interfazvehiculos {
+  width: 100%;
+  height: 100vh;
 }
-.interfazVehiculos__header{
- display: flex;
- font-family: "Lato", sans-serif;
+
+.interfazVehiculos__header {
+  display: flex;
+  font-family: "Lato", sans-serif;
   font-size: 0.9rem;
   list-style-type: none;
   font-weight: 600;
   align-items: center;
   height: 15%;
 }
-.interfazvehiculos__fondo{
- display: flex;
- justify-content: center;  
+
+.interfazvehiculos__fondo {
+  display: flex;
+  justify-content: center;
 }
 
-.interfazVehiculos__title{
- width: 100%;
- height: 15vh;
- padding: 20px;
- display: flex;
- align-items: center;
- justify-content: space-between;
- 
+.interfazVehiculos__title {
+  width: 100%;
+  height: 15vh;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
 }
 
-.title__vehiculos{
- font-size: 1.9rem;
-}
-.interfazVehiculos__button{
- width: 15%;  
- height: 55%;
- border: none;
- padding: 5px;
- border-radius: 10px;
- font-size: 1.0rem;
-}
-.interfazVehiculos__content{
-padding: 10px;
-width: 100%;
-display: flex;
-flex-wrap: wrap;
-height: 85%;
-overflow-y: auto;
-scrollbar-width: none;
-gap: 25px;
+.title__vehiculos {
+  font-size: 1.9rem;
 }
 
-.interfazvehiculos__cards{
- padding: 5px;
- width: 20%;
- height: 32%;
- background-color:var(--color--cardvehiculos);
- border-radius: 15px;
+.interfazVehiculos__button {
+  width: 15%;
+  height: 55%;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 1.0rem;
 }
-.interfazvehiculos__contentCards > p{
- font-size: 1rem;
- font-family: var(--font_bodyIngresovehiculos);
- font-weight:500;
+
+.interfazVehiculos__content {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 85%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  gap: 25px;
 }
-.interfazvehiculos__contentCard > p{
- font-size: 1rem;
- font-family: var(--font_bodyIngresovehiculos);
- font-weight:400;
+
+.interfazvehiculos__cards {
+  padding: 5px;
+  width: 20%;
+  height: 32%;
+  background-color: var(--color--cardvehiculos);
+  border-radius: 15px;
 }
- .interfazvehiculos__body{
- display: flex;
- flex-direction:column;
- justify-content: center;
- width: 100%;
- height: 100%;
+
+.interfazvehiculos__contentCards>p {
+  font-size: 1rem;
+  font-family: var(--font_bodyIngresovehiculos);
+  font-weight: 500;
 }
-.interfazvehiculos__info{
+
+.interfazvehiculos__contentCard>p {
+  font-size: 1rem;
+  font-family: var(--font_bodyIngresovehiculos);
+  font-weight: 400;
+}
+
+.interfazvehiculos__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.interfazvehiculos__info {
   display: flex;
   height: 75%;
   justify-content: space-around;
   gap: 25px;
 }
-.interfazvehiculos__contentCard{
+
+.interfazvehiculos__contentCard {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
 }
-.interfazvehiculos__contentCards{
+
+.interfazvehiculos__contentCards {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;  
+  justify-content: space-around;
   height: 100%;
 }
-.inputEditar{
+
+.inputEditar {
   width: 70%;
   border: none;
   border-radius: 15px;
   height: 20px;
   padding: 5px;
 }
-.interfazvehiculos__button{
- width: 100%;
- height: 20%;
- display: flex;
- align-items: center;
- justify-content: center;
- gap: 10px;
+
+.interfazvehiculos__button {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
-.interfazvehiculos__buttones{
+
+.interfazvehiculos__buttones {
   width: 40%;
   height: 80%;
   border-radius: 15px;
@@ -116,23 +129,24 @@ gap: 25px;
   color: var(--color--blancocontent);
   border: none;
 }
-.interfazcard__nombre{
+
+.interfazcard__nombre {
   font-size: 1.1rem;
 }
 
-.button__vehiculos{
-    width: 100%;
-    height: 5vh;
-    text-align: center;
-    border-radius: 50px;
-    background-color: var(--color--principal);
-    color: rgb(255, 255, 255);
-    font-family: var(--font-buttons);
-    font-size: 1.1rem;
-    font-weight: 600;
+.button__vehiculos {
+  width: 100%;
+  height: 5vh;
+  text-align: center;
+  border-radius: 50px;
+  background-color: var(--color--principal);
+  color: rgb(255, 255, 255);
+  font-family: var(--font-buttons);
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-.dialog__centradoVehiculo{
+.dialog__centradoVehiculo {
   position: fixed;
   padding: 20px;
   border: none;
@@ -146,17 +160,19 @@ gap: 25px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.359);
 }
 
-.insertarUsuario__title{
+.insertarUsuario__title {
   width: 100%;
   height: 15%;
   text-align: center;
 }
-.insertarUsuario__text{
+
+.insertarUsuario__text {
   font-size: 1.7rem;
   font-family: var(--font-Title);
   font-weight: 600;
 }
-.formVehiculo__form{
+
+.formVehiculo__form {
   height: 300px;
   display: flex;
   justify-content: space-around;
@@ -164,23 +180,27 @@ gap: 25px;
   background-color: var(--color--registrovehiculos);
   margin: 10px 0;
 }
-.formVehiculo__grupo{
+
+.formVehiculo__grupo {
   display: flex;
   gap: 20px;
   padding: 10px;
   height: 55px;
 }
-.formVehiculo__label{
- font-family: var(--font_bodyIngresovehiculos);
- width: 45px;
+
+.formVehiculo__label {
+  font-family: var(--font_bodyIngresovehiculos);
+  width: 45px;
 }
-.formVehiculo__input{
+
+.formVehiculo__input {
   border-radius: 5px;
   height: 25px;
   width: 100%;
   padding: 3px;
 }
-.inserarUsuario__close{
+
+.inserarUsuario__close {
   height: 45px;
   display: flex;
   text-align: center;
@@ -189,10 +209,10 @@ gap: 25px;
   padding: 0px 5px;
   margin-top: 5px;
 }
-.formVehiculo__btn{
-  width: 40%;
-  height: 60%;  
-  background-color:var( --color--hoverForm) ;
-  border-radius: 10px ;
-}
 
+.formVehiculo__btn {
+  width: 40%;
+  height: 60%;
+  background-color: var(--color--hoverForm);
+  border-radius: 10px;
+}

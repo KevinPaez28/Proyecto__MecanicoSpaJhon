@@ -2,6 +2,15 @@ import { get, put } from "../../../../Helpers/api.js";
 import { confirm, error, success, eliminar } from "../../../../Helpers/alertas.js";
 import "../../../../Styles/Administrador/registerEmpleado.css";
 export default async (parametros = null) => {
+  const cerrarSesion = document.getElementById("cerrar_sesion");
+  cerrarSesion.addEventListener("click", async (e) => {
+    e.preventDefault(); // Evita que redireccione inmediatamente
+    const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
+    if (confirmacionCerrar.isConfirmed) {
+      localStorage.clear();
+      window.location.href = "#/Home";
+    }
+  });
   const MostrarUsuarios = async () => {
     const tbody = document.querySelector(".tabla-usuarios tbody");
     if (!tbody) return; // Si no existe la tabla, salir
