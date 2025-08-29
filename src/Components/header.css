@@ -1,0 +1,134 @@
+@import url('../Styles/variables.css');
+
+.contentUsuario {
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.headerUsuario {
+    width: 100%;
+    background-color: var(--color--headercliente);
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centra verticalmente */
+    padding: 0px 10px;
+    position: relative; /* Clave para el posicionamiento del menú */
+}
+
+.headerlogo {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.headerimg {
+    height: 60%;
+    width: auto;
+}
+
+.headertext {
+    font-family: var(--font-buttons);
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: var(--color--textheader);
+}
+
+.headermenu {
+    width: 50%;
+    height: 100%;
+}
+
+.headerinformacion {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinea los enlaces a la derecha */
+    gap: 22px;
+}
+
+/* El botón de menú de hamburguesa está oculto por defecto */
+.menu-toggle {
+    display: none; 
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--color--textheader);
+    padding: 5px;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 900px) {
+    .headerUsuario {
+        height: 10vh; 
+        padding: 0px 20px;
+    }
+    
+    .headertext {
+        font-size: 1.4rem;
+        display: none; /* Oculta el texto en móviles */
+    }
+
+    .headermenu {
+        display: none; /* Oculta el menú por defecto */
+        position: absolute;
+        top: 10vh;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: var(--color--headercliente);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        padding-bottom: 10px;
+    }
+    
+    /* Esta clase se añadirá con JavaScript para mostrar el menú */
+    .headermenu.menu--visible {
+        display: block;
+    }
+
+    .headerinformacion {
+        flex-direction: column; /* Apila los enlaces verticalmente */
+        align-items: center;
+        width: 100%;
+        gap: 15px;
+    }
+    
+    .headerimg {
+        height: 50%;
+    }
+
+    .headerlogo {
+        width: 40%;
+    }
+
+    .menu-toggle {
+        display: block; /* Muestra el botón de hamburguesa */
+    }
+}
+
+@media (max-width: 600px) {
+    .headermenu {
+        display: none;
+        position: absolute;
+        top: 10vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90vw;
+        max-width: 350px;
+        min-width: 220px;
+        height: auto;
+        background-color: var(--color--headercliente);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+        z-index: 100;
+        padding: 18px 10px 10px 10px;
+        border-radius: 18px;
+        animation: menuFadeIn 0.3s;
+    }
+}

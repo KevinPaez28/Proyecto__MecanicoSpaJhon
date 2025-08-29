@@ -1,11 +1,13 @@
 @import url('../Styles/variables.css');
+
 .bodyAdmin {
   display: flex;
   width: 100%;
   height: 100vh;
 }
-.lateral{
-  width: 100%;
+
+.lateral {
+  width: 240px; /* Ancho fijo para desktop */
   height: 100vh;
   background-color: #38528a;
   padding: 15px;
@@ -14,43 +16,138 @@
   gap: 25px;
   font-family: var(--font--principalateral);
   font-size: 0.6rem;
-  list-style-type: none; 
-  font-weight:700;
+  list-style-type: none;
+  font-weight: 700;
+  
+  /* Lógica de posición unificada */
+  position: fixed; 
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
 }
-.lateral__title{
+
+.lateral.sidebar--visible {
+  transform: translateX(0); /* Visible */
+}
+
+/* El botón de toggle debe estar oculto en desktop */
+.sidebar__toggle {
+  display: none;
+}
+
+/* Estilos compartidos del sidebar, se aplican a todos los tamaños */
+.lateral__title {
   width: 100%;
   display: flex;
   justify-content: center;
   color: rgb(219, 219, 219);
-  
 }
-.lateral__menu{
+
+.lateral__menu {
   display: flex;
   width: 100%;
   height: 5vh;
   align-items: center;
   gap: 10px;
 }
-.lateral__border{
+
+.lateral__border {
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.lateral__icons{
-font-size: 25px;
-color: rgb(25, 25, 26);
+
+.lateral__icons {
+  font-size: 25px;
+  color: rgb(25, 25, 26);
 }
-.lateral__titletext{
+
+.lateral__titletext {
   font-size: 30px;
   text-decoration: none;
   color: rgb(0, 0, 0);
 }
-.lateral__text{
+
+.lateral__text {
   font-size: 18px;
   text-decoration: none;
   color: rgb(255, 255, 255);
- 
 }
 
+
+@media (max-width: 900px) {
+  .lateral {
+    width: 220px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    /* Ocultar el sidebar en móviles por defecto */
+    transform: translateX(-100%);
+  }
+  
+  .sidebar__toggle {
+    display: block; /* Mostrar el botón de toggle en móviles */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background: #38528a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  
+  .lateral__titletext {
+    font-size: 22px;
+  }
+  
+  .lateral__text {
+    font-size: 15px;
+  }
+  
+  .lateral__border {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .lateral__icons {
+    font-size: 18px;
+  }
+  
+  .lateral__menu {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .lateral {
+    width: 180px;
+    padding: 8px;
+    gap: 15px;
+  }
+  
+  .lateral__titletext {
+    font-size: 16px;
+  }
+  
+  .lateral__text {
+    font-size: 12px;
+  }
+  
+  .lateral__border {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .lateral__icons {
+    font-size: 10px;
+  }
+  
+  .lateral__menu {
+    gap: 4px;
+  }
+}

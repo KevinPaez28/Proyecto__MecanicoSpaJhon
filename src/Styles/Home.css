@@ -176,3 +176,137 @@ font-family: var(--font-Title);
   font-size: 20px;
   color: rgb(255, 255, 255);
 }
+/* ------------------- MEDIA QUERIES ------------------- */
+@media (max-width: 1024px) {
+  .header__menu {
+    width: 70%;
+    gap: 10px;
+  }
+  .content__logo {
+    width: 40%;
+  }
+  .content__img {
+    width: 300px;
+    height: 200px;
+  }
+  .content__informacion {
+    width: 60%;
+  }
+  .vista__lista {
+    width: 40%;
+    height: 60vh;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    padding: 5px;
+  }
+  .header__usuarios {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+  }
+  .header__menu {
+    width: 100%;
+    gap: 8px;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .header__login {
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-start;
+  }
+  .content {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  .content__logo {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .content__img {
+    width: 200px;
+    height: 120px;
+  }
+  .content__informacion {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .vista__servicios {
+    flex-direction: column;
+    height: auto;
+    gap: 20px;
+  }
+  .vista__lista {
+    width: 90%;
+    height: auto;
+    border-radius: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  .vista__informacion {
+    height: auto;
+  }
+  .button__container {
+    width: 90%;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 2px;
+  }
+  .header__menu {
+    font-size: 0.9rem;
+    gap: 4px;
+  }
+  .menu__items {
+    font-size: 16px;
+  }
+  .header__input {
+    width: 80px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+  .button__login {
+    width: 80px;
+    height: 24px;
+    font-size: 0.8rem;
+    padding: 2px;
+  }
+  .content__img {
+    width: 120px;
+    height: 80px;
+  }
+  .content__text {
+    font-size: 14px;
+  }
+  .vista__lista {
+    width: 100%;
+    padding: 5px;
+    border-radius: 15px;
+  }
+  .button__container {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .vistas__items {
+    font-size: 1rem;
+  }
+}

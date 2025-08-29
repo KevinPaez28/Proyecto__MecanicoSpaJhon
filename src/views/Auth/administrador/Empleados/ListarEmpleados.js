@@ -102,6 +102,6 @@ export default async (parametros = null) => {
     }
   };
   if (!tienePermiso("Usuarios_Listar")){
-    MostrarUsuarios();
   }
+  MostrarUsuarios();
 };

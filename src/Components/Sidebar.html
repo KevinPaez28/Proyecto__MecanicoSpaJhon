@@ -1,9 +1,21 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<link rel="stylesheet" href="./sidebaradmin.css">
-<div class="lateral">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./sidebaradmin.css">
+    <title>Administrador</title>
+</head>
+<body>
+
+<button id="sidebarToggle" class="sidebar__toggle">☰</button>
+
+<div class="lateral" id="sidebar">
     <div class="lateral__title">
         <p class="lateral__titletext">ADMIN</p>
     </div>
+
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-clipboard2-fill lateral__icons"></i>
@@ -17,30 +29,35 @@
         </div>
         <a href="#/Empleados" class="lateral__text">Registrar Empleado</a>
     </div>
+
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-car-front-fill lateral__icons"></i>
         </div>
         <a href="#/Vehiculos" class="lateral__text">Vehiculos</a>
     </div>
+
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-tag-fill lateral__icons"></i>
         </div>
         <a href="#/Categorias" class="lateral__text">Categorias y Productos</a>
     </div>
+
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-gear-fill lateral__icons"></i>
         </div>
         <a href="#/Servicios" class="lateral__text">Servicios</a>
     </div>
+
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-clipboard2-fill lateral__icons"></i>
         </div>
-        <a href="#/factura" class="lateral__text">facturacion</a>
+        <a href="#/factura" class="lateral__text">Facturación</a>
     </div>
+
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-box-arrow-left lateral__icons"></i>
@@ -48,3 +65,8 @@
         <a href="#/Home" id="cerrar_sesion" class="lateral__text">Cerrar sesión</a>
     </div>
 </div>
+
+<script src="./cerrarSesion.js"></script>
+
+</body>
+</html>

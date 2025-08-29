@@ -1,5 +1,6 @@
 import { get, post } from '../../../../../Helpers/api';
 import { success, error } from '../../../../../Helpers/alertas';
+import { tienePermiso } from '../../../../../Helpers/Modules/modules';
 
 export default async () => {
     const formfacturas = document.querySelector("#insertar__facturas");
@@ -27,10 +28,11 @@ export default async () => {
             selectReparacion.appendChild(option);
         });
     };
-
-    await cargarReparaciones();
-
-    // --- 2. Crear factura ---
+    if(tienePermiso("ServiciosRealizados_Listar")){
+        await cargarReparaciones();
+    }
+    
+    
     const crearFacturas = async (event) => {
         event.preventDefault();
 
@@ -97,6 +99,7 @@ export default async () => {
         await success({ message: "Factura creada correctamente" });
         window.history.back();
     };
-
-    formfacturas.addEventListener('submit', crearFacturas);
+    if(tienePermiso("Facturas_Crear")){
+        formfacturas.addEventListener('submit', crearFacturas);
+    }
 };

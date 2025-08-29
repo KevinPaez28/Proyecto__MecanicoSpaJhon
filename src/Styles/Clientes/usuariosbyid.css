@@ -14,6 +14,7 @@
  border-radius: 15px;
 }
 
+
 .titleNombre{
 height: 20%;
 padding: 20px;
@@ -98,4 +99,101 @@ border: none;
 border-radius: 15px;
 background-color: var(--color--BotonClientes);
 color: var(--color--fondotextos);
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .informacionPerfil {
+    height: auto;
+    padding: 15px 0;
+    flex-direction: column;
+  }
+  .contentcards {
+    width: 95%;
+    min-width: 260px;
+    height: auto;
+    margin: 0 auto 20px auto;
+    padding: 16px 12px;
+  }
+  .titleNombre {
+    padding: 10px;
+  }
+  .infotitlename {
+    font-size: 1.4rem;
+  }
+  .contenidoUsuario {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0 8px;
+  }
+  .infotitle {
+    width: 100%;
+    padding: 4px 0;
+  }
+  .titletext {
+    font-size: 1rem;
+    width: 100%;
+  }
+  .infodatos {
+    width: 100%;
+    padding: 2px 0;
+  }
+  .infotext {
+    font-size: 0.95rem;
+    word-wrap: break-word;
+  }
+  .contentbuttons {
+    flex-direction: row;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+  }
+  .btnUsuarios, .btn-guardarClientes {
+    width: auto;
+    min-width: 90px;
+    height: 34px;
+    font-size: 0.9rem;
+    padding: 0 12px;
+  }
+  .clienteModificacion__input {
+    width: 100%;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+  .contentcards {
+    width: 100%;
+    min-width: 200px;
+    padding: 12px 8px;
+  }
+  .infotitlename {
+    font-size: 1.2rem;
+  }
+  .titletext {
+    font-size: 0.9rem;
+  }
+  .infotext {
+    font-size: 0.85rem;
+  }
+  .contenidoUsuario {
+    gap: 8px;
+    display: flex;
+  }
+  .contentbuttons {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .btnUsuarios, .btn-guardarClientes {
+    font-size: 0.85rem;
+    height: 32px;
+  }
+  .clienteModificacion__input {
+    height: 30px;
+    font-size: 0.85rem;
+  }
 }

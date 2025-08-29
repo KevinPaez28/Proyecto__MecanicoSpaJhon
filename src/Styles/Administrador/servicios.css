@@ -188,3 +188,121 @@
   padding: 0px 8px;
   height:30px;
 }
+
+/* Responsivo para tablets */
+@media (max-width: 900px) {
+  .interfaz-servicios {
+    height: auto;
+    padding: 8px;
+  }
+  .servicios-header {
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    padding: 0 8px;
+  }
+  .servicios-title {
+    flex-direction: column;
+    padding: 8px;
+    height: auto;
+    gap: 8px;
+  }
+  .servicios-title-text {
+    font-size: 1.3rem;
+  }
+  .servicios-listado {
+    width: 100%;
+    gap: 12px;
+    height: auto;
+    padding: 4px;
+  }
+  .listado__cardservicios {
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .servicios-formulario-contenedor {
+    width: 98%;
+    height: auto;
+    padding: 4px;
+    gap: 8px;
+  }
+  .servicios-formulario {
+    width: 100%;
+    height: auto;
+    padding: 6px;
+  }
+  .servicios-formulario-grupo {
+    gap: 8px;
+  }
+  .servicios-input {
+    width: 100%;
+    font-size: 1rem;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .servicios-boton {
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 6px;
+  }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 600px) {
+  .interfaz-servicios {
+    height: auto;
+    padding: 2px;
+  }
+  .servicios-header {
+    flex-direction: column;
+    gap: 4px;
+    height: auto;
+    padding: 0 2px;
+  }
+  .servicios-title {
+    flex-direction: column;
+    padding: 2px;
+    height: auto;
+    gap: 4px;
+  }
+  .servicios-title-text {
+    font-size: 1.1rem;
+  }
+  .servicios-listado {
+    width: 100%;
+    gap: 6px;
+    height: auto;
+    padding: 2px;
+  }
+  .listado__cardservicios {
+    width: 98%;
+    height: auto;
+    margin-bottom: 8px;
+  }
+  .servicios-formulario-contenedor {
+    width: 98%;
+    height: auto;
+    padding: 2px;
+    gap: 4px;
+  }
+  .servicios-formulario {
+    width: 100%;
+    height: auto;
+    padding: 2px;
+  }
+  .servicios-formulario-grupo {
+    gap: 4px;
+  }
+  .servicios-input {
+    width: 100%;
+    font-size: 0.95rem;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .servicios-boton {
+    width: 100%;
+    font-size: 0.95rem;
+    margin-top: 4px;
+  }
+}

@@ -24,6 +24,7 @@
   font-weight: 600;
   font-size: 1.9rem;
   text-align: center;
+  font-size: 25px;
 }
 
 .contenido {
@@ -34,7 +35,6 @@
   overflow-x: auto;
 }
 
-/* --- Estilos para la tabla en pantallas grandes --- */
 .tabla-usuarios {
   width: 100%;
   border-collapse: collapse;
@@ -52,6 +52,7 @@
   background-color: var(--color--fondologin);
   color: var(--color--negro);
   font-weight: 600;
+
 }
 
 .tabla-usuarios button {
@@ -60,7 +61,6 @@
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  margin: 2px;
 }
 
 .tabla-usuarios .btn-modificar {
@@ -68,20 +68,44 @@
   color: #fff;
 }
 
-.tabla-usuarios .btn-eliminar {
+.tabla-usuarios .btn-Eliminar {
   background-color: var(--color--buttonEliminar);
   color: #fff;
 }
 
-/* --- Responsividad: Transformar la tabla en una lista en móviles --- */
+.form__inputtext {
+  width: 50%;
+  height: 5%;
+}
+
+.mensaje-error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+.form__input {
+  border-radius: 5px;
+  height: 25px;
+  padding: 3px;
+  border: none;
+}
+
 @media (max-width: 600px) {
-  .tabla-usuarios, .tabla-usuarios tbody, .tabla-usuarios tr, .tabla-usuarios td {
+
+  .tabla-usuarios,
+  .tabla-usuarios tbody,
+  .tabla-usuarios tr,
+  .tabla-usuarios td {
     display: block;
     width: 100%;
   }
 
   .tabla-usuarios thead {
-    display: none; /* Oculta el encabezado de la tabla */
+    display: none;
+    /* Oculta el encabezado de la tabla */
   }
 
   .tabla-usuarios tr {

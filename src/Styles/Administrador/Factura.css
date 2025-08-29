@@ -39,3 +39,67 @@ height: 50%;
 display: flex;
 align-items: center;
 }
+
+/* Responsivo para tablets */
+@media (max-width: 900px) {
+  .facturasAdmin {
+    flex-direction: column;
+    gap: 12px;
+    height: auto;
+    padding: 8px;
+  }
+  .facturasAdmincontent {
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .header__buton {
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    padding: 8px;
+  }
+  .button__factura {
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 6px;
+  }
+  .interfazfacturas__infoadmin {
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    padding: 8px;
+  }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 600px) {
+  .facturasAdmin {
+    flex-direction: column;
+    gap: 6px;
+    height: auto;
+    padding: 2px;
+  }
+  .facturasAdmincontent {
+    width: 98%;
+    height: auto;
+    margin-bottom: 8px;
+  }
+  .header__buton {
+    flex-direction: column;
+    gap: 4px;
+    height: auto;
+    padding: 2px;
+  }
+  .button__factura {
+    width: 100%;
+    font-size: 0.95rem;
+    margin-top: 4px;
+  }
+  .interfazfacturas__infoadmin {
+    flex-direction: column;
+    gap: 4px;
+    height: auto;
+    padding: 2px;
+  }
+}

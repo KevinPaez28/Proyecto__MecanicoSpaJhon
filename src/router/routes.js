@@ -156,6 +156,7 @@ export const routes = {
       path: `Auth/Mecanico/Facturas/Crear/index.html`,
       controller: CrearFacturas,
       private: true,
+      can: "Facturas_Crear"
     }
   },
   Reparaciones: {
@@ -163,16 +164,15 @@ export const routes = {
       path: `Auth/Mecanico/Reparaciones/Crear/index.html`,
       controller: crearservicios,  
       private: true,
+      can: "ServiciosRealizados_Crear"
     },
-    editar: {
-
-    }
   },
   consumibles:{
     crear: {
       path: `Auth/Mecanico/Consumibbles/Crear/index.html`,
       controller: consumibles,
       private: true,
+      can: "ServiciosConsumibles_Crear"
     }
   },
   informacion: {

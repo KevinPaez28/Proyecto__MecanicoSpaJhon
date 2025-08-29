@@ -220,3 +220,145 @@ grid-area: notificaciones;
 background-color: rgb(192, 190, 190);
 border-radius: 15px;
 }
+.lateral {
+  transition: transform 0.3s ease;
+}
+@media (max-width: 900px) {
+  .lateral {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100vh;
+    z-index: 1200;
+    background: #38528a;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  }
+  .sidebar--visible {
+    transform: translateX(0);
+  }
+}
+@media (max-width: 600px) {
+  .lateral {
+    width: 180px;
+    font-size: 0.8rem;
+  }
+}
+.sidebar__toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background: #38528a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+@media (max-width: 900px) {
+  .sidebar__toggle {
+    display: block ;
+  }
+}
+/* Responsivo para tablets */
+@media (max-width: 900px) {
+  .contentadmin {
+    flex-direction: column;
+    padding: 8px;
+    height: auto;
+  }
+  .contentadmin__menu {
+    grid-template-areas:
+      "resumen resumen"
+      "calendario ordenes"
+      "reportes empleados";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, auto);
+    gap: 12px;
+    font-size: 1.1rem;
+  }
+  .menu__info {
+    width: 90%;
+    border-radius: 20px;
+    padding: 6px;
+    gap: 10px;
+  }
+  .menu__numbers {
+    font-size: 28px;
+  }
+  .menu__text {
+    font-size: 1.1rem;
+  }
+  .menu__empleadosNombres > p,
+  .menu__empleadosReparaciones {
+    font-size: 1.1rem;
+  }
+  .menu__empleadosNombres {
+    padding: 8px;
+    width: 100%;
+  }
+  .Menu__empleados-content > p {
+    font-size: 0.95rem;
+  }
+  .menu__calendario,
+  .menu__ordenes,
+  .menu__ventas,
+  .menu__empleados,
+  .menu__reportes,
+  .menu__notificaciones {
+    padding: 0px 8px;
+    border-radius: 10px;
+  }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 600px) {
+  .contentadmin {
+    flex-direction: column;
+    padding: 2px;
+    height: auto;
+  }
+  .contentadmin__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+  .menu__info {
+    width: 100%;
+    border-radius: 10px;
+    padding: 2px;
+    gap: 6px;
+  }
+  .menu__numbers {
+    font-size: 18px;
+  }
+  .menu__text {
+    font-size: 0.95rem;
+  }
+  .menu__empleadosNombres > p,
+  .menu__empleadosReparaciones {
+    font-size: 0.95rem;
+  }
+  .menu__empleadosNombres {
+    padding: 4px;
+    width: 100%;
+  }
+  .Menu__empleados-content > p {
+    font-size: 0.85rem;
+  }
+  .menu__calendario,
+  .menu__ordenes,
+  .menu__ventas,
+  .menu__empleados,
+  .menu__reportes,
+  .menu__notificaciones {
+    padding: 0px 4px;
+    border-radius: 6px;
+  }
+}

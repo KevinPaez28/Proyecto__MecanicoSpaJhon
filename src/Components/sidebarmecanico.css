@@ -1,6 +1,8 @@
 @import url('../Styles/variables.css');
+
 .panel_lateral {
-  width: 100%;
+  /* Estilos para escritorio */
+  width: 240px; 
   height: 100vh;
   background-color: #636161;
   padding: 15px;
@@ -11,7 +13,24 @@
   font-size: 0.6rem;
   font-weight: 700;
   list-style-type: none;
+
+  /* Lógica de posición fija para todos los tamaños */
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
 }
+
+.panel_lateral.sidebar--visible {
+  transform: translateX(0); /* Visible */
+}
+
+/* El botón de toggle debe estar oculto en desktop */
+.sidebar__toggle {
+  display: none;
+}
+
 .panel_title {
   width: 100%;
   display: flex;
@@ -28,7 +47,6 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
 .panel_iconbox {
   width: 40px;
   height: 40px;
@@ -36,17 +54,91 @@
   justify-content: center;
   align-items: center;
 }
-
 .panel_icon {
   font-size: 20px;
   color: #ffffff;
 }
-
 .panel_text {
   font-size: 18px;
   color: #ffffff;
   text-decoration: none;
 }
 
+/* --- Media Queries --- */
 
+/* Tablets y pantallas grandes de celulares */
+@media (max-width: 900px) {
+  .panel_lateral {
+    width: 220px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    /* Oculta el sidebar por defecto en pantallas pequeñas */
+    transform: translateX(-100%);
+  }
+  
+  .panel_title {
+    font-size: 22px;
+  }
+  
+  .panel_text {
+    font-size: 15px;
+  }
+  
+  .panel_iconbox {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .panel_icon {
+    font-size: 18px;
+  }
+  
+  .panel_menu {
+    gap: 6px;
+  }
 
+  /* Muestra el botón de toggle en móviles */
+  .sidebar__toggle {
+    display: block; 
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background: #636161;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+}
+
+/* Teléfonos móviles */
+@media (max-width: 600px) {
+  .panel_lateral {
+    width: 180px;
+    padding: 8px;
+    gap: 15px;
+  }
+  
+  .panel_title {
+    font-size: 16px;
+  }
+  
+  .panel_text {
+    font-size: 12px;
+  }
+  
+  .panel_iconbox {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .panel_icon {
+    font-size: 10px;
+  }
+  
+  .panel_menu {
+    gap: 4px;
+  }
+}

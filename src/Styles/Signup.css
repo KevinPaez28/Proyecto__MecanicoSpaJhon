@@ -6,6 +6,8 @@
  align-items: center;
  justify-content: space-between;
  padding: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .form__label{
   width: 50%;
@@ -17,4 +19,58 @@
   display: flex;
   justify-content: center;
   gap: 10px
+}
+/* ------------------- MEDIA QUERIES ------------------- */
+@media (max-width: 1024px) {
+  .registrarse {
+    padding: 15px;
+    max-width: 95vw;
+  }
+  .form__label {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .registrarse {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    max-width: 98vw;
+  }
+  .form__label {
+    width: 100%;
+    margin-bottom: 10px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .button {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .registrarse {
+    padding: 5px;
+    max-width: 100vw;
+  }
+  .form__label {
+    width: 100%;
+    font-size: 0.95rem;
+    max-width: 95vw;
+  }
+  .button {
+    gap: 5px;
+    font-size: 0.95rem;
+    max-width: 95vw;
+  }
 }

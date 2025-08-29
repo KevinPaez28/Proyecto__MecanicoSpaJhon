@@ -216,3 +216,101 @@
   background-color: var(--color--hoverForm);
   border-radius: 10px;
 }
+
+/* Responsivo para tablets */
+@media (max-width: 900px) {
+  .interfazvehiculos {
+    height: auto;
+    padding: 8px;
+  }
+  .interfazVehiculos__header {
+    font-size: 0.8rem;
+    height: auto;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .interfazVehiculos__title {
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+    gap: 10px;
+  }
+  .interfazVehiculos__button {
+    width: 100%;
+    height: 40px;
+    font-size: 0.95rem;
+  }
+  .interfazVehiculos__content {
+    gap: 12px;
+    flex-direction: column;
+    height: auto;
+  }
+  .interfazvehiculos__cards {
+    width: 80%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .dialog__centradoVehiculo {
+    width: 80vw;
+    height: auto;
+    padding: 10px;
+  }
+  .formVehiculo__form {
+    height: auto;
+    padding: 8px;
+  }
+  .formVehiculo__grupo {
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+  }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 600px) {
+  .interfazvehiculos {
+    height: auto;
+    padding: 2px;
+  }
+  .interfazVehiculos__header {
+    font-size: 0.7rem;
+    height: auto;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .interfazVehiculos__title {
+    flex-direction: column;
+    padding: 4px;
+    height: auto;
+    gap: 4px;
+  }
+  .interfazVehiculos__button {
+    width: 100%;
+    height: 35px;
+    font-size: 0.85rem;
+  }
+  .interfazVehiculos__content {
+    gap: 6px;
+    flex-direction: column;
+    height: auto;
+  }
+  .interfazvehiculos__cards {
+    width: 98%;
+    height: auto;
+    margin-bottom: 8px;
+  }
+  .dialog__centradoVehiculo {
+    width: 98vw;
+    height: auto;
+    padding: 4px;
+  }
+  .formVehiculo__form {
+    height: auto;
+    padding: 4px;
+  }
+  .formVehiculo__grupo {
+    flex-direction: column;
+    gap: 6px;
+    height: auto;
+  }
+}

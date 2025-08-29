@@ -1,6 +1,7 @@
 import './style.css';
 import { router } from './router/router';
 import { cerrarSesionHandler } from './Components/cerrarSesion';
+
 const main = document.querySelector('#app');
 const sidebarContainer = document.querySelector('.sidebarContainer');
 const body = document.querySelector('.bodyAdmin');
@@ -15,18 +16,18 @@ async function cargarSidebar() {
     sidebarPath = './src/Components/sidebarMecanico.html';
     roleClass = 'sidebar-mecanico';
     sidebarContainer.style.width = "25%";
-    body.style.flexDirection = "row";   // ✅ para que los hijos se acomoden en columna
+    body.style.flexDirection = "row";
   } else if (role === '2') {
     sidebarContainer.style.height = "15%";
     sidebarContainer.style.width = "100%";
-    body.style.flexDirection = "column";   // ✅ para que los hijos se acomoden en columna
+    body.style.flexDirection = "column";
     sidebarPath = './src/Components/headerUsuario.html';
     roleClass = 'sidebar-usuario';
   } else if (role === '1') {
     sidebarContainer.style.width = "20%";
     sidebarPath = './src/Components/Sidebar.html';
     roleClass = 'sidebar-admin';
-    body.style.flexDirection = "row";   // ✅ para que los hijos se acomoden en columna
+    body.style.flexDirection = "row";
   }
 
   let sidebarHtml = '';
@@ -57,12 +58,35 @@ async function renderApp() {
       
       if (sidebarHtml) {
         sidebarContainer.innerHTML = sidebarHtml;
-        sidebarContainer.style.display = "block";
-        main.style.width = "100%";
+        
+        // ====== Lógica de Sidebar ======
+        const sidebar = document.querySelector(".lateral, .panel_lateral"); // detecta cualquiera
+        const toggleBtn = document.getElementById("sidebarToggle");
+
+        if (sidebar && toggleBtn) {
+          toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("sidebar--visible");
+          });
+        }
+        
+        // ====== Lógica del menú móvil ======
+        const menuBtn = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.headermenu');
+
+        if (menuBtn && menu) {
+          menuBtn.addEventListener('click', () => {
+            menu.classList.toggle('menu--visible');
+          });
+        }
+        
+        // ====== Botón de cerrar sesión ======
         const cerrarSesion = document.getElementById("cerrar_sesion");
         if (cerrarSesion) {
           cerrarSesion.addEventListener("click", cerrarSesionHandler);
         }
+        
+        sidebarContainer.style.display = "block";
+        main.style.width = "100%";
       } else {
         sidebarContainer.innerHTML = "";
         sidebarContainer.style.display = "none";
@@ -71,6 +95,7 @@ async function renderApp() {
     }
   }
 }
+
 
 window.addEventListener('hashchange', () => {
   renderApp();
