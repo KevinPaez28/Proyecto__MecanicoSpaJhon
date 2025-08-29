@@ -2,6 +2,20 @@ drop database bdjavascript;
 FLUSH PRIVILEGES;
 USE bdJavascript;
 
+
+-- 1. Crear la base de datos
+CREATE DATABASE PruebaBd;
+
+-- 2. Crear el usuario y establecer su contraseña
+CREATE USER 'KevinPaez'@'localhost' IDENTIFIED BY '12345';
+
+-- 3. Darle permisos al usuario sobre la base de datos
+GRANT ALL PRIVILEGES ON PruebaBd.* TO 'KevinPaez'@'localhost';
+
+-- 4. Aplicar los cambios
+FLUSH PRIVILEGES;
+
+
 -- ========================
 -- TABLA ROLES
 -- ========================
@@ -149,3 +163,161 @@ CREATE TABLE permisos_roles (
 );   
 
 
+/*crea los permisos del admin*/
+INSERT INTO permisos_roles (rol_id, id_permiso)
+SELECT 1, p.id
+FROM permisos p
+WHERE p.id NOT IN (
+    21,22,23,24, -- ServiciosRealizados
+    25,26,27,28, -- ServiciosConsumibles
+    29,31,32     -- Facturas (solo puede listar)
+);
+
+
+/*Clientes - permisos*/
+INSERT INTO permisos_roles (rol_id, id_permiso)
+SELECT 2, p.id
+FROM permisos p
+WHERE p.id IN (
+    14,  -- Servicios_Listar
+    30,  -- Facturas_Listar
+    17,  -- Vehiculos_Crear
+    18,  -- Vehiculos_Listar
+    19,  -- Vehiculos_Actualizar
+    20,  -- Vehiculos_Eliminar
+    2,   -- Usuarios_Listar
+    3    -- Usuarios_Actualizar
+);
+
+
+
+/*Permisos Mecanico*/
+INSERT INTO permisos_roles (rol_id, id_permiso)
+SELECT 3, p.id
+FROM permisos p
+WHERE p.id IN (
+    21, -- ServiciosRealizados_Crear
+    22, -- ServiciosRealizados_Listar
+    23, -- ServiciosRealizados_Actualizar
+    24, -- ServiciosRealizados_Eliminar
+    18, -- Vehiculos_Listar
+    29, -- Facturas_Crear
+    32, -- Facturas_Eliminar
+    25, -- ServiciosConsumibles_Crear
+    27, -- ServiciosConsumibles_Actualizar
+    28  -- ServiciosConsumibles_Eliminar
+);
+
+
+
+-- ========================
+-- ROLES
+-- ========================
+INSERT INTO Roles (nombre_rol) VALUES
+('administrador'),
+('mecanico'),
+('cliente');
+
+-- ========================
+-- ESTADOS DE USUARIO
+-- ========================
+INSERT INTO EstadosUsuario (nombre_estado) VALUES
+('Activo'),
+('Inactivo'),
+('Suspendido');
+
+-- ========================
+-- USUARIOS
+-- ========================
+INSERT INTO Usuarios (cedula, nombre, correo, telefono, usuario, contrasena, rol_id, id_estado) VALUES
+('1234567890', 'Kevin Paez', 'Kevinpaez@gmail.com', '3001234567', 'KevinP', 'K1234', 1, 1),
+('9876543210', 'Brayan1234', 'Brayan@gmail.com', '3007654321', 'Brayan1234', 'B1234', 2, 1),
+('1122334455', 'Manuel Ardila', 'Manuel@gmail.com', '3001122334', 'Manuel1234', '1234', 3, 1);
+
+-- ========================
+-- EMPRESAS
+-- ========================
+INSERT INTO Empresa (nombre, nit, direccion, telefono, correo, representante_legal) VALUES
+('Taller Mecánico motofix', '900123456-7', 'Calle 123 #45-67', '3001112233', 'motofix@talleralfa.com', 'Kevin Paez'),
+
+
+-- ========================
+-- CATEGORÍAS
+-- ========================
+INSERT INTO Categorias (nombre) VALUES
+('Aceites'),
+('Filtros'),
+('Frenos'),
+('Suspensión');
+
+-- ========================
+-- PRODUCTOS
+-- ========================
+INSERT INTO Productos (nombre, precio, stock, categoria_id) VALUES
+('Aceite 10W40', 50.00, 100, 1),
+('Filtro de aceite', 25.00, 50, 2),
+('Pastillas de freno', 40.00, 30, 3),
+('Amortiguador delantero', 120.00, 10, 4);
+
+-- ========================
+-- SERVICIOS
+-- ========================
+INSERT INTO Servicios (nombre_servicio, descripcion, precio) VALUES
+('Cambio de aceite', 'Cambio de aceite y revisión general', 80.00),
+('Cambio de frenos', 'Revisión y reemplazo de frenos', 150.00),
+('Alineación y balanceo', 'Alineación y balanceo de ruedas', 60.00);
+
+-- ========================
+-- ESTADOS DE SERVICIO
+-- ========================
+INSERT INTO EstadosServicio (nombre_estado) VALUES
+('Pendiente'),
+('En proceso'),
+('Finalizado'),
+('Cancelado');
+
+-- ========================
+-- VEHÍCULOS
+-- ========================
+INSERT INTO Vehiculos (placa, marca, modelo, usuario_id) VALUES
+('ABC123', 'AKT', 'Flex125', 3),
+('XYZ789', 'Yamaha', 'Yz85', 3);
+
+-- ========================
+-- SERVICIOS REALIZADOS
+-- ========================
+INSERT INTO ServiciosRealizados (servicio_id, vehiculo_id, fecha, observaciones, estado_id, nombre_mecanico) VALUES
+(1, 1, '2025-08-28', 'Revisión completa', 3, 'Brayan1234'),
+(2, 2, '2025-08-29', 'Cambio de frenos delanteros', 1, 'Brayan1234');
+
+-- ========================
+-- SERVICIOS CONSUMIBLES
+-- ========================
+INSERT INTO ServiciosConsumibles (detalle_id, producto_id, cantidad_usada, precio_unitario, total) VALUES
+(1, 1, 1, 50.00, 50.00),
+(1, 2, 1, 25.00, 25.00),
+(2, 3, 2, 40.00, 80.00);
+
+-- ========================
+-- FACTURAS
+-- ========================
+INSERT INTO Facturas (detalle_id, empresa_id, usuario_id, fecha_emision, subtotal, total) VALUES
+(1, 1, 3, '2025-08-28', 75.00, 80.00),
+(2, 2, 3, '2025-08-29', 150.00, 160.00);
+
+-- ========================
+-- PERMISOS
+-- ========================
+INSERT INTO permisos (permiso) VALUES
+('Usuarios_Crear'), ('Usuarios_Listar'), ('Usuarios_Actualizar'), ('Usuarios_Eliminar'),
+('Categorias_Crear'), ('Categorias_Listar'), ('Categorias_Actualizar'), ('Categorias_Eliminar'),
+('Productos_Crear'), ('Productos_Listar'), ('Productos_Actualizar'), ('Productos_Eliminar'),
+('Servicios_Crear'), ('Servicios_Listar'), ('Servicios_Actualizar'), ('Servicios_Eliminar'),
+('Vehiculos_Crear'), ('Vehiculos_Listar'), ('Vehiculos_Actualizar'), ('Vehiculos_Eliminar'),
+('ServiciosRealizados_Crear'), ('ServiciosRealizados_Listar'), ('ServiciosRealizados_Actualizar'), ('ServiciosRealizados_Eliminar'),
+('ServiciosConsumibles_Crear'), ('ServiciosConsumibles_Listar'), ('ServiciosConsumibles_Actualizar'), ('ServiciosConsumibles_Eliminar'),
+('Facturas_Crear'), ('Facturas_Listar'), ('Facturas_Actualizar'), ('Facturas_Eliminar');
+
+-- ========================
+-- PERMISOS_ROLES
+-- ========================

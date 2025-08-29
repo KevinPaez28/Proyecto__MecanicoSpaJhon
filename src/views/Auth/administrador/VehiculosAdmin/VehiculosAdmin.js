@@ -119,11 +119,11 @@ export default async (parametros = null) => {
       seccionInfo.appendChild(cards);
     });
   };
-  if(tienePermiso("Vehiculos_Listar")){
+  if(!tienePermiso("Vehiculos_Listar")){
     const header = document.querySelector(".interfazVehiculos__header")
     header.style.display = "none";
-    Vehiculos(vehiculos, usuarios);
   }
+  Vehiculos(vehiculos, usuarios);
   const EliminarVehiculos = async (id) => {
     try {
       const confirm = await eliminar("¿Desea eliminar la información del Vehículo?");
