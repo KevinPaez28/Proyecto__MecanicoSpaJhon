@@ -30,7 +30,7 @@ export default async (parametros = null) => {
                 const respuesta = await post('Categorias', datos);
                 if (respuesta.ok) {
                     if ((await success({ message: "Categoria registrada con éxito" })).isConfirmed) {
-                        window.location.href = "#/administrador/Categorias";
+                        window.location.href = "#/Categorias";
                     }
                 } else {
                     // Verificar si existen errores

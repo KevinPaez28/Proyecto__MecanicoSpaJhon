@@ -52,20 +52,26 @@ export default (parametros = null) => {
       }
 
       const rolUsuario = roles.data.find((rol) => rol.rol_id === user.rol_id);
-      
+
+
       // Intentar login
       const result = await login(usuariovalor, contraseniavalor);
       console.log(rolUsuario);
-      
+
       if (!result.ok) {
         await error(result.error);
         return;
       }
 
+      const Permisos = await get(`Permisos/${rolUsuario.rol_id}`);
+      console.log(Permisos.data);
+
       // Si login exitoso
       localStorage.setItem("token", result.data.accessToken);
       localStorage.setItem("tokenrefresh", result.data.refreshToken);
       localStorage.setItem("usuario", JSON.stringify(user));
+      // Guardar en localStorage
+      localStorage.setItem("permisos", JSON.stringify(Permisos.data));
       await success({ message: "Usuario iniciado correctamente" });
 
       const rutaRol = rolUsuario.nombre_rol.toLowerCase();

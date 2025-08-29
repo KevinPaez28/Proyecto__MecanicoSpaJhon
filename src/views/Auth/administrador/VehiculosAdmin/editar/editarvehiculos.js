@@ -1,10 +1,10 @@
-import { get , put} from "../../../../../Helpers/api";
-import { confirm,success,error } from "../../../../../Helpers/alertas.js";
+import { get, put } from "../../../../../Helpers/api";
+import { confirm, success, error } from "../../../../../Helpers/alertas.js";
 
 
 export default async (parametros = null) => {
     const idvehiculo = localStorage.getItem("idvehiculo");
-    const Vehiculos = async (vehiculos,id) => {
+    const Vehiculos = async (vehiculos, id) => {
 
         const seccionInfo = document.querySelector(".interfazVehiculos__content");
         const Usuarios = await get(`usuarios`);
@@ -98,7 +98,7 @@ export default async (parametros = null) => {
 
                     if (respuesta.ok) {
                         if ((await success({ message: "Vehiculo actualizado con éxito" })).isConfirmed) {
-                            window.location.href = "#/administrador/Vehiculos";
+                            window.history.back();
                         }
                     } else {
                         // Mostrar errores de validación si existen
@@ -124,8 +124,8 @@ export default async (parametros = null) => {
         seccionInfo.appendChild(cards);
     };
     const vehiculos = await get(`Vehiculos/${idvehiculo}`);
-    
-    Vehiculos(vehiculos,idvehiculo,);
+
+    Vehiculos(vehiculos, idvehiculo,);
 
 }
 

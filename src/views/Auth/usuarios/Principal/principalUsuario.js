@@ -1,90 +1,153 @@
 import "../../../../Styles/Clientes/usuarioPrincipal.css";
-import { post } from "../../../../Helpers/api";
-import { confirmacion, success, error } from "../../../../Helpers/alertas";
-import { contarCamposFormulario, limpiar, validarMinimo, VehiculosPorId } from "../../../../Helpers/Modules/modules";
+import { post, get, del } from "../../../../Helpers/api";
+import { confirmacion, success, error, eliminar } from "../../../../Helpers/alertas";
+import { contarCamposFormulario, limpiar, validarMinimo } from "../../../../Helpers/Modules/modules";
 
-import { get } from "../../../../Helpers/api";
 
 export default async (parametros = null) => {
-  let id = null;
-
-  if (window.location.hash.includes("id=")) { // verifica si hay id en la url
-    id = window.location.hash.split("id=")[1]; // toma el primer valor despues de "id="
-  }
-
-  if (id) { //guarda el id si existe
-    localStorage.setItem("cliente_id", id);
-  } else {
-    id = localStorage.getItem("cliente_id"); // trae el id guardado en localStorage
-  }
-
-  if (!id) { //valida si existe un id 
-    console.error("No se encontró un ID de usuario.");
-    return;
-  }
-  const usuarios = await get(`Usuarios`);
-  const vehiculos = await get(`Vehiculos/usuarios?id_usuario=${id}`);
-
-  VehiculosPorId(vehiculos, usuarios);
-  const dialogo = document.getElementById("insertarvehiculos");
-  const btnRegistrar = document.getElementById("registrar_vehiculos");
-  const cerrar = document.getElementById("cerrarvehiculos");
+  // Recuperar el objeto que guardaste en localStorage
   const form = document.querySelector("#formVehiculo");
+  const VehiculosPorId = async () => {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const id = usuario.usuario_id;
+    const usuarios = await get(`Usuarios`);
+    const vehiculos = await get(`Vehiculos/usuarios/${id}`);
+    const seccionInfo = document.querySelector(".VehiculosUsuariosId");
+    seccionInfo.innerHTML = "";
 
-  btnRegistrar.addEventListener("click", () => {
-    dialogo.showModal();
-  });
+    vehiculos.data.forEach((element) => {
+      const cards = document.createElement("div");
+      cards.classList.add("vehiculosUsuarios");
 
-  cerrar.addEventListener("click", () => {
-    dialogo.close();
-  });
-  const CrearVehiculos = async (event) => {
-    event.preventDefault();
+      const body = document.createElement("div");
+      body.classList.add("interfazvehiculos__body");
 
-    // Limpiar errores visuales anteriores
-    for (let i = 0; i < form.elements.length; i++) {
-      limpiar(form.elements[i]);
-    }
+      const infoWrapper = document.createElement("div");
+      infoWrapper.classList.add("interfazvehiculos__info");
 
-    const contarcampos = contarCamposFormulario(form);
-    let completados = 0;
-    let datos = {};
+      const titulos = document.createElement("div");
+      titulos.classList.add("interfazvehiculos__contentCards");
 
-    for (let i = 0; i < form.elements.length; i++) {
-      const campo = form.elements[i];
-      if (campo.hasAttribute('required')) {
-        if (validarMinimo(campo)) {
-          limpiar(campo);
-          datos[campo.id.toLowerCase()] = campo.value.trim();
-          completados++;
+      const pMarca = document.createElement("p");
+      pMarca.classList.add("interfazvehiculos__titulonombre");
+      pMarca.textContent = "Marca:";
+      titulos.appendChild(pMarca);
+
+      const pPlaca = document.createElement("p");
+      pPlaca.classList.add("interfazvehiculos__titulonombre");
+      pPlaca.textContent = "Placa:";
+      titulos.appendChild(pPlaca);
+
+      const pModelo = document.createElement("p");
+      pModelo.classList.add("interfazvehiculos__titulonombre");
+      pModelo.textContent = "Modelo:";
+      titulos.appendChild(pModelo);
+
+      const pUsuario = document.createElement("p");
+      pUsuario.classList.add("interfazvehiculos__titulonombre");
+      pUsuario.textContent = "Usuario:";
+      titulos.appendChild(pUsuario);
+
+      const content = document.createElement("div");
+      content.classList.add("interfazvehiculos__contentCard");
+
+      const nombre = document.createElement("p");
+      nombre.classList.add("interfazvehiculos__marca");
+      nombre.textContent = element.marca;
+
+      const placa = document.createElement("p");
+      placa.classList.add("interfazvehiculos__placa");
+      placa.textContent = element.placa;
+
+      const modelo = document.createElement("p");
+      modelo.classList.add("interfazvehiculos__modelo");
+      modelo.textContent = element.modelo;
+
+      const usuarioId = document.createElement("p");
+      usuarioId.classList.add("interfazvehiculos__usuarioId");
+
+      const usuariosFiltrados = usuarios.data.filter(
+        (v) => v.usuario_id === element.usuario_id && v.rol_id === 2
+      );
+
+      usuarioId.textContent =
+        usuariosFiltrados.length > 0
+          ? usuariosFiltrados[0].nombre
+          : "Sin usuario asignado";
+
+      content.appendChild(nombre);
+      content.appendChild(placa);
+      content.appendChild(modelo);
+      content.appendChild(usuarioId);
+
+      const botones = document.createElement("div");
+      botones.classList.add("Usuarios__buttones");
+
+      const btnEditar = document.createElement("button");
+      btnEditar.classList.add("usuarios__button");
+      btnEditar.textContent = "Editar";
+      btnEditar.dataset.id = element.vehiculo_id;
+      btnEditar.dataset.usuarioLogin =
+        usuariosFiltrados.length > 0 ? usuariosFiltrados[0].usuario : "";
+
+      const btnEliminar = document.createElement("button");
+      btnEliminar.classList.add("usuarios__button");
+      btnEliminar.textContent = "Eliminar";
+
+      botones.appendChild(btnEditar);
+      botones.appendChild(btnEliminar);
+
+      btnEliminar.addEventListener("click", () => {
+        EliminarVehiculos(element.vehiculo_id)
+      });
+
+      btnEditar.addEventListener("click", () => {
+        window.location.hash = "#/administrador/Vehiculos/editar";
+      });
+
+      infoWrapper.appendChild(titulos);
+      infoWrapper.appendChild(content);
+      body.appendChild(infoWrapper);
+      body.appendChild(botones);
+      cards.appendChild(body);
+      seccionInfo.appendChild(cards);
+    });
+  };
+  VehiculosPorId();
+
+  const EliminarVehiculos = async (id) => {
+    try {
+      console.log(id);
+      
+      const confirm = await eliminar("¿Desea eliminar la información del Vehículo?");
+      if (confirm.isConfirmed) {
+        const respuesta = await del(`Vehiculos/${id}`);
+        if (respuesta.ok) {
+          const ok = await success({ message: "Vehiculo eliminado con éxito" });
+          if (ok.isConfirmed) {
+            // Aquí puedes hacer algo si quieres, por ejemplo recargar la lista
+            VehiculosPorId();
+          }
+        } else {
+          // Mostrar los errores si existen
+          if (respuesta.errors.length > 0) {
+            let mensajes = respuesta.errors.map(e => `${e.campo}: ${e.message}`).join("\n");
+            console.error("Errores al eliminar el vehiculo:", mensajes);
+            await error("Errores al eliminar el vehiculo", mensajes);
+          } else {
+            // Mensaje general
+            console.error("Error al eliminar el vehiculo:", respuesta.message);
+            await error("Error al eliminar el vehiculo", respuesta.message || "No se pudo eliminar el vehiculo");
+          }
         }
       }
+    } catch (error) {
+      console.error("Error inesperado al eliminar el vehículo:", error);
+      await error("Error inesperado al eliminar");
     }
+  };
 
-    if (completados !== contarcampos) {
-      dialogo.close();
-      await error("Por favor completa todos los campos requeridos.");
-      location.reload();
-      return;
-    }
-    console.log(datos); 
-    dialogo.close();
 
-    const confirm = await confirmacion("¿Desea Crear el Vehículo?");
-    if (!confirm.isConfirmed) return;
 
-    const respuesta = await post('Vehiculos', datos);
-
-    if (respuesta.ok) {
-      if ((await success({ message: "Vehículo registrado con éxito" })).isConfirmed) {
-        location.reload();
-      }
-    } else {
-      // Captura directa del mensaje del backend
-      const mensajeError = respuesta.data?.error || "No se pudo crear el vehículo";
-      await error(mensajeError, "");
-    }
-  }
-  form.addEventListener("submit", CrearVehiculos);
 
 }

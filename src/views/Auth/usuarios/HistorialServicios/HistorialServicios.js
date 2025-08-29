@@ -2,27 +2,22 @@ import { MostrarReparacionescliente } from "../../../../Helpers/Modules/modules"
 import "../../../../Styles/Clientes/usuarioHistorial.css";
 import { get } from "../../../../Helpers/api";
 
-export default async () =>{
-   let id = null;
-
-  if (window.location.hash.includes("id=")) { 
-    id = window.location.hash.split("id=")[1]; 
-  }
-  
-  if (id) { 
-    localStorage.setItem("cliente_id", id);
+export default async () => {
+  // Recuperar objeto completo
+  const clienteGuardado = JSON.parse(localStorage.getItem("usuario"));
+  let id = null;
+  // Validar que exista
+  if (clienteGuardado) {
+    id = clienteGuardado.usuario_id;
+    console.log("El ID es:", id);
   } else {
-    id = localStorage.getItem("cliente_id");
+    console.log("No hay cliente en el localStorage");
   }
 
-  if (!id) { 
-    console.error("No se encontró un ID de usuario.");
-    return;
-  }
-  
+
   const reparaciones = await get(`Reparaciones/usuario/${id}`);
-  
-  const facturas = await get(`facturas/completa?usuario_id=${id}`)
-  MostrarReparacionescliente(reparaciones,facturas);  
-   
+
+  const facturas = await get(`facturas/usuarioid/${id}`)
+  MostrarReparacionescliente(reparaciones, facturas);
+
 }

@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-
+import { redirigirARuta } from "../router/router.js";
 /* ----------------- Manejo de Tokens ----------------- */
 export function isTokenExpired(token) {
   try {
@@ -11,11 +11,11 @@ export function isTokenExpired(token) {
 }
 
 export async function refreshAccessToken() {
-  const refreshToken = localStorage.getItem("refreshToken");
+  const refreshToken = localStorage.getItem("tokenrefresh");
   if (!refreshToken) return null;
 
   try {
-    const res = await fetch("http://localhost:3000/api/refresh", {
+    const res = await fetch("http://localhost:3000/api/Usuarios/refresh", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refreshToken })
@@ -23,8 +23,8 @@ export async function refreshAccessToken() {
 
     if (res.ok) {
       const data = await res.json();
-      localStorage.setItem("token", data.token); // guarda el nuevo access token
-      return data.token;
+      localStorage.setItem("token",  data.data.accessToken); // guarda el nuevo access token
+      return data.data.accessToken;
     } else {
       localStorage.clear();
       redirigirARuta("#/Home");

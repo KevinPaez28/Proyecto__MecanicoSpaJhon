@@ -1,6 +1,8 @@
 @import url('/src/Components/sidebarAdmin.css');
 @import url('/src/Components/formularioUsuarios.css');
+@import url('/src/Components/sidebarmecanico.css');
 
 .sidebarContainer{
-    width: 20%;
+    width: 100%;
+    height: 100vh;
 }

@@ -63,4 +63,43 @@
 
     </div>
     <script src="AdminPrincipal.js" type="module"></script>
+    <script>
+      // Mostrar el botón solo en pantallas pequeñas
+      function handleSidebarButtonDisplay() {
+        const btn = document.getElementById('sidebarToggle');
+        if (!btn) return;
+        if (window.innerWidth <= 900) {
+          btn.style.display = 'block';
+        } else {
+          btn.style.display = 'none';
+          // Asegura que el sidebar esté visible en escritorio
+          const sidebarContainer = document.querySelector('.sidebarContainer');
+          if (sidebarContainer) {
+            const sidebar = sidebarContainer.querySelector('.lateral');
+            if (sidebar) {
+              sidebar.classList.add('sidebar--visible');
+            }
+          }
+        }
+      }
+      window.addEventListener('resize', handleSidebarButtonDisplay);
+      window.addEventListener('DOMContentLoaded', handleSidebarButtonDisplay);
+
+      // Mostrar/ocultar sidebar dinámico
+      document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('sidebarToggle');
+        if (btn) {
+          btn.addEventListener('click', function() {
+            // Busca el sidebar dentro del contenedor dinámico
+            const sidebarContainer = document.querySelector('.sidebarContainer');
+            if (sidebarContainer) {
+              const sidebar = sidebarContainer.querySelector('.lateral');
+              if (sidebar) {
+                sidebar.classList.toggle('sidebar--visible');
+              }
+            }
+          });
+        }
+      });
+    </script>
   </div>

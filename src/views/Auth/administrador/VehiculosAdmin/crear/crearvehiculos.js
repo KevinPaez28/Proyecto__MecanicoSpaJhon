@@ -44,7 +44,7 @@ export default async (parametros = null) => {
 
         if (respuesta.ok) {
             if ((await success({ message: "Vehículo registrado con éxito" })).isConfirmed) {
-                window.location.href = "#/administrador/Vehiculos";
+                window.history.back();
             }
         } else {
             // Verificar si existen errores

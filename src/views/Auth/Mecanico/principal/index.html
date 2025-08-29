@@ -1,130 +1,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <div class="content__mecanico">
-  <div class="panel_lateral">
-    <h2 class="panel_title">Taller Pro</h2>
-    <div class="panel_menu">
-      <div class="panel_iconbox">
-        <i class="panel_icon fa-solid fa-screwdriver-wrench"></i>
-      </div>
-      <a href="#/mecanico/principal" class="panel_text">Reparaciones</a>
-    </div>
-
-    <div class="panel_menu">
-      <div class="panel_iconbox">
-        <i class="panel_icon fa-solid fa-car"></i>
-      </div>
-      <a href="#/mecanico/Vehiculos" class="panel_text">Vehiculos</a>
-    </div>
-    <div class="panel_menu">
-      <div class="panel_iconbox">
-        <i class="panel_icon bi bi-person-fill"></i>
-      </div>
-      <a href="#/mecanico/informacion" class="panel_text">Informacion Usuario</a>
-    </div>
-
-    <div class="panel_menu" id="btnCerrarSesion">
-      <div class="panel_iconbox">
-        <i class="panel_icon fa-solid fa-right-from-bracket"></i>
-      </div>
-      <span class="panel_text">Cerrar sesión</span>
-    </div>
-
-  </div>
   <div class="content__info">
     <div class="header__mecanico">
       <div class="header__titulo">Reparaciones</div>
       <div class="header__buttones">
-        <button class="buttones_infomecanico" id="button_reparaciones">Agregar Reparaciones</button>
-        <button class="buttones_infomecanico" id="button__Productos">Productos Consumidos</button>
-        <button class="buttones_infomecanico" id="button__factura">Generar Factura</button>
+        <a href="#/Reparaciones/crear" class="buttones_infomecanico" id="button_reparaciones">Agregar Reparaciones</a>
+        <a href="#/consumibles/crear" class="buttones_infomecanico" id="button__Productos">Productos Consumidos</a>
+        <a href="#/factura/crear" class="buttones_infomecanico" id="button__factura">Generar Factura</a>
       </div>
     </div>
-    <div class="content__datos ">
-      <div class="content__tabla">
-        <div class="contendor__header">
-          <p class="columna__id">N°</p>
-          <p class="contenedor__titlepeq">Servicio</p>
-          <p class="contenedor__titlepeq ">Vehiculo</p>
-          <p class="contenedor__titlepeq">Estado</p>
-          <p class="contenedor__titlepeq">Fecha</p>
-          <p class="contenedor__title">Productos Utilizados</p>
-          <p class="contenedor__title">Observaciones</p>
-        </div>
-        <div class="content__reparacion"></div>
-      </div>
+    <div class="contenido">
+      <div class="content__reparacion"></div>
     </div>
   </div>
-  <dialog class="insertarServicios" id="dialogServicios">
-    <div class="content__form">
-      <form action="" class="formServicios" id="insertar__servicios" novalidate>
-        <div class="content__inputs">
-          <div class="fila__info">
-            <label class="fila__text">Servicio:</label>
-            <select class="ingreso__datos" id="servicio_id" required>
-              <option value="">Selecciona un servicio</option>
-            </select>
-          </div>
-          <div class="fila__info">
-            <label class="fila__text">Placa:</label>
-            <select class="ingreso__datos" id="vehiculo_id" required></select>
-          </div>
-          <div class="fila__info">
-            <label class="fila__text">Fecha:</label>
-            <input class="ingreso__datos" type="date" id="fecha" name="fecha" required>
-          </div>
-          <div class="fila__info">
-            <label class="observaciones" class="fila__text">Observaciones:</label>
-            <textarea class="observaciones" id="observaciones" required></textarea>
-          </div>
-          <div class="fila__info">
-            <label class="fila__text">Estado:</label>
-            <select class="ingreso__datos" id="estado_id" required></select>
-          </div>
-        </div>
-        <div class="content__buttones">
-          <button type="submit" class="buttonservicios" id="guardarServicios">Guardar</button>
-          <button class="close__servicios buttonservicios">Close</button>
-        </div>
-      </form>
-    </div>
-  </dialog>
-  <dialog class="insertar_productos" id="dialogProductos">
-    <div>
-      <form action="" class="formProductos" id="insertar__productos" novalidate>
-        <div class="content__inputs">
-          <div class="fila__info">
-            <label class="fila__text">N° de Servicio:</label>
-            <select class="ingreso__datos" id="detalle_id" required></select>
-          </div>
-          <div class="fila__info">
-            <label class="fila__text">Cantidad:</label>
-            <input class="ingreso__datos" type="number" id="cantidad_usada" min="1" value="1" required>
-          </div>
-          <div class="fila__info">
-            <label class="fila__text">Productos Consumidos</label>
-            <select class="ingreso__datos" id="producto_id" required></select>
-          </div>
-        </div>
-        <div class="content__buttones">
-          <button type="submit" class="buttonservicios" id="guardarproductos">Guardar</button>
-          <button type="button" class="buttonservicios">Eliminar</button>
-          <button type="button" class="close__productos buttonservicios">Close</button>
-        </div>
-      </form>
-    </div>
-  </dialog>
-  <dialog class="generar__facturas" id="dialogfacturas">
-    <form action="" class="formFacturas" id="insertar__facturas" novalidate>
-      <div class="content__facturas">
-        <label class="fila__text">N° de Servicio:</label>
-        <select class="ingreso__factura" id="detalle_idfactura" required></select>
-      </div>
-      <div class="content__buttones">
-        <button type="submit" class="buttonservicios" id="generarfactura">Generar</button>
-        <button type="button" class="close__factura buttonservicios">Close</button>
-      </div>
-    </form>
-  </dialog>
-  <script type="module" src="principalMecanico.js"></script>
+</div>
+</div>
+<script type="module" src="principalMecanico.js"></script>
 </div>

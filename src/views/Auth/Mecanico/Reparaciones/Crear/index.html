@@ -1,0 +1,35 @@
+<div class="insertarServicios" id="dialogServicios">
+    <div class="content__form">
+        <form action="" class="formServicios" id="insertar__servicios" novalidate>
+            <div class="content__inputs">
+                <div class="fila__info">
+                    <label class="fila__text">Servicio:</label>
+                    <select class="ingreso__datos" id="servicio_id" required>
+                        <option value="">Selecciona un servicio</option>
+                    </select>
+                </div>
+                <div class="fila__info">
+                    <label class="fila__text">Placa:</label>
+                    <select class="ingreso__datos" id="vehiculo_id" required></select>
+                </div>
+                <div class="fila__info">
+                    <label class="fila__text">Fecha:</label>
+                    <input class="ingreso__datos" type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="fila__info">
+                    <label class="observaciones" class="fila__text">Observaciones:</label>
+                    <textarea class="observaciones" id="observaciones" required></textarea>
+                </div>
+                <div class="fila__info">
+                    <label class="fila__text">Estado:</label>
+                    <select class="ingreso__datos" id="estado_id" required></select>
+                </div>
+            </div>
+            <div class="content__buttones">
+                <button type="submit" class="buttonservicios" id="guardarServicios">Guardar</button>
+                <button class="close__servicios buttonservicios">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="module" src="crearservicios.js"></script>

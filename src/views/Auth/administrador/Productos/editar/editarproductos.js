@@ -78,7 +78,7 @@ export default async (parametros = null) => {
             const respuesta = await put(`Productos/${producto.producto_id}`, datos);
             if (respuesta.ok) {
                 await success({ message: "Producto actualizado con éxito" });
-                window.location.href = "#/administrador/Categorias";
+                window.location.href = "#/Categorias";
             } else {
                 let mensajes = respuesta.errors ? respuesta.errors.map(e => `${e.campo}: ${e.message}`).join("\n") : (respuesta.message || "No se pudo actualizar");
                 await error("Error al actualizar producto", mensajes);
@@ -91,7 +91,7 @@ export default async (parametros = null) => {
                 const respuesta = await del(`Productos/${producto.producto_id}`);
                 if (respuesta.ok) {
                     await success({ message: "Producto eliminado con éxito" });
-                    window.location.href = "#/administrador/Categorias";
+                    window.location.href = "#/Categorias";
                 } else {
                     let mensajes = respuesta.errors ? respuesta.errors.map(e => `${e.campo}: ${e.message}`).join("\n") : (respuesta.message || "No se pudo eliminar");
                     await error("Error al eliminar producto", mensajes);

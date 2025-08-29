@@ -2,26 +2,13 @@ import { get, post, del } from "../../../../Helpers/api";
 import { contarCamposFormulario, limpiar, validarFormularioCompleto, validarLetras, validarMinimo } from "../../../../Helpers/Modules/modules";
 import "../../../../Styles/Administrador/VehiculosAdmin.css";
 import { confirmacion, success, error, eliminar } from "../../../../Helpers/alertas";
-
+import { tienePermiso } from "../../../../Helpers/Modules/modules";
 
 export default async (parametros = null) => {
 
   // Cargar datos iniciales
   const vehiculos = await get('Vehiculos');
   const usuarios = await get('Usuarios');
-
-
-  // Elementos del DOM
-
-  const cerrarSesion = document.getElementById("cerrar_sesion");
-  cerrarSesion.addEventListener("click", async (e) => {
-    e.preventDefault(); // Evita que redireccione inmediatamente
-    const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
-    if (confirmacionCerrar.isConfirmed) {
-      localStorage.clear();
-      window.location.href = "#/Home";
-    }
-  });
   const Vehiculos = (vehiculos, Usuarios) => {
     const seccionInfo = document.querySelector(".interfazVehiculos__content");
     seccionInfo.innerHTML = "";
@@ -96,7 +83,9 @@ export default async (parametros = null) => {
       // Crear contenedor de botones y colocarlo FUERA del contentCard
       const botones = document.createElement("div");
       botones.classList.add("interfazvehiculos__button");
-
+      if (!tienePermiso("Vehiculos_Actualizar")) {
+        botones.style.display = "none"; 
+      }
       const btnEditar = document.createElement("button");
       btnEditar.classList.add("interfazvehiculos__buttones");
       btnEditar.textContent = "Editar";
@@ -118,7 +107,7 @@ export default async (parametros = null) => {
       btnEditar.addEventListener("click", () => {
         const idVehiculo = element.vehiculo_id;
         localStorage.setItem("idvehiculo", idVehiculo);
-        window.location.hash = "#/administrador/Vehiculos/editar";
+        window.location.hash = "#/Vehiculos/editar";
       });
 
       // Estructura final del card
@@ -130,8 +119,11 @@ export default async (parametros = null) => {
       seccionInfo.appendChild(cards);
     });
   };
-  Vehiculos(vehiculos, usuarios);
-
+  if(tienePermiso("Vehiculos_Listar")){
+    const header = document.querySelector(".interfazVehiculos__header")
+    header.style.display = "none";
+    Vehiculos(vehiculos, usuarios);
+  }
   const EliminarVehiculos = async (id) => {
     try {
       const confirm = await eliminar("¿Desea eliminar la información del Vehículo?");

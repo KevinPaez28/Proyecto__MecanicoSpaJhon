@@ -49,7 +49,7 @@ export default async (parametros = null) => {
                     // Todo bien, producto creado
                     if ((await success({ message: "Producto registrado con éxito" })).isConfirmed) {
                         formularioproductos.reset();
-                        window.location.href = "#/administrador/Categorias";
+                        window.location.href = "#/Categorias";
                     }
                 } else {
                     // Leer error desde la respuesta JSON

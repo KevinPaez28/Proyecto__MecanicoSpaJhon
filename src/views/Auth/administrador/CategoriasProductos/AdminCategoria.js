@@ -1,5 +1,5 @@
 import { get, post, del } from "../../../../Helpers/api"
-import { Categorias_Productos, limpiar, validarMinimo, contarCamposFormulario, validarLetras, validarNumeros } from "../../../../Helpers/Modules/modules"
+import { limpiar, validarMinimo, contarCamposFormulario, validarLetras, validarNumeros, tienePermiso } from "../../../../Helpers/Modules/modules"
 import { confirmacion, success, error, eliminar } from "../../../../Helpers/alertas";
 import "../../../../Styles/Administrador/CategoriasProductos.css";
 import '../../../../Components/botonesadmin.css'
@@ -12,15 +12,6 @@ export default async (parametros = null) => {
   // DOM elementos de Categorías
   const select = document.querySelector("select");
   const contenedor = document.getElementById("contenedorCategorias");
-  const cerrarSesion = document.getElementById("cerrar_sesion");
-  cerrarSesion.addEventListener("click", async (e) => {
-    e.preventDefault(); // Evita que redireccione inmediatamente
-    const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
-    if (confirmacionCerrar.isConfirmed) {
-      localStorage.clear();
-      window.location.href = "#/Home";
-    }
-  });
   const Categorias_Productos = (Categorias, Productos, contenedorPadre) => {
     Categorias.data.forEach(element => {
       const card = document.createElement("div");
@@ -84,11 +75,12 @@ export default async (parametros = null) => {
           divProducto.append(stock, nombreProducto, precio);
 
           productos.appendChild(divProducto);
-
-          btnEditar.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.location.href = `#/administrador/Productos/Editar`;
-          });
+          if (tienePermiso("Productos_Actualizar")) {
+            btnEditar.addEventListener("click", (e) => {
+              e.preventDefault();
+              window.location.href = `#/Productos/Editar`;
+            });
+          }
         });
       } else {
         const sinProductos = document.createElement("em");
@@ -98,29 +90,29 @@ export default async (parametros = null) => {
 
       const botones = document.createElement("div");
       botones.classList.add("interfazcategorias__button");
-
-      btnEliminar.addEventListener("click", async () => {
-        if (productosFiltrados.length === 0) {
-          try {
-            const confirmacion = await eliminar("La categoría está vacía. ¿Desea eliminarla?");
-            if (confirmacion.isConfirmed) {
-              const respuesta = await del(`Categorias/${Productos_Categoriaid}`);
-              if (respuesta.ok) {
-                await success({ message: "Categoría eliminada con éxito" });
-                card.remove();
-              } else {
-                await error("No se pudo eliminar la categoría");
+      if (tienePermiso("Productos_eliminar")) {
+        btnEliminar.addEventListener("click", async () => {
+          if (productosFiltrados.length === 0) {
+            try {
+              const confirmacion = await eliminar("La categoría está vacía. ¿Desea eliminarla?");
+              if (confirmacion.isConfirmed) {
+                const respuesta = await del(`Categorias/${Productos_Categoriaid}`);
+                if (respuesta.ok) {
+                  await success({ message: "Categoría eliminada con éxito" });
+                  card.remove();
+                } else {
+                  await error("No se pudo eliminar la categoría");
+                }
               }
+            } catch (err) {
+              console.error("Error al eliminar la categoría:", err);
+              await error("Error inesperado al eliminar");
             }
-          } catch (err) {
-            console.error("Error al eliminar la categoría:", err);
-            await error("Error inesperado al eliminar");
+          } else {
+            await error("La categoría tiene productos, elimínelos primero");
           }
-        } else {
-          await error("La categoría tiene productos, elimínelos primero");
-        }
-      });
-
+        });
+      }
       botones.append(btnEditar, btnEliminar);
 
       body.append(nombre, productos, botones);
@@ -129,8 +121,8 @@ export default async (parametros = null) => {
 
     });
   };
-
-  Categorias_Productos(categorias, productos, contenedor);
-
+  if (tienePermiso("Categorias_Listar")) {
+    Categorias_Productos(categorias, productos, contenedor);
+  }
 
 }

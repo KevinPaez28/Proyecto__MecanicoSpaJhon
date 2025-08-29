@@ -1,19 +1,32 @@
 import './style.css';
 import { router } from './router/router';
-
+import { cerrarSesionHandler } from './Components/cerrarSesion';
 const main = document.querySelector('#app');
+const sidebarContainer = document.querySelector('.sidebarContainer');
+const body = document.querySelector('.bodyAdmin');
 
 async function cargarSidebar() {
   const usuario = JSON.parse(localStorage.getItem('usuario'));
   const role = usuario?.rol_id?.toString();
   let sidebarPath = '';
+  let roleClass = '';
 
-  if (role === '4') {
+  if (role === '3') {
     sidebarPath = './src/Components/sidebarMecanico.html';
+    roleClass = 'sidebar-mecanico';
+    sidebarContainer.style.width = "25%";
+    body.style.flexDirection = "row";   // ✅ para que los hijos se acomoden en columna
   } else if (role === '2') {
+    sidebarContainer.style.height = "15%";
+    sidebarContainer.style.width = "100%";
+    body.style.flexDirection = "column";   // ✅ para que los hijos se acomoden en columna
     sidebarPath = './src/Components/headerUsuario.html';
+    roleClass = 'sidebar-usuario';
   } else if (role === '1') {
+    sidebarContainer.style.width = "20%";
     sidebarPath = './src/Components/Sidebar.html';
+    roleClass = 'sidebar-admin';
+    body.style.flexDirection = "row";   // ✅ para que los hijos se acomoden en columna
   }
 
   let sidebarHtml = '';
@@ -21,6 +34,7 @@ async function cargarSidebar() {
     try {
       const response = await fetch(sidebarPath);
       sidebarHtml = await response.text();
+      sidebarHtml = `<div class="${roleClass}">${sidebarHtml}</div>`;
     } catch (e) {
       sidebarHtml = '';
     }
@@ -28,36 +42,9 @@ async function cargarSidebar() {
   return sidebarHtml;
 }
 
-// async function Cargarform() {
-//   const hash = location.hash;
-
-//   const ruta = hash.slice(1).split('/')
-//   let content = "";
-//   console.log(ruta);
-
-//   if (ruta[2] == "Empleados" || ruta[1] == "Signup") {
-//     content = './src/Components/formularioUsuarios.html';
-//   }
-//   let formularioUsuario = "";
-//   if (content) {
-//     try {
-//       const response = await fetch(content);
-//       formularioUsuario = await response.text();
-//     } catch (error) {
-//       formularioUsuario = "";
-//     }
-//   }
-//   return formularioUsuario;
-// }
-
 async function renderApp() {
   await router(main);
   const sidebarContainer = document.querySelector('.sidebarContainer');
-  // const form = document.querySelector('.loginmecanico__login')
-  // const formulario = await Cargarform();
-  // if (form) {
-  //   form.innerHTML = formulario;
-  // }
   if (sidebarContainer) {
     const token = localStorage.getItem("token");
     const isHome = location.hash === "" || location.hash === "#/";
@@ -67,11 +54,15 @@ async function renderApp() {
       main.style.width = "100%";
     } else {
       const sidebarHtml = await cargarSidebar();
-
+      
       if (sidebarHtml) {
         sidebarContainer.innerHTML = sidebarHtml;
         sidebarContainer.style.display = "block";
-        main.style.width = "80%";
+        main.style.width = "100%";
+        const cerrarSesion = document.getElementById("cerrar_sesion");
+        if (cerrarSesion) {
+          cerrarSesion.addEventListener("click", cerrarSesionHandler);
+        }
       } else {
         sidebarContainer.innerHTML = "";
         sidebarContainer.style.display = "none";

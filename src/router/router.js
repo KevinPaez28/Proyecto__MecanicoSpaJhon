@@ -1,5 +1,17 @@
 import { routes } from "./routes";
 import { isTokenExpired, refreshAccessToken } from "../Helpers/api.js";
+import { tienePermiso } from "../Helpers/Modules/modules.js";
+import { error } from "../Helpers/alertas.js";
+
+// Redirecciona a una ruta determinada
+export const redirigirARuta = (ruta) => {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  if (!usuario) {
+    alert("Acceso no autorizado");
+  }
+  location.hash = ruta; // siempre redirige a la ruta indicada
+};
+
 // Función principal del enrutador SPA
 export const router = async (elemento) => {
   const hash = location.hash.slice(2); // Eliminamos "#/"
@@ -41,6 +53,12 @@ export const router = async (elemento) => {
         return null;
       }
     }
+
+    if (ruta.can && !tienePermiso(ruta.can)) {
+      await error('Usted no tiene acceso a este lugar');
+      window.history.back();
+      return null;
+    }
   }
 
   // Cargar la vista HTML y ejecutar el controlador JS
@@ -48,14 +66,7 @@ export const router = async (elemento) => {
   // await ruta.controller(params);
 };
 
-// Redirecciona a una ruta determinada
-const redirigirARuta = (ruta) => {
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-  if (!usuario) {
-    alert("Acceso no autorizado");
-    location.hash = "#/Home";
-  }
-};
+
 
 export const encontrarRuta = (routes, segmentos) => {
   let rutaActual = routes;
@@ -103,7 +114,7 @@ const extraerParametros = (parametros) => {
 };
 
 // Carga una vista HTML externa dentro de un elemento
-const cargarVista = async (ruta, elemento) => {
+const cargarVista = async (ruta, elemento, params = {}) => {
   try {
     if (ruta.private) {
       const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -121,7 +132,7 @@ const cargarVista = async (ruta, elemento) => {
     elemento.innerHTML = contenido;
 
     if (ruta.controller) {
-      ruta.controller(); // El controller también se llama con params en router()
+      ruta.controller(params); // ahora sí pasa los parámetros correctamente
     }
 
   } catch (error) {
@@ -129,6 +140,7 @@ const cargarVista = async (ruta, elemento) => {
     elemento.innerHTML = `<h2>Error al cargar la vista</h2>`;
   }
 };
+
 
 // Verifica si un objeto representa un grupo de rutas (todas sus claves son objetos)
 const esGrupoRutas = (obj) => {

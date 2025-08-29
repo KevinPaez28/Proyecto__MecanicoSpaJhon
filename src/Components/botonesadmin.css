@@ -1,7 +1,6 @@
 .title__button {
 display: flex;
 height: 60%;
-
 }
 .button__form {
   display: inline-block;        /* Permite que el botón se adapte al contenido */
@@ -17,7 +16,7 @@ height: 60%;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-sizing: border-box;  
-  text-decoration: none;    /* Para que el padding no haga overflow */
+  text-decoration: none;  
 }
 
 .button__form--diseño_fondo:hover {
@@ -25,4 +24,34 @@ height: 60%;
   background-color: var(--color--hoverForm);
   transform: translateY(-2px);
   color: black;
+}
+
+@media (max-width: 900px) {
+  .title__button {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .button__form {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8em 1em;
+    border-radius: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .title__button {
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .button__form {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.7em 0.8em;
+    border-radius: 20px;
+  }
 }

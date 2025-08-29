@@ -33,3 +33,55 @@
   justify-content: space-between;
   width: 100%;
 }
+
+/* Responsivo para tablets y móviles */
+@media (max-width: 900px) {
+  .form__card {
+    width: 90%;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
+  .loginmecanico__login {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .formulario {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+  .form__card {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 5px;
+  }
+  .form__grupo {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .loginmecanico__login {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  .bodyContent {
+    flex-direction: column;
+    padding: 0;
+    gap: 5px;
+  }
+  .form__grupo input,
+  .form__grupo select,
+  .form__grupo textarea {
+    width: 100%;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+}
+

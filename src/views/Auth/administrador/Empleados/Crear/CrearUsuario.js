@@ -1,5 +1,5 @@
 import { get, post } from "../../../../../Helpers/api";
-import { contarCamposFormulario, validar, validarCorreo, validarMinimo, validarCedula, validarContrasenia, validarLetras, validarNumeros, validarMaximo, limpiar } from "../../../../../Helpers/Modules/modules";
+import { contarCamposFormulario, validar, validarCorreo, validarMinimo, validarCedula, validarContrasenia, validarLetras, validarNumeros, validarMaximo, limpiar, tienePermiso } from "../../../../../Helpers/Modules/modules";
 import { confirmacion, success, error } from "../../../../../Helpers/alertas.js";
 import "../../../../../Components/formularioUsuarios.css"
 import "../../../../../Components/botonesadmin.css"
@@ -21,53 +21,54 @@ export default async (parametros = null) => {
     const correo = document.querySelector("#correo")
     const telefono = document.querySelector("#telefono")
     const contraseña = document.querySelector("#contrasena")
+    if (tienePermiso("Usuarios_Crear")) {
+        const nuevoUsuario = async (event) => {
+            event.preventDefault();
 
-    const nuevoUsuario = async (event) => {
-        event.preventDefault();
+            const datos = validar(event);
 
-        const datos = validar(event);
+            if (Object.keys(datos).length === cantidadCampos) {
+                datos['rol_id'] = Number(datos['rol']);
+                delete datos['rol'];
 
-        if (Object.keys(datos).length === cantidadCampos) {
-            datos['rol_id'] = Number(datos['rol']);
-            delete datos['rol'];
+                datos['cedula'] = datos['cedula'].trim();
+                datos['telefono'] = datos['telefono'].trim();
+                datos['nombre'] = datos['nombre'].trim();
+                datos['correo'] = datos['correo'].trim();
+                datos['usuario'] = datos['usuario'].trim();
+                datos['contrasena'] = datos['contrasena'].trim();
+                datos['id_estado'] = 1
+                const respuesta = await post('Usuarios', datos);
+                const confirm = await confirmacion("¿Desea Crear el usuario?");
+                if (confirm.isConfirmed) {
+                    if (respuesta.ok) {
+                        if ((await success({ message: "Usuario Registrado con éxito" })).isConfirmed) {
+                            formulario.reset();
+                            window.location.href = "#/Empleados";
 
-            datos['cedula'] = datos['cedula'].trim();
-            datos['telefono'] = datos['telefono'].trim();
-            datos['nombre'] = datos['nombre'].trim();
-            datos['correo'] = datos['correo'].trim();
-            datos['usuario'] = datos['usuario'].trim();
-            datos['contrasena'] = datos['contrasena'].trim();
-            datos['id_estado'] = 1
-            const respuesta = await post('Usuarios', datos);
-            const confirm = await confirmacion("¿Desea Crear el usuario?");
-            if (confirm.isConfirmed) {
-                if (respuesta.ok) {
-                    if ((await success({ message: "Usuario Registrado con éxito" })).isConfirmed) {
-                        formulario.reset();
-                        window.location.href = "#/administrador/Empleados";
-
+                        }
+                    } else {
+                        // Mostrar los errores de validación si existen
+                        if (respuesta.errors.length > 0) {
+                            let mensajes = respuesta.errors.map(e => `${e.campo}: ${e.message}`).join("\n");
+                            await error("Errores de validación", mensajes);
+                        } else {
+                            await error("Error", respuesta.message || "No se pudo crear el usuario");
+                        }
                     }
                 } else {
-                    // Mostrar los errores de validación si existen
-                    if (respuesta.errors.length > 0) {
-                        let mensajes = respuesta.errors.map(e => `${e.campo}: ${e.message}`).join("\n");
-                        await error("Errores de validación", mensajes);
-                    } else {
-                        await error("Error", respuesta.message || "No se pudo crear el usuario");
-                    }
+                    await error("Faltan campos válidos", "");
                 }
-            } else {
-                await error("Faltan campos válidos", "");
-            }
-        };
+            };
+        }
+        const formulario = document.querySelector("#formUsuario");
+        formulario.addEventListener('submit', nuevoUsuario);
+        const cantidadCampos = contarCamposFormulario(formulario);
     }
 
-    const formulario = document.querySelector("#formUsuario");
-    const cantidadCampos = contarCamposFormulario(formulario);
 
 
 
-    formulario.addEventListener('submit', nuevoUsuario);
 
     nombre.addEventListener('keydown', validarLetras);
     nombre.addEventListener('keydown', (event) => {

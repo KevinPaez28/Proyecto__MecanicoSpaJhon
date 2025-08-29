@@ -1,59 +1,66 @@
 @import url('../variables.css');
 
-.contentBloque{
+.contentBloque {
   padding: 10px;
   width: 100%;
   height: 100vh;
 }
-.contenidoAdmin{
+
+.contenidoAdmin {
   width: 100%;
   height: 65%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.titleadmin{
+
+.titleadmin {
   height: 10vh;
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-Title);
- font-weight: 600;
- font-size: 1.9rem;
+  font-weight: 600;
+  font-size: 1.9rem;
   text-align: center;
-  font-size: 25px;
 }
-.contenido{
+
+.contenido {
   display: flex;
   flex-direction: column;
   gap: 10px;
   height: 80vh;
-  overflow-x: auto; 
+  overflow-x: auto;
 }
+
+/* --- Estilos para la tabla en pantallas grandes --- */
 .tabla-usuarios {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-body);
 }
+
 .tabla-usuarios th,
 .tabla-usuarios td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
+
 .tabla-usuarios th {
   background-color: var(--color--fondologin);
   color: var(--color--negro);
   font-weight: 600;
-
 }
+
 .tabla-usuarios button {
   padding: 5px 10px;
   border: none;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
+  margin: 2px;
 }
 
 .tabla-usuarios .btn-modificar {
@@ -61,25 +68,45 @@
   color: #fff;
 }
 
-.tabla-usuarios .btn-Eliminar {
+.tabla-usuarios .btn-eliminar {
   background-color: var(--color--buttonEliminar);
   color: #fff;
 }
-.form__inputtext{
- width: 50%;
- height: 5%;
-} 
-.mensaje-error {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 4px;
-  display: block;
-  font-weight: 500;
-}
 
-.form__input{
-  border-radius: 5px;
-  height: 25px;
-  padding: 3px;
-  border: none;
+/* --- Responsividad: Transformar la tabla en una lista en móviles --- */
+@media (max-width: 600px) {
+  .tabla-usuarios, .tabla-usuarios tbody, .tabla-usuarios tr, .tabla-usuarios td {
+    display: block;
+    width: 100%;
+  }
+
+  .tabla-usuarios thead {
+    display: none; /* Oculta el encabezado de la tabla */
+  }
+
+  .tabla-usuarios tr {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+  .tabla-usuarios td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border: none;
+  }
+
+  /* Agrega las etiquetas de encabezado como pseudo-elementos */
+  .tabla-usuarios td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 10px;
+    font-weight: bold;
+    text-align: left;
+    color: #333;
+  }
 }

@@ -1,4 +1,4 @@
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 import "../Styles/variables.css";
 
 export const confirm = (mensaje) => {

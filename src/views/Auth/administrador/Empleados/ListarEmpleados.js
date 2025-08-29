@@ -1,16 +1,10 @@
 import { get, put } from "../../../../Helpers/api.js";
 import { confirm, error, success, eliminar } from "../../../../Helpers/alertas.js";
 import "../../../../Styles/Administrador/registerEmpleado.css";
+import { tienePermiso } from "../../../../Helpers/Modules/modules.js";
+
 export default async (parametros = null) => {
-  const cerrarSesion = document.getElementById("cerrar_sesion");
-  cerrarSesion.addEventListener("click", async (e) => {
-    e.preventDefault(); // Evita que redireccione inmediatamente
-    const confirmacionCerrar = await confirmacion("¿Desea cerrar sesión?");
-    if (confirmacionCerrar.isConfirmed) {
-      localStorage.clear();
-      window.location.href = "#/Home";
-    }
-  });
+
   const MostrarUsuarios = async () => {
     const tbody = document.querySelector(".tabla-usuarios tbody");
     if (!tbody) return; // Si no existe la tabla, salir
@@ -49,25 +43,26 @@ export default async (parametros = null) => {
       const btnEditar = document.createElement("button");
       btnEditar.textContent = "Editar";
       btnEditar.classList.add("btn-modificar");
-      btnEditar.dataset.id = usuario.usuario_id;
 
+      btnEditar.dataset.id = usuario.usuario_id;
+      if (tienePermiso("Usuarios_Actualizar")) {
+        btnEditar.addEventListener("click", (e) => {
+          e.preventDefault();
+          const idEmpleado = usuario.usuario_id;
+          localStorage.setItem("idEmpleadoEditar", idEmpleado);
+          window.location.hash = "#/Empleados/editar";
+        });
+      }
       const btnEliminar = document.createElement("button");
       btnEliminar.textContent = "Eliminar";
       btnEliminar.classList.add("btn-eliminar");
-
-      // Eventos
-      btnEditar.addEventListener("click", () => {
-        const idEmpleado = usuario.usuario_id;
-        localStorage.setItem("idEmpleadoEditar", idEmpleado);
-        window.location.hash = "#/administrador/Empleados/editar";
-      });
-
-
-      btnEliminar.addEventListener("click", () => {
-        const idEmpleado = usuario.usuario_id;
-        localStorage.setItem("idEmpleadoEditar", idEmpleado);
-        eliminarUsuarioPorId();
-      });
+      if (tienePermiso("Usuarios_Eliminar")) {
+        btnEliminar.addEventListener("click", () => {
+          const idEmpleado = usuario.usuario_id;
+          localStorage.setItem("idEmpleadoEditar", idEmpleado);
+          eliminarUsuarioPorId();
+        });
+      }
 
       tdAcciones.append(btnEditar, btnEliminar);
 
@@ -75,9 +70,6 @@ export default async (parametros = null) => {
       tbody.appendChild(tr);
     });
   };
-
-  MostrarUsuarios();
-
   const eliminarUsuarioPorId = async () => {
     const id = localStorage.getItem("idEmpleadoEditar");
     try {
@@ -109,4 +101,7 @@ export default async (parametros = null) => {
       await error("Error inesperado al desactivar");
     }
   };
+  if (!tienePermiso("Usuarios_Listar")){
+    MostrarUsuarios();
+  }
 };

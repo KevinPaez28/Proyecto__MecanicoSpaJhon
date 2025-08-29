@@ -1,22 +1,16 @@
-<div class="contentUsuario">
-    <div class = "headerUsuario">
-        <div class="headerlogo">
-         <img class="headerimg" src="../../../../../public/Logo.png" alt="">
-         <p class="headertext">Bienvenido</p>
-        </div>
-        <div class="headermenu">
-            <div class = "headerinformacion">
-             <a class="button__info" href="#/cliente/principal">Inicio</a>
-             <a class="button__info" href="#/cliente/servicios">Servicios Disponibles</a>
-             <a class="button__info" href="#/cliente/historial">Historial de Servicios</a>
-             <a class="button__info" href="#/cliente/informacion">Informacion Usuario</a>
-             <a class="button__info" href="#/Home">Cerrar Sesion</a>
-            </div>
-        </div>
+<div class="interfaz-servicios">
+  <div class="servicios-header">
+    <div class="servicios-title">
+      <p class="servicios-title-text">Gestión de Servicios</p>
+        <div class="title__button">
+        <a href="#/Servicios/crear" d="registrar_vehiculos" class="button__form button__form--diseño_fondo">Registrar Servicios</a>
+      </div>
     </div>
-    <div class="servicios-content">
+  </div>
+  <div class="servicios-content">
     <div class="servicios-listado" id="contenedorServicios">
     </div>
-    <div class = "bodyUsuario"></div>
-    <script type="module" src="serviciosUsuarios.js"></script>
+  </div>
 </div>
+
+<script type="module" src="servicios.js"></script>
