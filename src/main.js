@@ -15,7 +15,7 @@ async function cargarSidebar() {
   if (role === '3') {
     sidebarPath = './src/Components/sidebarMecanico.html';
     roleClass = 'sidebar-mecanico';
-    sidebarContainer.style.width = "20%";
+    sidebarContainer.style.width = "15%";
     body.style.flexDirection = "row";
     main.style.backgroundColor = "#f0f2f5";
   } else if (role === '2') {
@@ -26,7 +26,7 @@ async function cargarSidebar() {
     roleClass = 'sidebar-usuario';
     main.style.backgroundColor = "#f0f2f5";
   } else if (role === '1') {
-    sidebarContainer.style.width = "20%";
+    sidebarContainer.style.width = "19%";
     sidebarPath = './src/Components/Sidebar.html';
     roleClass = 'sidebar-admin';
     body.style.flexDirection = "row";
@@ -67,11 +67,11 @@ async function renderApp() {
         const cerrarSesion = document.getElementById("cerrar_sesion");
         if (cerrarSesion) {
           cerrarSesion.addEventListener("click", cerrarSesionHandler);
+          main.style.backgroundColor = "rgb(188, 203, 241)"
         }
 
         sidebarContainer.style.display = "block";
         main.style.width = "100%";
-        main.style.backgroundColor = "rgb(188, 203, 241)"
       } else {
         sidebarContainer.innerHTML = "";
         sidebarContainer.style.display = "none";

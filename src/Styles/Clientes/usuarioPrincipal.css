@@ -30,7 +30,7 @@
 .vehiculosUsuarios {
   width: 20%;
   min-width: 200px;
-  height: 40%;
+  height: 32%;
   background-color: var(--color--cardsVehiculosclientes);
   border-radius: 20px;
   padding: 15px;
