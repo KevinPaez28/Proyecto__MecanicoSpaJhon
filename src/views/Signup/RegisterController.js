@@ -5,7 +5,11 @@ import "../../Styles/Signup.css";
 import "../../Components/formularioUsuarios.css";
 import "../../Components/botonesadmin.css";
 export default (parametros = null) => {
-
+  // const toggle = document.querySelector(".menu-toggle");
+  // const navLinks = document.querySelector(".nav-links");
+  // toggle.addEventListener("click", () => {
+  //   navLinks.classList.toggle("active");
+  // });
   const cedula = document.querySelector("#cedula")
   const nombre = document.querySelector("#nombre")
   const correo = document.querySelector("#correo")
@@ -53,7 +57,7 @@ export default (parametros = null) => {
       if (respuesta.data.erros && respuesta.data.erros.length > 0) {
         let mensajes = "";
         for (let i = 0; i < respuesta.data.erros.length; i++) {
-          mensajes +=  respuesta.data.erros[i].message + "\n";
+          mensajes += respuesta.data.erros[i].message + "\n";
         }
         await error(mensajes);
       } else {

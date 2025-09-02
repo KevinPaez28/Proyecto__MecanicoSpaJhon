@@ -1,10 +1,15 @@
 @import url('../variables.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 .interfaz-servicios {
   width: 100%;
   height: 100vh;
+  background-color: var(--color-secondary);
+  font-family: var(--font-principalateral);
+  color: var(--color-text-dark);
 }
 
+/* Header */
 .servicios-header {
   display: flex;
   width: 100%;
@@ -14,7 +19,6 @@
   border-radius: 15px;
 }
 
-/* Fondo decorativo o para el logo */
 .servicios-fondo {
   width: 100px;
   height: 80%;
@@ -22,9 +26,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  background-color: var(--color-card-bg);
 }
 
-/* Título */
 .servicios-title {
   width: 100%;
   height: 100%;
@@ -32,20 +36,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px;
-  font-family: var(--font-Title);
+  font-family: var(--font-title);
   font-weight: 600;
+  color: var(--color-text-dark);
 }
 
 .servicios-title-text {
   font-size: 2rem;
+  color: var(--color-text-dark);
 }
-
-/* Contenido principal */
-/* .servicios-content {
-  width: 100%;
-  height: 75vh;
-  display: flex;
-} */
 
 /* Listado de servicios */
 .servicios-listado {
@@ -59,7 +58,101 @@
   overflow-y: auto;
   scrollbar-width: none;
 }
-/* Columna derecha (formulario) */
+
+/* Cards estilo moderno */
+.listado__cardservicios {
+  width: 360px;
+  height: 32vh;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border-radius: 15px;
+  border: 1px solid #e0e6f7;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: var(--font-principalateral);
+  color: var(--color-text-dark);
+}
+
+.listado__cardservicios:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--color-shadow-hover);
+}
+
+/* Información interna de la card */
+.listado__bodyservicios {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1rem;
+}
+
+.listado__infoServicios {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.listado__tituloServicios p,
+.listadoServicios__textinfo {
+  font-family: var(--font-principalateral);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.listado__pnombre_servicios {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text-dark);
+}
+
+.listadoServicios__textinfo {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+}
+
+/* Botones de card */
+.listadoServicios__button {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  height: 40px;
+}
+
+.listadoServicios__buttones {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.listadoServicios__buttones:first-child {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.listadoServicios__buttones:first-child:hover {
+  background: var(--color-primary-hover);
+  transform: scale(1.05);
+}
+
+.listadoServicios__buttones:last-child {
+  background: var(--color-danger);
+  color: var(--color-text-light);
+}
+
+.listadoServicios__buttones:last-child:hover {
+  background: var(--color-danger-hover);
+  transform: scale(1.05);
+}
+
+/* Formulario lateral estilo moderno */
 .servicios-formulario-contenedor {
   width: 25%;
   height: 85vh;
@@ -69,124 +162,76 @@
   padding: 10px;
   gap: 20px;
 }
-/* Formulario */
+
 .servicios-formulario {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 60%;
   justify-content: space-between;
-  background-color: var(--color--cardvehiculos);
-  padding: 10px;
-  
+  background: rgba(255,255,255,0.7);
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  border: 1px solid #e0e6f7;
+  font-family: var(--font-principalateral);
+  color: var(--color-text-dark);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+
+.servicios-formulario:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--color-shadow-hover);
+}
+
 .servicios-formulario-header {
   text-align: center;
 }
+
 .servicios-formulario-titulo {
-  font-family: var(--font-Title);
+  font-family: var(--font-title);
   font-weight: 600;
   font-size: 1.3rem;
-}
-/* Grupo de campos */
-.servicios-formulario-grupo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  height: auto;
-  width: 100%;
-  justify-content: center;
-}
-.servicios-label {
-  font-family: var(--font--principalContent);
-}
-.servicios-input {
-  width: 100%;
-  height: 70%;
-  border-radius: 5px;
-  background-color: var(--color--blancocontent);
-  padding: 8px;
-}
-/* Botón de acción */
-.servicios-formulario-botones {
-  height: 25%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.servicios-boton {
-  border-radius: 10px;
-  border: none;
-  height: 40px;
-  width: 75%;
-  background-color: var(--color--buttoncards);
-  color: var(--color--blancocontent);
-  font-size: 1rem;
-  font-family: var(--font--principalateral);
-  cursor: pointer;
-}
-.listado__cardservicios{
-  width: 360px;
-  height: 32vh;
-  background-color: var(--color--cardvehiculos);
-  border-radius: 20px;
-}
-.listado__bodyservicios{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.listado__infoServicios{
-  display: flex;
-  flex-direction: column;
-  height: 60%;
-  gap: 10px;
-  padding: 10px 30px;
-}
-.listado__tituloServicios{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.listado__pnombre_servicios{
-  font-family: var(--font--principalContent);
-  font-weight:600;
-  width: 160px;
-  font-size: 1rem;
-}
-.listadoServicios__textinfo{
-  font-family: var(--font--principalContent);
-  font-weight: 500;
-  width: 170px;
-  height: 30px;
-  font-size: 0.9rem;
-  width: 90%;
-}
-.listadoServicios__button{
-  width: 100%;
-  height: 15%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0px 30px;
-}
-.listadoServicios__buttones{
-  width: 25%;
-  height: 80%;
-  border: none;
-  border-radius: 15px;
-  background-color: var(--color--buttoncards);
-  color: var(--color--blancocontent);
+  color: var(--color-text-dark);
 }
 
-.Servicios__input{
-  width: 70%;
+/* Inputs */
+.servicios-input {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-family: var(--font-principalateral);
+  color: var(--color-text-dark);
+  transition: all 0.3s ease;
+}
+
+.servicios-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 8px rgba(63,96,160,0.3);
+}
+
+/* Botón del formulario */
+.servicios-boton {
+  width: 75%;
+  height: 40px;
+  border-radius: 8px;
   border: none;
-  border-radius: 10px;
-  padding: 0px 8px;
-  height:30px;
+  background: var(--color-primary);
+  color: var(--color-text-light);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  font-family: var(--font-principalateral);
+}
+
+.servicios-boton:hover {
+  background: var(--color-primary-hover);
+  transform: scale(1.05);
 }
 
 /* Responsivo para tablets */
@@ -231,19 +276,24 @@
     width: 100%;
     height: auto;
     padding: 6px;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 12px rgba(63,96,160,0.10) !important;
+    backdrop-filter: blur(6px) !important;
   }
   .servicios-formulario-grupo {
     gap: 8px;
   }
   .servicios-input {
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.98rem !important;
+    padding: 8px 8px !important;
     min-width: 0;
     box-sizing: border-box;
   }
   .servicios-boton {
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.98rem !important;
+    padding: 10px 0 !important;
     margin-top: 6px;
   }
 }
@@ -251,8 +301,14 @@
 /* Responsivo para móviles */
 @media (max-width: 600px) {
   .interfaz-servicios {
-    height: auto;
+    height: 100%;
     padding: 2px;
+    width: 100vw !important;
+    overflow: scroll;
+  }
+  .servicios-formulario-contenedor{
+    margin-top: 100;
+    width: 100vw !important;
   }
   .servicios-header {
     flex-direction: column;
@@ -279,6 +335,9 @@
     width: 98%;
     height: auto;
     margin-bottom: 8px;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(63,96,160,0.08) !important;
+    backdrop-filter: blur(4px) !important;
   }
   .servicios-formulario-contenedor {
     width: 98%;
@@ -290,19 +349,24 @@
     width: 100%;
     height: auto;
     padding: 2px;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px rgba(63,96,160,0.08) !important;
+    backdrop-filter: blur(4px) !important;
   }
   .servicios-formulario-grupo {
     gap: 4px;
   }
   .servicios-input {
     width: 100%;
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
+    padding: 7px 6px !important;
     min-width: 0;
     box-sizing: border-box;
   }
   .servicios-boton {
     width: 100%;
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
+    padding: 8px 0 !important;
     margin-top: 4px;
   }
 }

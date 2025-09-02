@@ -1,22 +1,32 @@
-/* Estilos para el botón eliminar en formularios de edición de productos */
+/* ======================= */
+/* Paleta de colores y fuentes */
+/* ======================= */
 @import url('../variables.css');
-.form-editar-producto .btn-eliminar {
-  background: #c0392b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 7px 18px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #3f60a0;
+  --color-primary-hover: #2b4c85;
+  --color-secondary: #f0f2f5;
+  --color-text-dark: #212529;
+  --color-text-light: #ffffff;
+  --color-accent-blue: #5a7edc;
+  --color-card-bg: #ffffff; /* Fondo blanco por defecto */
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-hover: rgba(0, 0, 0, 0.15);
+  --color-danger: #e74c3c;
+  --color-danger-hover: #c0392b;
+
+  --font-principalateral: 'Roboto', sans-serif;
+  --font-title: 'Poppins', sans-serif;
 }
-.form-editar-producto .btn-eliminar:hover {
-  background: #a93226;
-}
-/* Estilos para formularios de edición de productos */
+
+/* ======================= */
+/* Formulario edición productos */
+/* ======================= */
 .form-editar-producto {
-  background: #f9f9f9;
-  border: 1px solid #e0e0e0;
+  background-color: var(--color-card-bg);
+  border: 1px solid #ddd;
   border-radius: 8px;
   padding: 14px 12px;
   margin-bottom: 16px;
@@ -25,81 +35,67 @@
   align-items: center;
 }
 
-/* Responsivo para editar producto */
-@media (max-width: 900px) {
-  .form-editar-producto {
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px 6px;
-    align-items: stretch;
-  }
-  .form-editar-producto .editar-input {
-    width: 100%;
-    font-size: 1rem;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-  .form-editar-producto .btn-eliminar,
-  .form-editar-producto .btn-modificar {
-    width: 100%;
-    font-size: 1rem;
-    margin-top: 6px;
-  }
-}
-
-@media (max-width: 600px) {
-  .form-editar-producto {
-    flex-direction: column;
-    gap: 6px;
-    padding: 6px 2px;
-    align-items: stretch;
-  }
-  .form-editar-producto .editar-input {
-    width: 100%;
-    font-size: 0.95rem;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-  .form-editar-producto .btn-eliminar,
-  .form-editar-producto .btn-modificar {
-    width: 100%;
-    font-size: 0.95rem;
-    margin-top: 4px;
-  }
-}
 .form-editar-producto .editar-input {
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   padding: 6px 8px;
   font-size: 1rem;
-  background: #fff;
+  background: #ffffff;
   outline: none;
+  font-family: var(--font-principalateral);
+  color: var(--color-text-dark);
 }
+
 .form-editar-producto .editar-input:focus {
-  border-color: #7a8bb7;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 8px rgba(63, 96, 160, 0.3);
 }
+
 .form-editar-producto select.editar-input {
   min-width: 110px;
 }
-.form-editar-producto .btn-modificar {
-  background: #5a6fa7;
-  color: #fff;
+
+/* Botones */
+.form-editar-producto .btn-modificar,
+.form-editar-producto .btn-eliminar {
   border: none;
   border-radius: 5px;
   padding: 7px 18px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
-}
-.form-editar-producto .btn-modificar:hover {
-  background: #3d4e7a;
+  transition: background 0.2s, transform 0.2s;
+  font-family: var(--font-principalateral);
 }
 
+/* Modificar */
+.form-editar-producto .btn-modificar {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+.form-editar-producto .btn-modificar:hover {
+  background-color: var(--color-primary-hover);
+  transform: scale(1.05);
+}
+
+/* Eliminar */
+.form-editar-producto .btn-eliminar {
+  background-color: var(--color-danger);
+  color: var(--color-text-light);
+}
+.form-editar-producto .btn-eliminar:hover {
+  background-color: var(--color-danger-hover);
+  transform: scale(1.05);
+}
+
+/* ======================= */
+/* Interfaz categorías */
+/* ======================= */
 .interfazcategorias {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--color-secondary);
 }
 
 .interfazcategorias__header {
@@ -115,28 +111,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--font-Title);
+  font-family: var(--font-title);
   font-weight: 600;
   padding: 20px;
+  color: var(--color-text-dark);
 }
 
 .interfazcategorias__titleProductos {
-  font-size: 2.0rem;
+  font-size: 2rem;
 }
 
 .interfazcategorias__titleButton {
   width: 15%;
-  height: 11%;
-  background-color: var(--color--buttonProductos);
+  height: 50%;
+  background-color: var(--color-primary);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   text-decoration: none;
-  color: var(--color--negroFuente);
-  height: 50%;
+  color: var(--color-text-light);
   font-size: 1.2rem;
-  font-family: var(--font--principalateral);
+  font-family: var(--font-principalateral);
 }
 
 .interfazcategorias__content {
@@ -160,10 +156,20 @@
 .interfazcategorias__Cards {
   height: 200px;
   width: 30%;
-  background-color: var(--color--cardvehiculos);
+  background-color: var(--color-card-bg);
   border-radius: 15px;
   overflow-y: scroll;
   scrollbar-width: none;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interfazcategorias__Cards:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--color-shadow-hover);
 }
 
 .interfazcategorias__body {
@@ -172,19 +178,21 @@
   justify-content: space-between;
   padding: 12px;
   font-size: 1.1rem;
-  font-family: var(--font--principalateral);
+  font-family: var(--font-principalateral);
   width: 100%;
   height: 100%;
 }
-.icono_eliminar{
+
+.icono_eliminar {
   width: 10px;
-  color: rgb(160, 41, 41);
-  cursor:pointer;
+  color: var(--color-danger);
+  cursor: pointer;
 }
+
 .interfazcategorias__nombre {
   text-align: center;
   font-size: 1.4rem;
-  font-family: var(--font-Title);
+  font-family: var(--font-title);
   font-weight: 600;
 }
 
@@ -199,10 +207,18 @@
 .interfazcategorias__buttones {
   width: 45%;
   height: 30px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
-  background-color: var(--color--buttoncards);
-  color: var(--color--blancocontent);
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.interfazcategorias__buttones:hover {
+  background-color: var(--color-primary-hover);
+  transform: scale(1.05);
 }
 
 .contentCategorias {
@@ -216,16 +232,20 @@
 .interfazcategorias__card {
   height: 35%;
   width: 40%;
-  background-color: var(--color--cardvehiculos);
+  background-color: var(--color-card-bg);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   padding: 12px;
   font-size: 1.1rem;
-  font-family: var(--font--principalateral);
+  font-family: var(--font-principalateral);
   justify-content: space-between;
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
+/* ======================= */
+/* Insertar categorías/productos */
+/* ======================= */
 .interfazcategorias__insertar {
   width: 100%;
   height: 85vh;
@@ -236,11 +256,15 @@
   gap: 20px;
 }
 
-.Categorias__input{
-  width: 30%;
-  border: none;
+.Categorias__input,
+.interfazinsertar__input {
+
+  width: 60%;
   border-radius: 10px;
   padding: 5px;
+  font-family: var(--font-principalateral);
+  color: var(--color-text-dark);
+  background-color: #ffffff;
 }
 
 .interfazinsertar__formulario {
@@ -249,19 +273,20 @@
   width: 100%;
   height: 100%;
   justify-content: space-between;
-  background-color: var(--color--cardvehiculos);
+  background-color: #ffffff;
   border-radius: 15px;
   padding: 10px;
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
-.interfazinsertar__contenedor-categorias {
-  width: 30%;
-  height: 33%;
-}
 
 .interfazinsertar__contenedor-productos {
+  width: 40%;
+  height: 55%;
+}
+.interfazinsertar__contenedor-categorias{
   width: 30%;
-  height: 70%;
+  height: 30%; 
 }
 
 .interfazinsertar__formulario-grupo {
@@ -282,15 +307,7 @@
 }
 
 .interfazinsertar__label {
-  font-family: var(--font--principalContent);
-}
-
-.interfazinsertar__input {
-  width: 70%;
-  height: 39%;
-  border-radius: 5px;
-  background-color: var(--color--blancocontent);
-  padding: 5px;
+  font-family: var(--font-principalateral);
 }
 
 .interfazinsertar__boton {
@@ -298,8 +315,16 @@
   border: none;
   height: 70%;
   width: 60%;
-  background-color: var(--color--buttoncards);
-  color: var(--color--blancocontent);
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.interfazinsertar__boton:hover {
+  background-color: var(--color-primary-hover);
+  transform: scale(1.05);
 }
 
 .interfazinsertar__formulario-titulo {
@@ -307,137 +332,197 @@
 }
 
 .interfazinsertar__formulario-texto {
-  font-family: var(--font-Title);
+  font-family: var(--font-title);
   font-weight: 600;
   font-size: 1.3rem;
+  color: var(--color-text-dark);
 }
+
 .interfazcategorias__productos_item {
- display: flex;
- justify-content: space-between;
- padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
 }
-.interfazcategorias__productos_item > p{
- font-size: 0.9rem;
+.interfazcategorias__productos_item > p {
+  font-size: 0.9rem;
+  font-family: var(--font-principalateral);
 }
 
 .interfazcategorias__nombre_content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   border-radius: 6px;
   padding: 6px 10px;
   font-size: 14px;
   font-weight: 500;
+  font-family: var(--font-principalateral);
 }
 
-/* Responsivo para tablets */
+/* ======================= */
+/* Responsivo tablets y móviles */
+/* ======================= */
 @media (max-width: 900px) {
+  .interfazcategorias,
+  .interfazcategorias__content,
+  .interfazcategorias__contenedor,
+  .interfazinsertar__contenedor-categorias,
+  .interfazinsertar__contenedor-productos,
+  .form-editar-producto,
+  .interfazcategorias__Cards,
+  .interfazcategorias__card,
+  .interfazinsertar__formulario {
+    width: 100vw !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
+
   .interfazcategorias {
     height: auto;
     padding: 8px;
   }
-  .interfazcategorias__header {
+
+  .interfazcategorias__header,
+  .interfazcategorias__title {
     flex-direction: column;
     gap: 8px;
     height: auto;
   }
-  .interfazcategorias__title {
-    flex-direction: column;
-    padding: 10px;
-    height: auto;
-    gap: 10px;
-  }
+
   .interfazcategorias__titleButton {
     width: 100%;
     height: 40px;
     font-size: 1rem;
   }
-  .interfazcategorias__content {
-    flex-direction: column;
-    gap: 12px;
-    height: auto;
-  }
+
+  .interfazcategorias__content,
   .interfazcategorias__contenedor {
-    width: 100%;
     flex-direction: column;
     gap: 12px;
     height: auto;
   }
-  .interfazcategorias__Cards {
+
+  .interfazcategorias__Cards,
+  .interfazcategorias__card {
     width: 90%;
     height: auto;
     margin-bottom: 10px;
   }
-  .interfazcategorias__card {
-    width: 98%;
-    height: auto;
-    margin-bottom: 10px;
-  }
+
   .interfazcategorias__insertar {
     height: auto;
     padding: 8px;
     gap: 10px;
   }
-  .interfazinsertar__contenedor-categorias,
-  .interfazinsertar__contenedor-productos {
-    width: 98%;
-    height: auto;
+
+  .form-editar-producto,
+  .interfazinsertar__formulario {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    padding: 12px 6px !important;
+  }
+  .form-editar-producto .editar-input,
+  .Categorias__input,
+  .interfazinsertar__input {
+    width: 100% !important;
+    font-size: 1rem !important;
+    padding: 8px 10px !important;
+    margin-bottom: 8px !important;
+  }
+  .form-editar-producto .btn-modificar,
+  .form-editar-producto .btn-eliminar,
+  .interfazinsertar__boton {
+    width: 100% !important;
+    font-size: 1rem !important;
+    padding: 10px 0 !important;
+    margin-bottom: 8px !important;
   }
 }
 
-/* Responsivo para móviles */
 @media (max-width: 600px) {
+  .interfazcategorias,
+  .interfazcategorias__content,
+  .interfazcategorias__contenedor,
+  .interfazinsertar__contenedor-categorias,
+  .interfazinsertar__contenedor-productos,
+  .form-editar-producto,
+  .interfazcategorias__Cards,
+  .interfazcategorias__card,
+  .interfazinsertar__formulario {
+    width: 100vw !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
+
   .interfazcategorias {
     height: auto;
     padding: 2px;
   }
-  .interfazcategorias__header {
-    flex-direction: column;
-    gap: 4px;
-    height: auto;
-  }
+
+  .interfazcategorias__header,
   .interfazcategorias__title {
     flex-direction: column;
-    padding: 4px;
-    height: auto;
     gap: 4px;
+    height: auto;
   }
+
   .interfazcategorias__titleButton {
     width: 100%;
     height: 35px;
     font-size: 0.9rem;
   }
-  .interfazcategorias__content {
-    flex-direction: column;
-    gap: 6px;
-    height: auto;
-  }
+
+  .interfazcategorias__content,
   .interfazcategorias__contenedor {
-    width: 100%;
     flex-direction: column;
     gap: 6px;
     height: auto;
   }
-  .interfazcategorias__Cards {
-    width: 98%;
-    height: auto;
-    margin-bottom: 8px;
-  }
+
+  .interfazcategorias__Cards,
   .interfazcategorias__card {
     width: 98%;
     height: auto;
     margin-bottom: 8px;
   }
+
   .interfazcategorias__insertar {
     height: auto;
     padding: 4px;
     gap: 6px;
   }
-  .interfazinsertar__contenedor-categorias,
-  .interfazinsertar__contenedor-productos {
-    width: 98%;
-    height: auto;
+
+  .form-editar-producto,
+  .interfazinsertar__formulario {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 8px 2px !important;
+  }
+  .form-editar-producto .editar-input,
+  .Categorias__input,
+  .interfazinsertar__input {
+    width: 100% !important;
+    font-size: 0.95rem !important;
+    padding: 7px 8px !important;
+    margin-bottom: 6px !important;
+  }
+  .form-editar-producto .btn-modificar,
+  .form-editar-producto .btn-eliminar,
+  .interfazinsertar__boton {
+    width: 100% !important;
+    font-size: 0.95rem !important;
+    padding: 8px 0 !important;
+    margin-bottom: 6px !important;
   }
 }
-

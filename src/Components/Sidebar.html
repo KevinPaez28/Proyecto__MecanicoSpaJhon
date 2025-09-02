@@ -9,55 +9,47 @@
 </head>
 <body>
 
-<button id="sidebarToggle" class="sidebar__toggle">☰</button>
-
+<!-- Sidebar clásico para desktop/tablet -->
 <div class="lateral" id="sidebar">
     <div class="lateral__title">
         <p class="lateral__titletext">ADMIN</p>
     </div>
-
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-clipboard2-fill lateral__icons"></i>
         </div>
         <a href="#/administrador/principal" class="lateral__text">Inicio</a>
     </div>
-
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-person-fill lateral__icons"></i>
         </div>
         <a href="#/Empleados" class="lateral__text">Registrar Empleado</a>
     </div>
-
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-car-front-fill lateral__icons"></i>
         </div>
         <a href="#/Vehiculos" class="lateral__text">Vehiculos</a>
     </div>
-
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-tag-fill lateral__icons"></i>
         </div>
         <a href="#/Categorias" class="lateral__text">Categorias y Productos</a>
     </div>
-
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-gear-fill lateral__icons"></i>
         </div>
         <a href="#/Servicios" class="lateral__text">Servicios</a>
     </div>
-
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-clipboard2-fill lateral__icons"></i>
         </div>
         <a href="#/factura" class="lateral__text">Facturación</a>
     </div>
-
     <div class="lateral__menu">
         <div class="lateral__border">
             <i class="bi bi-box-arrow-left lateral__icons"></i>
@@ -66,7 +58,21 @@
     </div>
 </div>
 
-<script src="./cerrarSesion.js"></script>
-
+<!-- Menú hamburguesa para móvil -->
+<input type="checkbox" id="cheBurguer" class="cheBurguer" hidden>
+<label for="cheBurguer" class="burguer__label">
+  <span class="burguer__icon">☰</span>
+</label>
+<nav class="sidebar__overlay">
+  <div class="sidebar__menu">
+    <div class="caja"><a href="#/administrador/principal" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-clipboard2-fill lateral__icons"></i> Inicio</a></div>
+    <div class="caja"><a href="#/Empleados" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-person-fill lateral__icons"></i> Registrar Empleado</a></div>
+    <div class="caja"><a href="#/Vehiculos" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-car-front-fill lateral__icons"></i> Vehiculos</a></div>
+    <div class="caja"><a href="#/Categorias" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-tag-fill lateral__icons"></i> Categorias y Productos</a></div>
+    <div class="caja"><a href="#/Servicios" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-gear-fill lateral__icons"></i> Servicios</a></div>
+    <div class="caja"><a href="#/factura" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-clipboard2-fill lateral__icons"></i> Facturación</a></div>
+    <div class="caja"><a href="#/Home" class="caja__link" id="cerrar_sesion_mobile" onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-box-arrow-left lateral__icons"></i> Cerrar sesión</a></div>
+  </div>
+</nav>
 </body>
 </html>

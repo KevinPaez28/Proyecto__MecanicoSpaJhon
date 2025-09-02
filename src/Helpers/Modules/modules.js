@@ -1,42 +1,44 @@
 import { get, del, put, patch, post } from "../api.js";
 import { confirm, success, error, eliminar } from "../alertas.js";
 export const ObtenerUsuariosNombreCedulaROl = (Roles, usuarios) => {
-  try {
-    if (!usuarios) {
-      throw new Error("No se pudo obtener la lista de usuarios.");
+    try {
+        if (!usuarios || !Roles) {
+            throw new Error("No se pudo obtener la lista de usuarios o roles.");
+        }
+
+        const empleadosContenido = document.querySelector(".menu__empleados-contenido");
+        if (!empleadosContenido) {
+            console.error("No se encontró el contenedor '.menu__empleados-contenido'.");
+            return;
+        }
+
+        // Creamos la estructura de la tabla (solo tbody) para insertar los datos
+        // La cabecera (Nombre, Cedula, Rol) ya está en el HTML fuera de esta tabla.
+        empleadosContenido.innerHTML = `
+            <table class="tabla-datos-empleados">
+                <tbody>
+                </tbody>
+            </table>
+        `;
+
+        const tbody = empleadosContenido.querySelector(".tabla-datos-empleados tbody");
+        
+        const rolesMap = new Map(Roles.data.map(rol => [rol.rol_id, rol.nombre_rol]));
+
+        usuarios.data.forEach(element => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${element.nombre}</td>
+                <td>${element.cedula}</td>
+                <td>${rolesMap.get(element.rol_id) || "Desconocido"}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
     }
-
-    const empleados = document.querySelector(".menu__empleados-contenido");
-    empleados.innerHTML = ""
-    usuarios.data.forEach(element => {
-      const empleados_content = document.createElement("div");
-      empleados_content.classList.add("Menu__empleados-content");
-
-      const pNombre = document.createElement("p");
-      pNombre.classList.add("Menu__empleados-pnombres");
-      pNombre.textContent = element.nombre;
-
-      const pCedula = document.createElement("p");
-      pCedula.classList.add("Menu__empleados-pcedula");
-      pCedula.textContent = element.cedula;
-
-      const pRol = document.createElement("p");
-      pRol.classList.add("Menu__empleados-prol");
-
-      const rolEncontrado = Roles.data.find(r => r.rol_id == element.rol_id);
-      pRol.textContent = rolEncontrado ? rolEncontrado.nombre_rol : "Desconocido";
-
-      empleados_content.appendChild(pNombre);
-      empleados_content.appendChild(pCedula);
-      empleados_content.appendChild(pRol);
-
-      empleados.appendChild(empleados_content);
-    });
-
-  } catch (error) {
-    console.error('Error al obtener usuarios:', error);
-  }
-}
+};
 export const ObteneReparacionesadmin = async () => {
   const reparaciones = await get(`Reparaciones/admin`)
   const contenedor = document.querySelector(".menu__trabajos");

@@ -1,153 +1,216 @@
 @import url('../Styles/variables.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 .bodyAdmin {
-  display: flex;
-  width: 100%;
-  height: 100vh;
+    display: flex;
+    width: 100%;
+    height: 100vh;
 }
 
 .lateral {
-  width: 240px; /* Ancho fijo para desktop */
-  height: 100vh;
-  background-color: #38528a;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  font-family: var(--font--principalateral);
-  font-size: 0.6rem;
-  list-style-type: none;
-  font-weight: 700;
-  
-  /* Lógica de posición unificada */
-  position: fixed; 
-  left: 0;
-  top: 0;
-  transition: transform 0.3s ease-in-out;
-  z-index: 1000;
+    width: 240px;
+    height: 100vh;
+    background-color: #38528a;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-family: 'Poppins', sans-serif;
+    list-style-type: none;
+    position: fixed; 
+    left: 0;
+    top: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    display: block;
 }
 
-.lateral.sidebar--visible {
-  transform: translateX(0); /* Visible */
-}
-
-/* El botón de toggle debe estar oculto en desktop */
-.sidebar__toggle {
-  display: none;
-}
-
-/* Estilos compartidos del sidebar, se aplican a todos los tamaños */
 .lateral__title {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  color: rgb(219, 219, 219);
-}
-
-.lateral__menu {
-  display: flex;
-  width: 100%;
-  height: 5vh;
-  align-items: center;
-  gap: 10px;
-}
-
-.lateral__border {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.lateral__icons {
-  font-size: 25px;
-  color: rgb(25, 25, 26);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: #e2e2e2;
+    margin-bottom: 10px;
 }
 
 .lateral__titletext {
-  font-size: 30px;
-  text-decoration: none;
-  color: rgb(0, 0, 0);
+    font-size: 26px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.lateral__menu {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.lateral__menu:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.lateral__border {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+}
+
+.lateral__icons {
+    font-size: 24px;
+    color: #00ffa6;
+    transition: color 0.3s ease;
+}
+
+.lateral__menu:hover .lateral__icons {
+    color: #FFF;
+}
+
+.lateral__menu:hover .lateral__border {
+    background-color: #00ffa6;
 }
 
 .lateral__text {
-  font-size: 18px;
-  text-decoration: none;
-  color: rgb(255, 255, 255);
+    font-size: 1rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    width: auto;
 }
 
+.burguer__label, .sidebar__overlay {
+  display: none;
+}
 
 @media (max-width: 900px) {
   .lateral {
-    width: 220px;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-    /* Ocultar el sidebar en móviles por defecto */
-    transform: translateX(-100%);
+    display: none !important;
+    background: transparent !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 0 !important;
   }
-  
-  .sidebar__toggle {
-    display: block; /* Mostrar el botón de toggle en móviles */
+  .burguer__label {
+    display: flex !important;
     position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
+    top: 18px;
+    left: 18px;
+    z-index: 1200;
     background: #38528a;
     color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 2rem;
     cursor: pointer;
-    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(56,82,138,0.15);
+    align-items: center;
+    justify-content: center;
   }
-  
-  .lateral__titletext {
-    font-size: 22px;
+  .sidebar__overlay {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70vw;
+    max-width: 320px;
+    height: 100vh;
+    background: #38528a;
+    box-shadow: 2px 0 16px rgba(56,82,138,0.18);
+    z-index: 1300;
+    transform: translateX(-110%);
+    transition: transform 0.3s;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
   }
-  
-  .lateral__text {
-    font-size: 15px;
+  #cheBurguer:checked ~ .sidebar__overlay {
+    transform: translateX(0);
   }
-  
-  .lateral__border {
-    width: 32px;
-    height: 32px;
+  .sidebar__menu {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
   }
-  
-  .lateral__icons {
-    font-size: 18px;
+  .perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
   }
-  
-  .lateral__menu {
-    gap: 6px;
+  .perfil__imagen {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(56,82,138,0.10);
+  }
+  .perfil__texto {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+  }
+  .caja {
+    width: 90%;
+    background: rgba(255,255,255,0.10);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(56,82,138,0.08);
+    text-align: center;
+    padding: 12px 0;
+    margin-bottom: 4px;
+    transition: background 0.2s;
+  }
+  .caja__link {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+  }
+  .caja:hover {
+    background: rgba(255,255,255,0.18);
   }
 }
-
 @media (max-width: 600px) {
   .lateral {
     width: 180px;
-    padding: 8px;
-    gap: 15px;
+    padding: 10px;
+    gap: 10px;
   }
-  
   .lateral__titletext {
-    font-size: 16px;
+    font-size: 14px;
   }
-  
   .lateral__text {
-    font-size: 12px;
+    font-size: 0.8rem;
   }
-  
   .lateral__border {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
   }
-  
   .lateral__icons {
-    font-size: 10px;
+    font-size: 14px;
   }
-  
   .lateral__menu {
-    gap: 4px;
+    gap: 8px;
   }
 }

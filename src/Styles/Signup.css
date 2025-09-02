@@ -1,76 +1,160 @@
-@import url('variables.css');
-.registrarse{
- width: 100%;
- height: 90vh;
- display: flex;
- align-items: center;
- justify-content: space-between;
- padding: 25px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.form__label{
-  width: 50%;
-}
-.registrarse{
-  display: flex;
-}
-.button{
-  display: flex;
-  justify-content: center;
-  gap: 10px
-}
-/* ------------------- MEDIA QUERIES ------------------- */
-@media (max-width: 1024px) {
-  .registrarse {
-    padding: 15px;
-    max-width: 95vw;
-  }
-  .form__label {
-    width: 70%;
-  }
+/* ================== VARIABLES ================== */
+:root {
+  --color--principal: #1e293b;   /* Azul oscuro elegante */
+  --color--secundario: #0ea5e9; /* Azul brillante */
+  --color--fondocards: #f8fafc; /* Fondo claro */
+  --color--textoprincipal: #1f2937;
+  --color--blanco: #ffffff;
 }
 
+/* ================== RESET ================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--color--principal);
+  color: var(--color--textoprincipal);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================== HEADER ================== */
+.header {
+  background: linear-gradient(90deg, #002244, #0055aa);
+  padding: 15px 20px;
+}
+
+.header__usuarios {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__menu {
+  display: flex;
+  gap: 25px;
+}
+
+.menu__items {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.menu__items:hover {
+  color: #ffcc00;
+}
+
+.button__login {
+  background: #ffcc00;
+  color: #002244;
+  font-weight: bold;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.button__login:hover {
+  background: #e6b800;
+  color: #fff;
+}
+/* ================== TARJETA PRINCIPAL ================== */
+.registrarse {
+  position: relative;    /* Necesario para el logo marca de agua */
+  max-width: 900px;
+  margin: 50px auto;
+  display: flex;
+  height: 74vh;
+  gap: 30px;
+  align-items: center;
+  background: var(--color--blanco);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* ================== LOGO MARCA DE AGUA ================== */
+.logo__marcaAgua {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: auto;
+  opacity: 0.08;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content__text {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color--principal);
+}
+
+/* ================== FORMULARIO ================== */
+.formulario {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  z-index: 1; /* siempre encima del logo de fondo */
+}
+
+.formulario label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.formulario input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.formulario input:focus {
+  border: 1px solid var(--color--secundario);
+}
+
+.btn__registrarse {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color--secundario);
+  color: var(--color--blanco);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn__registrarse:hover {
+  background: #0284c7;
+}
+
+/* ================== MEDIA QUERIES ================== */
 @media (max-width: 768px) {
   .registrarse {
     flex-direction: column;
-    height: auto;
-    padding: 10px;
-    align-items: center;
-    justify-content: center;
-    max-width: 98vw;
+    text-align: center;
   }
-  .form__label {
-    width: 100%;
-    margin-bottom: 10px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .button {
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-    margin-top: 10px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 
-@media (max-width: 480px) {
-  .registrarse {
-    padding: 5px;
-    max-width: 100vw;
-  }
-  .form__label {
-    width: 100%;
-    font-size: 0.95rem;
-    max-width: 95vw;
-  }
-  .button {
-    gap: 5px;
-    font-size: 0.95rem;
-    max-width: 95vw;
+  .content__logo {
+    margin-bottom: 20px;
   }
 }

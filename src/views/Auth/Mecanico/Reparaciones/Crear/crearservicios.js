@@ -59,12 +59,6 @@ export default async () => {
             // Obtener el input de fecha para pasarlo a la validación
             const inputFecha = formServicios.querySelector('#fecha');
 
-            // Validar fecha con el input (para mostrar mensajes)
-            if (!validarFechaMinima(inputFecha)) {
-                form.close();
-                await error("La fecha no puede ser menor que hoy.", "");
-                return;
-            }
 
             // Obtener vehículo
             const vehiculo = await get(`Vehiculos/${datos['vehiculo_id']}`);

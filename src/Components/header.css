@@ -1,8 +1,9 @@
 @import url('../Styles/variables.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
 
+/* Estilos globales y de escritorio */
 .contentUsuario {
     width: 100%;
-    height: 85vh;
     display: flex;
     flex-direction: column;
 }
@@ -13,22 +14,22 @@
     height: 15vh;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Centra verticalmente */
-    padding: 0px 10px;
-    position: relative; /* Clave para el posicionamiento del menú */
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 100;
 }
 
 .headerlogo {
-    width: 20%;
-    height: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .headerimg {
-    height: 60%;
-    width: auto;
+    height: 30%;
+    width: 80px;
 }
 
 .headertext {
@@ -38,97 +39,142 @@
     color: var(--color--textheader);
 }
 
-.headermenu {
-    width: 50%;
-    height: 100%;
-}
-
-.headerinformacion {
-    width: 100%;
-    height: 100%;
+.headermenu--desktop {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Alinea los enlaces a la derecha */
     gap: 22px;
 }
 
-/* El botón de menú de hamburguesa está oculto por defecto */
-.menu-toggle {
-    display: none; 
-    background: none;
+.button__info {
+    text-decoration: none;
     border: none;
-    font-size: 2rem;
+    background-color: transparent;
     cursor: pointer;
-    color: var(--color--textheader);
-    padding: 5px;
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+    font-family: var(--font-Title);
+    transition: color 0.3s ease;
 }
 
-/* --- Media Queries --- */
+.button__info:hover {
+    color: var(--color-primary-hover);
+}
+
+/* Oculta los elementos del menú de hamburguesa en escritorio */
+.cheHeader,
+.header__label,
+.header__overlay,
+.header__menu {
+    display: none;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* Estilos para dispositivos móviles (hasta 900px) */
 @media (max-width: 900px) {
-    .headerUsuario {
-        height: 10vh; 
-        padding: 0px 20px;
-    }
-    
-    .headertext {
-        font-size: 1.4rem;
-        display: none; /* Oculta el texto en móviles */
+    /* Oculta el menú de escritorio en dispositivos móviles */
+    .headermenu--desktop {
+        display: none;
     }
 
-    .headermenu {
-        display: none; /* Oculta el menú por defecto */
-        position: absolute;
-        top: 10vh;
+    /* Oculta el header de escritorio para que solo se muestre el de móviles */
+    .headerUsuario {
+    display: none !important;
+    }
+
+    /* Muestra el botón del menú de hamburguesa */
+    .header__label {
+        display: flex;
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 1200;
+        background: var(--color--headercliente);
+        color: var(--color--textheader);
+        border-radius: 8px;
+        width: 45px;
+        height: 45px;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+
+    .header__icon {
+        font-size: 1.8rem;
+    }
+
+    /* El overlay del menú, inicialmente oculto */
+    .header__overlay {
+        display: block;
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
-        height: auto;
-        background-color: var(--color--headercliente);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        z-index: 100;
-        padding-bottom: 10px;
-    }
-    
-    /* Esta clase se añadirá con JavaScript para mostrar el menú */
-    .headermenu.menu--visible {
-        display: block;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
     }
 
-    .headerinformacion {
-        flex-direction: column; /* Apila los enlaces verticalmente */
-        align-items: center;
-        width: 100%;
+    /* Estilos del menú que se desliza */
+    .header__menu {
+        display: flex;
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background-color: var(--color--headercliente);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        flex-direction: column;
         gap: 15px;
     }
     
-    .headerimg {
-        height: 50%;
+    /* Muestra el overlay y el menú cuando el checkbox está marcado */
+    .cheHeader:checked ~ .header__overlay {
+        transform: translateX(0);
     }
-
-    .headerlogo {
-        width: 40%;
+    
+    .perfil {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+        gap: 10px;
     }
-
-    .menu-toggle {
-        display: block; /* Muestra el botón de hamburguesa */
-    }
-}
-
-@media (max-width: 600px) {
-    .headermenu {
-        display: none;
-        position: absolute;
-        top: 10vh;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90vw;
-        max-width: 350px;
-        min-width: 220px;
+    
+    .perfil__imagen {
+        width: 80px;
         height: auto;
-        background-color: var(--color--headercliente);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-        z-index: 100;
-        padding: 18px 10px 10px 10px;
-        border-radius: 18px;
-        animation: menuFadeIn 0.3s;
+    }
+    
+    .perfil__texto {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--color-text-dark);
+        font-family: var(--font-buttons);
+        margin: 0;
+    }
+    
+    .caja {
+        padding: 15px;
+        margin: 5px 0;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .caja:hover {
+        background-color: var(--color--BotonClientes);
+    }
+    
+    .caja__link {
+        text-decoration: none;
+        color: var(--color-text-dark);
+        font-size: 1.1rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 }

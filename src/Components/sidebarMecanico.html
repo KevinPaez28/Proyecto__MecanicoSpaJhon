@@ -1,36 +1,85 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="./sidebarmecanico.css">
-<button id="sidebarToggle" class="sidebar__toggle">☰</button>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./sidebarmecanico.css">
+  <title>Taller Pro</title>
+</head>
+<body>
 
-<div class="panel_lateral">
-    <h2 class="panel_title">Taller Pro</h2>
+<!-- Sidebar escritorio -->
+<div class="panel_lateral" id="sidebar">
+  <div class="panel_title">Taller Pro</div>
 
-    <div class="panel_menu">
-        <div class="panel_iconbox">
-            <i class="panel_icon fa-solid fa-screwdriver-wrench"></i>
-        </div>
-        <a href="#/mecanico/principal" class="panel_text">Reparaciones</a>
+  <div class="panel_menu">
+    <div class="panel_iconbox">
+      <i class="panel_icon fa-solid fa-screwdriver-wrench"></i>
     </div>
+    <a href="#/mecanico/principal" class="panel_text">Reparaciones</a>
+  </div>
 
-    <div class="panel_menu">
-        <div class="panel_iconbox">
-            <i class="panel_icon fa-solid fa-car"></i>
-        </div>
-        <a href="#/Vehiculos" class="panel_text">Vehiculos</a>
+  <div class="panel_menu">
+    <div class="panel_iconbox">
+      <i class="panel_icon fa-solid fa-car"></i>
     </div>
-    <div class="panel_menu">
-        <div class="panel_iconbox">
-            <i class="panel_icon bi bi-person-fill"></i>
-        </div>
-        <a href="#/informacion" class="panel_text">Informacion Usuario</a>
-    </div>
+    <a href="#/Vehiculos" class="panel_text">Vehículos</a>
+  </div>
 
-    <div class="panel_menu" id="cerrar_sesion">
-        <div class="panel_iconbox">
-            <i class="panel_icon fa-solid fa-right-from-bracket"></i>
-        </div>
-        <span  class="panel_text">Cerrar sesión</span>
+  <div class="panel_menu">
+    <div class="panel_iconbox">
+      <i class="panel_icon bi bi-person-fill"></i>
     </div>
+    <a href="#/informacion" class="panel_text">Información Usuario</a>
+  </div>
+
+  <div class="panel_menu" id="cerrar_sesion">
+    <div class="panel_iconbox">
+      <i class="panel_icon fa-solid fa-right-from-bracket"></i>
+    </div>
+    <a href="#/Home"  class="panel_text">Cerrar sesión</a>
+  </div>
 </div>
+
+<!-- Toggle hamburguesa móvil -->
+<input type="checkbox" id="toggleSidebar" hidden>
+<label for="toggleSidebar" class="sidebar__toggle">☰</label>
+
+<!-- Overlay sidebar móvil -->
+<div class="panel_lateral sidebar--mobile">
+  <div class="panel_title">Taller Pro</div>
+
+  <div class="panel_menu">
+    <div class="panel_iconbox">
+      <i class="panel_icon fa-solid fa-screwdriver-wrench"></i>
+    </div>
+    <a href="#/mecanico/principal" class="panel_text" onclick="document.getElementById('toggleSidebar').checked=false">Reparaciones</a>
+  </div>
+
+  <div class="panel_menu">
+    <div class="panel_iconbox">
+      <i class="panel_icon fa-solid fa-car"></i>
+    </div>
+    <a href="#/Vehiculos" class="panel_text" onclick="document.getElementById('toggleSidebar').checked=false">Vehículos</a>
+  </div>
+
+  <div class="panel_menu">
+    <div class="panel_iconbox">
+      <i class="panel_icon bi bi-person-fill"></i>
+    </div>
+    <a href="#/informacion" class="panel_text" onclick="document.getElementById('toggleSidebar').checked=false">Información Usuario</a>
+  </div>
+
+  <div class="panel_menu">
+    <div class="panel_iconbox">
+      <i class="panel_icon fa-solid fa-right-from-bracket"></i>
+    </div>
+    <a href="#/Home" id="cerrar_sesion_mobile" class="panel_text"   onclick="document.getElementById('toggleSidebar').checked=false">Cerrar sesión</a>
+  </div>
+</div>
+
 <script type="module" src="cerrarSesion.js"></script>
+</body>
+</html>

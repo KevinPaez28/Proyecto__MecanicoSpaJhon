@@ -265,7 +265,7 @@ INSERT INTO Servicios (nombre_servicio, descripcion, precio) VALUES
 -- ========================
 INSERT INTO EstadosServicio (nombre_estado) VALUES
 ('Pendiente'),
-('En proceso'),
+('procesando'),
 ('Finalizado'),
 ('Cancelado');
 

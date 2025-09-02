@@ -1,84 +1,115 @@
 @import url('../variables.css');
 
-.contentUsuario{
-width: 100%;
-height: 85vh;
-display: flex;
-flex-direction: column;
+/* ======================= */
+/* Contenedor principal */
+/* ======================= */
+.contentUsuario {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5;
 }
-.headerUsuario{
- width: 100%;
- background-color:var( --color--headercliente);
- height: 15vh;
- display: flex;
- justify-content: space-between;
- padding: 0px 10px;
+
+/* ======================= */
+/* Contenedor de vehículos */
+/* ======================= */
+.VehiculosUsuariosId {
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
-.headerlogo{
- width: 20%;
- height: 100%;
- /* background-color: var(--color--principalUsuarios); */
- display: flex;
- align-items: center;
+
+/* ======================= */
+/* Cards de vehículos */
+/* ======================= */
+.vehiculosUsuarios {
+  width: 20%;
+  min-width: 200px;
+  height: 40%;
+  background-color: var(--color--cardsVehiculosclientes);
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.headerimg{
- width: 40%;
- height: 100%;
-}.headertext{
-  font-family: var(--font-buttons);
+
+.vehiculosUsuarios:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenido interno de la card */
+.vehiculosUsuarios__header {
+  font-size: 1.2rem;
   font-weight: 600;
-  font-size: 1.8rem;
-}
-.headermenu{
- width: 50%;
- height: 100%;
-}
-.headerinformacion{
- width: 100%;
- height: 100%;
- display: flex;
- align-items: center;
- gap: 22px;
-}
-.button__info{
- width: auto;
- height: 20%;
- text-decoration: none;
- border: none;
- background-color:var( --color--headercliente);
- cursor:pointer;
- font-size: 1.1rem;
- color: #000; 
- font-family: var(--font-Title);
+  color: var(--color-text-dark);
+  margin-bottom: 10px;
 }
 
-.VehiculosUsuariosId{
- width: 100%;
- height: 75vh;
- display: flex;
- gap: 20px;
- padding: 15px;
-}
-.vehiculosUsuarios{
- width: 20%;
- height: 40%;
- background-color: var(--color--cardsVehiculosclientes);
- border: none;
- border-radius: 20px;
+.vehiculosUsuarios__body {
+  flex-grow: 1;
+  font-size: 1rem;
+  color: #4a4a4a;
+  line-height: 1.5;
 }
 
-.Usuarios__buttones{
-width: 100%;
-height: 15%;
-display: flex;
-justify-content: center;
-gap: 10px;
+.vehiculosUsuarios__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
 }
-.usuarios__button{
-width: 40%;
-height: 80%;
-border-radius: 15px;
-background-color: var(--color--BotonClientes);
-color: var(--color--blancocontent);
-border: none;
+
+/* Botones dentro de la card */
+.vehiculosUsuarios__button {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--color--BotonClientes);
+  color: var(--color--blancocontent);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.vehiculosUsuarios__button:hover {
+  background-color: #2e4a7c; /* Color más oscuro al pasar el mouse */
+  transform: scale(1.05);
+}
+
+/* ======================= */
+/* Botones principales de usuarios */
+/* ======================= */
+.Usuarios__buttones {
+  margin-top: 5px;
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.usuarios__button {
+  width: 40%;
+  height: 90%;
+  border-radius: 15px;
+  background-color: var(--color--BotonClientes);
+  color: var(--color--blancocontent);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.usuarios__button:hover {
+  background-color: #2e4a7c;
+  transform: scale(1.05);
 }

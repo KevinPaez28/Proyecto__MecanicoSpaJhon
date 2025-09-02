@@ -14,11 +14,6 @@ export default (parametros = null) => {
     const usuario = document.getElementById("usuario");
     const contrasenia = document.getElementById("contrasenia");
 
-    if (!usuario || !contrasenia) {
-      alert("Faltan campos en el formulario.");
-      return;
-    }
-
     const usuariovalor = usuario.value.trim();
     const contraseniavalor = contrasenia.value.trim();
 
@@ -53,15 +48,24 @@ export default (parametros = null) => {
 
       const rolUsuario = roles.data.find((rol) => rol.rol_id === user.rol_id);
 
+      // --- Aquí la corrección ---
+      let result; 
+      try {
+        result = await login(usuariovalor, contraseniavalor);
+        console.log(result.message);
 
-      // Intentar login
-      const result = await login(usuariovalor, contraseniavalor);
-      console.log(rolUsuario);
+        if (!result.ok) {
+          throw new Error(result.message);
+        }
 
-      if (!result.ok) {
-        await error(result.error);
-        return;
+        console.log("Login exitoso:", result);
+
+      } catch (err) {
+        console.error("Error en login:", err.message);
+        await error(err.message || "Credenciales incorrectas.");
+        return; // Detener flujo si login falla
       }
+      // ---------------------------
 
       const Permisos = await get(`Permisos/${rolUsuario.rol_id}`);
       console.log(Permisos.data);
@@ -70,7 +74,6 @@ export default (parametros = null) => {
       localStorage.setItem("token", result.data.accessToken);
       localStorage.setItem("tokenrefresh", result.data.refreshToken);
       localStorage.setItem("usuario", JSON.stringify(user));
-      // Guardar en localStorage
       localStorage.setItem("permisos", JSON.stringify(Permisos.data));
       await success({ message: "Usuario iniciado correctamente" });
 

@@ -3,7 +3,7 @@
 .contentBloque {
   padding: 10px;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .contenidoAdmin {
@@ -22,9 +22,8 @@
   justify-content: space-between;
   font-family: var(--font-Title);
   font-weight: 600;
-  font-size: 1.9rem;
-  text-align: center;
   font-size: 25px;
+  text-align: center;
 }
 
 .contenido {
@@ -49,10 +48,9 @@
 }
 
 .tabla-usuarios th {
-  background-color: var(--color--fondologin);
-  color: var(--color--negro);
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
   font-weight: 600;
-
 }
 
 .tabla-usuarios button {
@@ -61,6 +59,15 @@
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
+}
+
+/* Elimina línea azul al enfocar cualquier botón o input */
+.tabla-usuarios button:focus,
+.form__input:focus,
+.form__inputtext:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: var(--color-primary);
 }
 
 .tabla-usuarios .btn-modificar {
@@ -76,6 +83,9 @@
 .form__inputtext {
   width: 50%;
   height: 5%;
+  border-radius: 5px;
+  padding: 3px;
+  border: 1px solid #ccc;
 }
 
 .mensaje-error {
@@ -90,10 +100,35 @@
   border-radius: 5px;
   height: 25px;
   padding: 3px;
-  border: none;
+  border: 1px solid #ccc;
+}
+
+@media (max-width: 900px) {
+  .contentBloque,
+  .contenidoAdmin,
+  .contenido {
+    width: 100vw !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    box-sizing: border-box !important;
+    background: inherit !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
 }
 
 @media (max-width: 600px) {
+  .contentBloque,
+  .contenidoAdmin,
+  .contenido {
+    width: 100vw !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    box-sizing: border-box !important;
+    background: inherit !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
 
   .tabla-usuarios,
   .tabla-usuarios tbody,
@@ -105,7 +140,6 @@
 
   .tabla-usuarios thead {
     display: none;
-    /* Oculta el encabezado de la tabla */
   }
 
   .tabla-usuarios tr {
@@ -122,7 +156,6 @@
     border: none;
   }
 
-  /* Agrega las etiquetas de encabezado como pseudo-elementos */
   .tabla-usuarios td::before {
     content: attr(data-label);
     position: absolute;
@@ -132,5 +165,10 @@
     font-weight: bold;
     text-align: left;
     color: #333;
+  }
+
+  .form__inputtext,
+  .form__input {
+    width: 100%;
   }
 }

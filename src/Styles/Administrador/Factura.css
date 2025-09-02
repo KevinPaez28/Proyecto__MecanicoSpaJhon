@@ -1,105 +1,137 @@
-@import url("../variables.css");
-
-.header__buton{
- width: 80%;
- height: 15vh;
- display: flex;
- padding: 20px;
- align-items: center;
-}
-.button__factura{
-width: 160px;
-height: 30px;
-border: none;
-border-radius: 15px;
-text-align: center;
-background-color: var(--color--principal);
-color: rgb(255, 255, 255);
-font-family: var(--font-buttons);
-font-size: 1.1rem;
-font-weight: 600;
-}
-.facturasAdmin{
-width:100%;
-height: 100vh;
-display: flex;
-flex-wrap: wrap;
-overflow-y: scroll;
-padding: 15px;
-gap: 10px;
-}
-.facturasAdmincontent{
-width: 40%;
-height: 33%;
-background-color: #c5c5c5;
-}
-.interfazfacturas__infoadmin{
-width: 100%;
-height: 50%;
-display: flex;
-align-items: center;
+/* Contenedor principal de facturas */
+.facturasAdmin {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--color-secondary);
+  overflow-y: auto; /* Scroll vertical para muchas facturas */
+  align-items: center;
 }
 
-/* Responsivo para tablets */
+/* Cada tarjeta de factura */
+.facturasAdmincontent {
+  width: 95%;
+  max-width: 800px; /* Controla el tamaño máximo para pantallas grandes */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.facturasAdmincontent:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Encabezado de la factura */
+.header__buton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.button__factura {
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  font-family: var(--font-principalateral);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button__factura:hover {
+  background-color: #2e4580;
+  transform: scale(1.05);
+}
+
+/* Información principal de la factura */
+.interfazfacturas__infoadmin {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding: 15px 0;
+  margin-bottom: 15px;
+}
+
+.interfazfacturas__infoadmin div {
+  flex: 1 1 45%;
+  font-size: 1rem;
+  font-family: var(--font-principalateral);
+  color: var(--color-text-dark);
+}
+
+/* Lista de productos/servicios */
+.productosFactura {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.productoItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.productoItem:last-child {
+  border-bottom: none;
+}
+
+.productoItem span {
+  font-weight: 500;
+}
+
+/* Total de la factura */
+.totalFactura {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Responsivo tablets */
 @media (max-width: 900px) {
-  .facturasAdmin {
-    flex-direction: column;
-    gap: 12px;
-    height: auto;
-    padding: 8px;
-  }
   .facturasAdmincontent {
-    width: 90%;
-    height: auto;
-    margin-bottom: 10px;
+    width: 95%;
   }
-  .header__buton {
-    flex-direction: column;
-    gap: 8px;
-    height: auto;
-    padding: 8px;
-  }
-  .button__factura {
-    width: 100%;
-    font-size: 1rem;
-    margin-top: 6px;
-  }
-  .interfazfacturas__infoadmin {
-    flex-direction: column;
-    gap: 8px;
-    height: auto;
-    padding: 8px;
-  }
-}
-
-/* Responsivo para móviles */
-@media (max-width: 600px) {
-  .facturasAdmin {
-    flex-direction: column;
-    gap: 6px;
-    height: auto;
-    padding: 2px;
-  }
-  .facturasAdmincontent {
-    width: 98%;
-    height: auto;
-    margin-bottom: 8px;
-  }
-  .header__buton {
-    flex-direction: column;
-    gap: 4px;
-    height: auto;
-    padding: 2px;
+  .interfazfacturas__infoadmin div {
+    flex: 1 1 100%;
   }
   .button__factura {
     width: 100%;
     font-size: 0.95rem;
-    margin-top: 4px;
+  }
+}
+
+/* Responsivo móviles */
+@media (max-width: 600px) {
+  .facturasAdmincontent {
+    width: 98vw;
+    padding: 15px;
+  }
+  .button__factura {
+    font-size: 0.9rem;
   }
   .interfazfacturas__infoadmin {
-    flex-direction: column;
-    gap: 4px;
-    height: auto;
-    padding: 2px;
+    padding: 10px 0;
   }
 }

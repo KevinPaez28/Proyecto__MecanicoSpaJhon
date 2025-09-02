@@ -15,19 +15,22 @@ async function cargarSidebar() {
   if (role === '3') {
     sidebarPath = './src/Components/sidebarMecanico.html';
     roleClass = 'sidebar-mecanico';
-    sidebarContainer.style.width = "25%";
+    sidebarContainer.style.width = "20%";
     body.style.flexDirection = "row";
+    main.style.backgroundColor = "#f0f2f5";
   } else if (role === '2') {
     sidebarContainer.style.height = "15%";
     sidebarContainer.style.width = "100%";
     body.style.flexDirection = "column";
     sidebarPath = './src/Components/headerUsuario.html';
     roleClass = 'sidebar-usuario';
+    main.style.backgroundColor = "#f0f2f5";
   } else if (role === '1') {
     sidebarContainer.style.width = "20%";
     sidebarPath = './src/Components/Sidebar.html';
     roleClass = 'sidebar-admin';
     body.style.flexDirection = "row";
+    main.style.backgroundColor = "#f0f2f5";
   }
 
   let sidebarHtml = '';
@@ -55,38 +58,20 @@ async function renderApp() {
       main.style.width = "100%";
     } else {
       const sidebarHtml = await cargarSidebar();
-      
+
       if (sidebarHtml) {
         sidebarContainer.innerHTML = sidebarHtml;
-        
-        // ====== Lógica de Sidebar ======
-        const sidebar = document.querySelector(".lateral, .panel_lateral"); // detecta cualquiera
-        const toggleBtn = document.getElementById("sidebarToggle");
+        sidebarContainer.style.display = "block";
+        main.style.width = "80%";
 
-        if (sidebar && toggleBtn) {
-          toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("sidebar--visible");
-          });
-        }
-        
-        // ====== Lógica del menú móvil ======
-        const menuBtn = document.querySelector('.menu-toggle');
-        const menu = document.querySelector('.headermenu');
-
-        if (menuBtn && menu) {
-          menuBtn.addEventListener('click', () => {
-            menu.classList.toggle('menu--visible');
-          });
-        }
-        
-        // ====== Botón de cerrar sesión ======
         const cerrarSesion = document.getElementById("cerrar_sesion");
         if (cerrarSesion) {
           cerrarSesion.addEventListener("click", cerrarSesionHandler);
         }
-        
+
         sidebarContainer.style.display = "block";
         main.style.width = "100%";
+        main.style.backgroundColor = "rgb(188, 203, 241)"
       } else {
         sidebarContainer.innerHTML = "";
         sidebarContainer.style.display = "none";

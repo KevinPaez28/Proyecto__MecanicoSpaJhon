@@ -3,14 +3,9 @@
 @import url('/src/Components/sidebarmecanico.css');
 @import url('/src/Components/header.css');
 .sidebarContainer{
-    width: 100%;
-    min-height: 0;
-    height: auto;
-    position: relative;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    background: transparent;
-    box-sizing: border-box;
+    width: 20%;
 }
 
+.app{
+    background-color: rgb(188, 203, 241);
+}

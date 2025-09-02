@@ -1,17 +1,53 @@
-<div class="headerUsuario">
-  <div class="headerlogo">
-    <img class="headerimg" src="../../../../../public/Logo.png" alt="" />
-    <p class="headertext">Bienvenido</p>
-  </div>
-  
-  <div class="headermenu">
-    <div class="headerinformacion">
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <title>Usuario</title>
+</head>
+
+<body>
+
+  <header class="headerUsuario">
+    <div class="headerlogo">
+      <img class="headerimg" src="../../../../../public/Logo.png" alt="Logo" />
+      <p class="headertext">Bienvenido</p>
+    </div>
+
+    <div class="headermenu headermenu--desktop">
       <a class="button__info" href="#/cliente/principal">Inicio</a>
       <a class="button__info" href="#/Servicios">Servicios Disponibles</a>
       <a class="button__info" href="#/historial">Historial de Servicios</a>
-      <a class="button__info" href="#/informacion">Informacion Usuario</a>
-      <a class="button__info" id="cerrar_sesion" href="#/Home">Cerrar Sesion</a>
+      <a class="button__info" href="#/informacion">Información Usuario</a>
+      <a class="button__info" id="cerrar_sesion" href="#/Home">Cerrar Sesión</a>
     </div>
-  </div>
 
-</div>
+  </header>
+  <input type="checkbox" id="cheHeader" class="cheHeader" hidden>
+  <label for="cheHeader" class="header__label">
+    <span class="header__icon">☰</span>
+  </label>
+
+  <nav class="header__overlay">
+    <div class="header__menu">
+      <div class="perfil">
+        <img src="../../../../../public/Logo.png" alt="Logo" class="perfil__imagen">
+        <p class="perfil__texto">Bienvenido</p>
+      </div>
+      <div class="caja"><a href="#/cliente/principal" class="caja__link"
+          onclick="document.querySelector('#cheHeader').checked=false">Inicio</a></div>
+      <div class="caja"><a href="#/Servicios" class="caja__link"
+          onclick="document.querySelector('#cheHeader').checked=false">Servicios Disponibles</a></div>
+      <div class="caja"><a href="#/historial" class="caja__link"
+          onclick="document.querySelector('#cheHeader').checked=false">Historial de Servicios</a></div>
+      <div class="caja"><a href="#/informacion" class="caja__link"
+          onclick="document.querySelector('#cheHeader').checked=false">Información Usuario</a></div>
+      <div class="caja"><a id="cerrar_sesion_mobile" href="#/Home" class="caja__link" 
+          onclick="document.querySelector('#cheHeader').checked=false">Cerrar Sesión</a></div>
+    </div>
+  </nav>
+</body>
+<script type="module" src="./cerrarSesion.js"></script>
+</html>
