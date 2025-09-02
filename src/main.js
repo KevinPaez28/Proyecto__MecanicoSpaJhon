@@ -67,7 +67,6 @@ async function renderApp() {
         const cerrarSesion = document.getElementById("cerrar_sesion");
         if (cerrarSesion) {
           cerrarSesion.addEventListener("click", cerrarSesionHandler);
-          main.style.backgroundColor = "rgb(188, 203, 241)"
         }
 
         sidebarContainer.style.display = "block";
