@@ -69,7 +69,7 @@
 
 .lateral__icons {
     font-size: 24px;
-    color: #00ffa6;
+    color: #ffcc00;
     transition: color 0.3s ease;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .lateral__menu:hover .lateral__border {
-    background-color: #00ffa6;
+    background-color: #ffcc00;
 }
 
 .lateral__text {

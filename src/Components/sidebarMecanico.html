@@ -5,80 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="./sidebarmecanico.css">
+  <link rel="stylesheet" href="./sidebaradmin.css">
   <title>Taller Pro</title>
 </head>
 <body>
 
-<!-- Sidebar escritorio -->
-<div class="panel_lateral" id="sidebar">
-  <div class="panel_title">Taller Pro</div>
-
-  <div class="panel_menu">
-    <div class="panel_iconbox">
-      <i class="panel_icon fa-solid fa-screwdriver-wrench"></i>
-    </div>
-    <a href="#/mecanico/principal" class="panel_text">Reparaciones</a>
+<!-- Sidebar clásico para desktop/tablet -->
+<div class="lateral" id="sidebar">
+  <div class="lateral__title">
+    <p class="lateral__titletext">Taller Pro</p>
   </div>
 
-  <div class="panel_menu">
-    <div class="panel_iconbox">
-      <i class="panel_icon fa-solid fa-car"></i>
+  <div class="lateral__menu">
+    <div class="lateral__border">
+      <i class="fa-solid fa-screwdriver-wrench lateral__icons"></i>
     </div>
-    <a href="#/Vehiculos" class="panel_text">Vehículos</a>
+    <a href="#/mecanico/principal" class="lateral__text">Reparaciones</a>
   </div>
 
-  <div class="panel_menu">
-    <div class="panel_iconbox">
-      <i class="panel_icon bi bi-person-fill"></i>
+  <div class="lateral__menu">
+    <div class="lateral__border">
+      <i class="fa-solid fa-car lateral__icons"></i>
     </div>
-    <a href="#/informacion" class="panel_text">Información Usuario</a>
+    <a href="#/Vehiculos" class="lateral__text">Vehículos</a>
   </div>
 
-  <div class="panel_menu" id="cerrar_sesion">
-    <div class="panel_iconbox">
-      <i class="panel_icon fa-solid fa-right-from-bracket"></i>
+  <div class="lateral__menu">
+    <div class="lateral__border">
+      <i class="bi bi-person-fill lateral__icons"></i>
     </div>
-    <a href="#/Home"  class="panel_text">Cerrar sesión</a>
-  </div>
-</div>
-
-<!-- Toggle hamburguesa móvil -->
-<input type="checkbox" id="toggleSidebar" hidden>
-<label for="toggleSidebar" class="sidebar__toggle">☰</label>
-
-<!-- Overlay sidebar móvil -->
-<div class="panel_lateral sidebar--mobile">
-  <div class="panel_title">Taller Pro</div>
-
-  <div class="panel_menu">
-    <div class="panel_iconbox">
-      <i class="panel_icon fa-solid fa-screwdriver-wrench"></i>
-    </div>
-    <a href="#/mecanico/principal" class="panel_text" onclick="document.getElementById('toggleSidebar').checked=false">Reparaciones</a>
+    <a href="#/informacion" class="lateral__text">Información Usuario</a>
   </div>
 
-  <div class="panel_menu">
-    <div class="panel_iconbox">
-      <i class="panel_icon fa-solid fa-car"></i>
+  <div class="lateral__menu">
+    <div class="lateral__border">
+      <i class="fa-solid fa-right-from-bracket lateral__icons"></i>
     </div>
-    <a href="#/Vehiculos" class="panel_text" onclick="document.getElementById('toggleSidebar').checked=false">Vehículos</a>
-  </div>
-
-  <div class="panel_menu">
-    <div class="panel_iconbox">
-      <i class="panel_icon bi bi-person-fill"></i>
-    </div>
-    <a href="#/informacion" class="panel_text" onclick="document.getElementById('toggleSidebar').checked=false">Información Usuario</a>
-  </div>
-
-  <div class="panel_menu">
-    <div class="panel_iconbox">
-      <i class="panel_icon fa-solid fa-right-from-bracket"></i>
-    </div>
-    <a href="#/Home" id="cerrar_sesion_mobile" class="panel_text"   onclick="document.getElementById('toggleSidebar').checked=false">Cerrar sesión</a>
+    <a href="#/Home" id="cerrar_sesion" class="lateral__text">Cerrar sesión</a>
   </div>
 </div>
+
+<!-- Menú hamburguesa para móvil -->
+<input type="checkbox" id="cheBurguer" class="cheBurguer" hidden>
+<label for="cheBurguer" class="burguer__label">
+  <span class="burguer__icon">☰</span>
+</label>
+
+<nav class="sidebar__overlay">
+  <div class="sidebar__menu">
+    <div class="caja">
+      <a href="#/mecanico/principal" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false">
+        <i class="fa-solid fa-screwdriver-wrench lateral__icons"></i> Reparaciones
+      </a>
+    </div>
+    <div class="caja">
+      <a href="#/Vehiculos" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false">
+        <i class="fa-solid fa-car lateral__icons"></i> Vehículos
+      </a>
+    </div>
+    <div class="caja">
+      <a href="#/informacion" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false">
+        <i class="bi bi-person-fill lateral__icons"></i> Información Usuario
+      </a>
+    </div>
+    <div class="caja">
+      <a href="#/Home" class="caja__link" onclick="document.querySelector('#cheBurguer').checked=false">
+        <i class="fa-solid fa-right-from-bracket lateral__icons"></i> Cerrar sesión
+      </a>
+    </div>
+  </div>
+</nav>
 
 <script type="module" src="cerrarSesion.js"></script>
 </body>

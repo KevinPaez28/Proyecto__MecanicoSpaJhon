@@ -57,7 +57,6 @@ height: 60%;
 }
 
 .interfazvehiculos__button {
-  border: 1px solid #000;
   display: flex;
   justify-content: space-around;
   gap: 0.5rem;

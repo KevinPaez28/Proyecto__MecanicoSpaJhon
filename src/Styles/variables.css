@@ -23,6 +23,8 @@
   --color-secondary: #f0f2f5;
   --color-accent-blue: #5a7edc;
   --color-negro: #000;
+    --color--fondologin: rgba(171, 171, 171, 0.559);
+
   /* Text Colors */
   --color-text-dark: #212529;
   --color-text-light: #ffffff;

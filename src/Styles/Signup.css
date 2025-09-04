@@ -24,12 +24,6 @@ body {
   align-items: center;
 }
 
-/* ================== HEADER ================== */
-.header {
-  background: linear-gradient(90deg, #002244, #0055aa);
-  padding: 15px 20px;
-}
-
 .header__usuarios {
   display: flex;
   justify-content: space-between;

@@ -1,15 +1,27 @@
-/* ======================= */
-/* Archivo de variables (ejemplo) */
-/* Es crucial definir estas variables para el tema */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* --- Definición de variables globales --- */
+/* Te recomiendo definir todas tus variables aquí para una gestión centralizada */
 :root {
-  
+  --color-primary: #3498db;
+  --color-primary-hover: #2980b9;
+  --color-secondary: #ecf0f1;
+  --color-cardsVehiculosclientes: #ffffff;
+  --color-shadow: rgba(44, 62, 80, 0.2);
+  --color-text-dark: #2c3e50;
+  --color-negro: #34495e;
+  --color-border-light: #dcdde1;
+  --color--BotonClientes: #3498db;
+  --color--fondotextos: #ffffff;
+  --font-Title: 'Roboto', sans-serif;
+  --font-principalateral: 'Roboto', sans-serif;
 }
 
 /* ======================= */
 /* Contenedor principal */
 .informacionPerfil {
   width: 100%;
-  min-height: 85vh;
+  min-height: 100vh; /* Usa 100vh para que ocupe toda la altura de la ventana */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,73 +31,75 @@
 
 /* Tarjeta */
 .contentcards {
-  width: 360px;
+  width: 380px; /* Ancho fijo para pantallas de escritorio */
   max-width: 90%;
   background-color: var(--color-cardsVehiculosclientes);
-  /* Borde más suave */
-  border-radius: 12px;
-  padding: 24px; /* Aumenta el padding para más espacio */
+  border-radius: 16px; /* Aumenta el radio para un look más moderno */
+  padding: 32px; /* Aumenta el padding para más aire */
   display: flex;
   flex-direction: column;
-  /* Espacio entre secciones */
-  gap: 20px;
-  /* Sombra más moderna y difusa */
-  box-shadow: 0 8px 25px var(--color-shadow);
+  gap: 24px; /* Espaciado entre secciones */
+  box-shadow: 0 10px 30px var(--color-shadow); /* Sombra más pronunciada y elegante */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Header / Nombre */
 .titleNombre {
   text-align: center;
-  margin-bottom: 0; /* Ya tenemos gap en el contenedor padre */
 }
 
 .infotitlename {
   font-family: var(--font-Title);
-  font-size: 2rem; /* Título un poco más grande */
+  font-size: 2.2rem; /* Título principal más grande */
   font-weight: 700;
   color: var(--color-text-dark);
-  letter-spacing: -0.5px; /* Espaciado sutil para un look más limpio */
+  letter-spacing: -0.8px;
+  line-height: 1.2;
 }
 
 /* Información interna */
 .contentinfo {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Espaciado consistente */
+  gap: 18px; /* Espaciado consistente */
   width: 100%;
 }
 
 /* Usuario detalles */
 .contenidoUsuario {
   display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
+  flex-direction: column; /* Apila los datos para mejor lectura */
+  gap: 10px;
 }
 
-.infotitle,
+.infotitulo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
 .infodatos {
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
 .titletext {
-  font-size: 1rem; /* Ajuste para mejor jerarquía visual */
+  font-size: 0.9rem;
   font-weight: 600;
   font-family: var(--font-Title);
   color: var(--color-text-dark);
-  text-transform: uppercase; /* Mayúsculas para los títulos de sección */
-  margin: 2px;
-  }
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
 
 .infotext {
-  margin: 5px;
-  font-size: 0.95rem;
-  font-weight: 400; /* Peso más ligero para el texto */
+  font-size: 1rem;
+  font-weight: 400;
   font-family: var(--font-principalateral);
-  color: var(--color-negro); /* Color de texto más claro */
+  color: var(--color-negro);
+  line-height: 1.4;
+  word-wrap: break-word; /* Rompe palabras largas */
 }
 
 /* Botones */
@@ -99,39 +113,40 @@
 
 .btnUsuarios,
 .btn-guardarClientes {
-  padding: 12px 24px; /* Aumenta el padding para botones más grandes */
-  border-radius: 12px; /* Coherente con el radio del borde de la tarjeta */
+  padding: 14px 28px;
+  border-radius: 25px; /* Botones pill-shaped */
   border: none;
-  background-color: var(--color--BotonClientes);
+  background-color: var(--color-primary);
   color: var(--color--fondotextos);
   font-family: var(--font-principalateral);
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btnUsuarios:hover,
 .btn-guardarClientes:hover {
-  transform: translateY(-2px); /* Un sutil levantamiento en hover */
+  transform: translateY(-3px);
   background-color: var(--color-primary-hover);
-  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3); /* Sombra al pasar el mouse */
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
 }
 
 /* Inputs */
 .clienteModificacion__input {
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border-light);
+  background-color: #f8f9fa;
   font-size: 1rem;
   font-family: var(--font-principalateral);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .clienteModificacion__input:focus {
-  outline: none; /* Elimina el borde de enfoque por defecto */
-  border-color: var(--color-primary); /* Borde primario en el enfoque */
-  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2); /* Sutil resplandor de enfoque */
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
 }
 
 /* ======================= */
@@ -142,6 +157,32 @@
 @media (max-width: 768px) {
   .contentcards {
     width: 95%;
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .infotitlename {
+    font-size: 2rem;
+  }
+
+  .titletext {
+    font-size: 0.9rem;
+  }
+
+  .infotext {
+    font-size: 0.95rem;
+  }
+
+  .btnUsuarios,
+  .btn-guardarClientes {
+    padding: 12px 24px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .contentcards {
+    width: 100%;
     padding: 20px;
     gap: 16px;
   }
@@ -151,54 +192,23 @@
   }
 
   .titletext {
-    font-size: 0.95rem;
-  }
-
-  .infotext {
-    font-size: 0.9rem;
-  }
-
-  .contentbuttons {
-    gap: 12px;
-  }
-
-  .btnUsuarios,
-  .btn-guardarClientes {
-    padding: 10px 20px;
-    font-size: 0.95rem;
-  }
-}
-
-/* Móviles */
-@media (max-width: 480px) {
-  .contentcards {
-    width: 100%;
-    padding: 16px;
-    gap: 12px;
-  }
-
-  .infotitlename {
-    font-size: 1.5rem;
-  }
-
-  .titletext {
-    font-size: 0.9rem;
-  }
-
-  .infotext {
     font-size: 0.85rem;
+  }
+
+  .infotext {
+    font-size: 0.9rem;
   }
 
   .contentbuttons {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     align-items: stretch;
   }
 
   .btnUsuarios,
   .btn-guardarClientes {
     width: 100%;
-    font-size: 0.9rem;
-    padding: 10px 0;
+    font-size: 0.95rem;
+    padding: 12px 0;
   }
 }
