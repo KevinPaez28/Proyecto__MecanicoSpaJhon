@@ -49,8 +49,8 @@
 }
 
 .tabla-usuarios th {
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
   font-weight: 600;
 }
 
@@ -68,7 +68,7 @@
 .form__inputtext:focus {
   outline: none;
   box-shadow: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-primario);
 }
 
 .tabla-usuarios .btn-modificar {

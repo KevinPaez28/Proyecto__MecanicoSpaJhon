@@ -1,16 +1,10 @@
 @import url("./variables.css");
-:root {
-  --color--principal: #1e293b;   /* Azul oscuro elegante */
-  --color--secundario: #0ea5e9; /* Azul brillante */
-  --color--fondocards: #f8fafc; /* Fondo claro */
-  --color--textoprincipal: #1f2937;
-  --color--blanco: #ffffff;
-}
+
 
 /* ========== HEADER ========== */
 .header {
   width: 100%;
-  background-color: var(--color-primary);
+  background-color: var(--color-primario);
   padding: 12px 24px;
   position: sticky;
   top: 0;

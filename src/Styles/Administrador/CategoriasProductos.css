@@ -28,11 +28,11 @@
   background: #ffffff;
   outline: none;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .form-editar-producto .editar-input:focus {
-  border-color: var(--color-primary);
+  border-color: var(--color-primario);
   box-shadow: 0 0 8px rgba(63, 96, 160, 0.3);
 }
 
@@ -54,18 +54,18 @@
 
 /* Modificar */
 .form-editar-producto .btn-modificar {
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
 }
 .form-editar-producto .btn-modificar:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primario-hover);
   transform: scale(1.05);
 }
 
 /* Eliminar */
 .form-editar-producto .btn-eliminar {
   background-color: var(--color-danger);
-  color: var(--color-text-light);
+  color: var(--color-texto-claro);
 }
 .form-editar-producto .btn-eliminar:hover {
   background-color: var(--color-danger-hover);
@@ -80,7 +80,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-secondary);
+  background-color: var(--color-secundario);
 }
 
 .interfazcategorias__header {
@@ -99,7 +99,7 @@
   font-family: var(--font-title);
   font-weight: 600;
   padding: 20px;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .interfazcategorias__titleProductos {
@@ -109,13 +109,13 @@
 .interfazcategorias__titleButton {
   width: 15%;
   height: 50%;
-  background-color: var(--color-primary);
+  background-color: var(--color-primario);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   text-decoration: none;
-  color: var(--color-text-light);
+  color: var(--color-texto-claro);
   font-size: 1.2rem;
   font-family: var(--font-principalateral);
 }
@@ -195,15 +195,15 @@
   height: 30px;
   border-radius: 8px;
   border: none;
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
 }
 
 .interfazcategorias__buttones:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primario-hover);
   transform: scale(1.05);
 }
 
@@ -248,7 +248,7 @@
   border-radius: 10px;
   padding: 5px;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
   background-color: #ffffff;
 }
 
@@ -299,15 +299,15 @@
   border: none;
   height: 70%;
   width: 60%;
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
 }
 
 .interfazinsertar__boton:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primario-hover);
   transform: scale(1.05);
 }
 
@@ -319,7 +319,7 @@
   font-family: var(--font-title);
   font-weight: 600;
   font-size: 1.3rem;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .interfazcategorias__productos_item {

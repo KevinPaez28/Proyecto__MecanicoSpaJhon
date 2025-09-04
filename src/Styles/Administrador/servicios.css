@@ -3,9 +3,9 @@
 
 .interfaz-servicios {
   width: 100%;
-  background-color: var(--color-secondary);
+  background-color: var(--color-secundario);
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 /* Header */
@@ -37,12 +37,12 @@
   padding: 15px;
   font-family: var(--font-title);
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .servicios-title-text {
   font-size: 2rem;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 /* Listado de servicios */
@@ -72,7 +72,7 @@
   justify-content: space-between;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .listado__cardservicios:hover {
@@ -105,7 +105,7 @@
 .listado__pnombre_servicios {
   font-weight: 600;
   font-size: 1rem;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .listadoServicios__textinfo {
@@ -133,18 +133,18 @@
 }
 
 .listadoServicios__buttones:first-child {
-  background: var(--color-primary);
-  color: var(--color-text-light);
+  background: var(--color-primario);
+  color: var(--color-texto-claro);
 }
 
 .listadoServicios__buttones:first-child:hover {
-  background: var(--color-primary-hover);
+  background: var(--color-primario-hover);
   transform: scale(1.05);
 }
 
 .listadoServicios__buttones:last-child {
   background: var(--color-danger);
-  color: var(--color-text-light);
+  color: var(--color-texto-claro);
 }
 
 .listadoServicios__buttones:last-child:hover {
@@ -175,7 +175,7 @@
   backdrop-filter: blur(8px);
   border: 1px solid #e0e6f7;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -192,7 +192,7 @@
   font-family: var(--font-title);
   font-weight: 600;
   font-size: 1.3rem;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 /* Inputs */
@@ -204,13 +204,13 @@
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
   transition: all 0.3s ease;
 }
 
 .servicios-input:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-primario);
   box-shadow: 0 0 8px rgba(63,96,160,0.3);
 }
 
@@ -220,8 +220,8 @@
   height: 40px;
   border-radius: 8px;
   border: none;
-  background: var(--color-primary);
-  color: var(--color-text-light);
+  background: var(--color-primario);
+  color: var(--color-texto-claro);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -230,7 +230,7 @@
 }
 
 .servicios-boton:hover {
-  background: var(--color-primary-hover);
+  background: var(--color-primario-hover);
   transform: scale(1.05);
 }
 

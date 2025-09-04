@@ -3,7 +3,7 @@
 
 
 .body{
-  background-color: var(--color-secondary);
+  background-color: var(--color-secundario);
 }
 /* Estructura principal del área de administración */
 .contentadmin {
@@ -11,7 +11,7 @@
   height: 100vh;
   display: flex;
   padding: 2rem;
-  background-color: var(--color-secondary);
+  background-color: var(--color-secundario);
   font-family: var(--font-principalateral);
 }
 
@@ -29,7 +29,7 @@
   width: 100%;
   font-size: 1.2rem;
   font-weight: 400;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .contentadmin__menu h2 {
@@ -49,7 +49,7 @@
 .menu__info {
   width: 40%;
   height: 90%;
-  background-color: var(--color-primary);
+  background-color: var(--color-primario);
   border-radius: 15px;
   padding: 1.5rem;
   display: flex;
@@ -58,7 +58,7 @@
   align-items: center;
   gap: 0.75rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  color: var(--color-text-light);
+  color: var(--color-texto-claro);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -71,7 +71,7 @@
   font-family: var(--font-title);
   font-size: 3.5rem;
   text-align: center;
-  color: var(--color-text-light);
+  color: var(--color-texto-claro);
   font-weight: 700;
 }
 
@@ -79,7 +79,7 @@
   font-family: var(--font-principalateral);
   font-size: 1.2rem;
   font-weight: 500;
-  color: var(--color-text-light);
+  color: var(--color-texto-claro);
   margin-bottom: 0;
 }
 
@@ -137,7 +137,7 @@
   font-family: var(--font-title);
   font-weight: 600;
   text-align: center;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
   margin-bottom: 1rem;
 }
 
@@ -161,7 +161,7 @@
   font-size: 0.95rem;
   font-family: var(--font-principalateral);
   font-weight: 500;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
   flex-grow: 1;
 }
 
@@ -170,7 +170,7 @@
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .tabla-datos-empleados td {
@@ -185,7 +185,7 @@
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .menu__tabla-ordenes thead {
@@ -220,7 +220,7 @@
   height: auto;
   text-align: center;
   font-size: 0.9rem;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .menu__trabajos {
@@ -245,7 +245,7 @@
   font-size: 0.95rem;
   font-weight: 500;
   text-align: left;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .Menu__fechas-content {
@@ -258,7 +258,7 @@
   font-size: 0.95rem;
   font-weight: 500;
   text-align: left;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 .Menu__reparaciones-content {
@@ -273,7 +273,7 @@
 
 .Menu__reparaciones-content>p {
   font-size: 1rem;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
   flex-grow: 1;
 }
 
@@ -287,7 +287,7 @@
 
 .Menu__empleados-content>p {
   font-size: 0.95rem;
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
   flex-grow: 1;
   text-align: center;
 }
@@ -312,7 +312,7 @@
     width: 220px;
     height: 100vh;
     z-index: 1200;
-    background: var(--color-primary);
+    background: var(--color-primario);
     transform: translateX(-100%);
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
   }
@@ -335,8 +335,8 @@
   top: 15px;
   left: 15px;
   z-index: 1100;
-  background: var(--color-primary);
-  color: var(--color-text-light);
+  background: var(--color-primario);
+  color: var(--color-texto-claro);
   border: none;
   border-radius: 8px;
   padding: 8px 12px;

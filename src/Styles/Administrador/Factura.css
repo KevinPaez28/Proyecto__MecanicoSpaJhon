@@ -6,7 +6,7 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  background-color: var(--color-secondary);
+  background-color: var(--color-secundario);
   overflow-y: auto; /* Scroll vertical para muchas facturas */
   align-items: center;
 }
@@ -42,8 +42,8 @@
   padding: 8px 15px;
   border-radius: 8px;
   border: none;
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
   font-family: var(--font-principalateral);
   font-size: 1rem;
   font-weight: 600;
@@ -72,7 +72,7 @@
   flex: 1 1 45%;
   font-size: 1rem;
   font-family: var(--font-principalateral);
-  color: var(--color-text-dark);
+  color: var(--color-texto-oscuro);
 }
 
 /* Lista de productos/servicios */
@@ -105,7 +105,7 @@
   justify-content: space-between;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-primario);
 }
 
 /* Responsivo tablets */

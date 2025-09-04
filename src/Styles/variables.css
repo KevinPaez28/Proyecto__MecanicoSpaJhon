@@ -13,35 +13,34 @@
   box-sizing: border-box;
 }
 
-/* =======================
-   Variables CSS
-   ======================= */
+
 :root {
   /* Primary Colors */
-  --color-primary: #3f60a0;
-  --color-primary-hover: #2b4c85;
-  --color-secondary: #f0f2f5;
-  --color-accent-blue: #5a7edc;
+  --color-primario: #3f60a0;
+  --color-primario-hover: #2b4c85;
+  --color-secundario: #f0f2f5;
+  --color-azulito: #5a7edc;
   --color-negro: #000;
-    --color--fondologin: rgba(171, 171, 171, 0.559);
+  --color--fondologin: rgba(171, 171, 171, 0.559);
 
   /* Text Colors */
-  --color-text-dark: #212529;
-  --color-text-light: #ffffff;
+  --color-texto-oscuro: #212529;
+  --color-texto-claro: #ffffff;
   --color-text-muted: #555555;
 
   /* Backgrounds */
   --color-bg: #f5f7f8;
   --color-card-bg: #e9eef3;
   --color-header-bg: #A8A2A2;
-  --color-cards-vehicles: #D0D3D4;
+  --color-cards-vehiculos: #D0D3D4;
   --color-login-bg: rgba(171, 171, 171, 0.559);
   --color-vehicle-form-bg: rgba(253, 253, 253, 0.335);
 
   /* Buttons */
-  --color-btn-primary: #2196F3;
-  --color-btn-primary-hover: #1976D2;
-  --color-btn-secondary: #6d80a1;
+  --color-text-blanco:#ffffff;
+  --color-btn-primario: #2196F3;
+  --color-btn-primario-hover: #1976D2;
+  --color-btn-secundario: #6d80a1;
   --color-btn-edit: #8d9c60;
   --color-btn-delete: #bd4d4d;
   --color-btn-products: rgba(13, 109, 253, 0.67);

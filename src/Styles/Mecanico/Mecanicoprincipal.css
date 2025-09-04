@@ -1,19 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-/* --- Variables de colores y tipografía --- */
-:root {
-  --bg-primary: #ecf0f1;
-  --bg-secondary: #fdfdfd;
-  --bg-dark: #2c3e50;
-  --text-dark: #34495e;
-  --text-light: #ecf0f1;
-  --accent-blue: #3498db;
-  --accent-red: #e74c3c;
-  --border-light: #bdc3c7;
-  --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --font-body: 'Roboto', sans-serif;
-  --font-title: 'Roboto', sans-serif;
-}
 
 /* --- Global --- */
 body {
@@ -106,19 +92,19 @@ body {
 .tabla-empleados {
   width: 100%;
   border-collapse: collapse; /* Cambiado a 'collapse' para bordes unidos */
-  border: 1px solid var(--border-light); /* Borde de la tabla principal */
+  border: 1px solid var(--color-text-muted); /* Borde de la tabla principal */
 }
 
 .tabla-empleados th,
 .tabla-empleados td {
   padding: 12px 15px;
   text-align: left;
-  border: 1px solid var(--border-light); /* Borde de las celdas */
+  border: 1px solid var(--color-text-muted); /* Borde de las celdas */
   white-space: nowrap;
 }
 
 .tabla-empleados th {
-  background-color: var(--color-primary);
+  background-color: var(--color-primario);
   color: #ffffff;
   font-weight: 500;
   text-transform: uppercase;
@@ -206,7 +192,7 @@ body {
   padding: 20px;
   background-color: var(--bg-primary);
   border-radius: 10px;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--color-text-muted);
   height: 50%;
   width: 100%;
 }
@@ -215,7 +201,7 @@ body {
   padding: 20px;
   background-color: var(--bg-primary);
   border-radius: 10px;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--color-text-muted);
   height: 20%;
   width: 30%;
 }
@@ -236,7 +222,7 @@ body {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--color-text-muted);
   background-color: #f8f8f8;
   color: var(--text-dark);
   font-family: var(--font-body);
@@ -326,7 +312,7 @@ body {
     padding: 20px;
     background-color: var(--bg-primary);
     border-radius: 10px;
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--color-text-muted);
     height: 50%;
     width: 100%;
   }
@@ -356,7 +342,7 @@ body {
   .tabla-empleados tr {
     display: block;
     margin-bottom: 20px;
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--color-text-muted);
     border-radius: 8px;
     box-shadow: var(--shadow-subtle);
   }
@@ -366,7 +352,7 @@ body {
     text-align: right;
     padding: 10px 15px;
     border: none; /* Quitamos el borde interno para el modo móvil */
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--color-text-muted);
     background-color: var(--bg-secondary);
   }
 

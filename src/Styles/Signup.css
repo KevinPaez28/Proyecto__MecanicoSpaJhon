@@ -1,12 +1,6 @@
 /* ================== VARIABLES ================== */
 @import url("./variables.css");
-:root {
-  --color--principal: #1e293b;   /* Azul oscuro elegante */
-  --color--secundario: #0ea5e9; /* Azul brillante */
-  --color--fondocards: #f8fafc; /* Fondo claro */
-  --color--textoprincipal: #1f2937;
-  --color--blanco: #ffffff;
-}
+
 
 /* ================== RESET ================== */
 * {

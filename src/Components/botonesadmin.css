@@ -6,7 +6,7 @@ height: 60%;
   display: inline-block;        /* Permite que el botón se adapte al contenido */
   padding: 0.6em 1.5em;         /* Alto y ancho relativo al contenido */
   border-radius: 50px;
-  background-color: var(--color-primary);
+  background-color: var(--color-primario);
   color: #fff;
   font-family: var(--font-buttons);
   font-size: 1.1rem;
@@ -78,18 +78,18 @@ height: 60%;
 }
 
 .interfazvehiculos__buttones:first-child {
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background-color: var(--color-primario);
+  color: var(--color-text-blanco);
 }
 
 .interfazvehiculos__buttones:first-child:hover {
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-primario-hover);
   transform: scale(1.05);
 }
 
 .interfazvehiculos__buttones:last-child {
   background-color: var(--color-btn-delete);
-  color: var(--color-text-light);
+  color: var(--color-text-blanco);
 }
 
 .interfazvehiculos__buttones:last-child:hover {
