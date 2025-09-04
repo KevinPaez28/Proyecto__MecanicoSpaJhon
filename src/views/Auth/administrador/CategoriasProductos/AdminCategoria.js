@@ -48,11 +48,11 @@ export default async (parametros = null) => {
       productos.appendChild(divItem);
 
       const btnEditar = document.createElement("button");
-      btnEditar.classList.add("interfazcategorias__buttones");
+      btnEditar.classList.add("interfazvehiculos__buttones");
       btnEditar.textContent = "Editar";
 
       const btnEliminar = document.createElement("button");
-      btnEliminar.classList.add("interfazcategorias__buttones");
+      btnEliminar.classList.add("interfazvehiculos__buttones");
       btnEliminar.textContent = "Eliminar";
 
       let Productos_Categoriaid = element.categoria_id;
@@ -89,7 +89,7 @@ export default async (parametros = null) => {
       }
 
       const botones = document.createElement("div");
-      botones.classList.add("interfazcategorias__button");
+      botones.classList.add("interfazvehiculos__button");
       if (tienePermiso("Productos_eliminar")) {
         btnEliminar.addEventListener("click", async () => {
           if (productosFiltrados.length === 0) {

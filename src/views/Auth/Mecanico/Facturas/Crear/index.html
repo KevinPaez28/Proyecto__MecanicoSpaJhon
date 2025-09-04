@@ -1,12 +1,28 @@
-<div class="generar__facturas" id="dialogfacturas">
-    <form action="" class="formFacturas" id="insertar__facturas" novalidate>
-        <div class="content__facturas">
-            <label class="fila__text">N° de Servicio:</label>
-            <select class="ingreso__factura" id="detalle_idfactura" required></select>
+<div class="contenidoAdmin">
+  <div class="loginmecanico__login">
+    <form id="formFacturas" class="formulario" novalidate>
+      
+      <div class="title">
+        <p class="form__text">Generar Factura</p>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="detalle_idfactura">N° de Servicio:</label>
         </div>
-        <div class="content__buttones">
-            <button type="submit" class="buttonservicios" id="generarfactura">Generar</button>
+        <div class="form__inputtext">
+          <select id="detalle_idfactura" class="form__input" required>
+            <option value="">Selecciona un servicio</option>
+          </select>
         </div>
+      </div>
+
+      <div class="form__button button">
+        <button type="submit" class="button__form button__form--diseño_fondo">Generar</button>
+      </div>
+
     </form>
+  </div>
 </div>
+
 <script type="module" src="./facturas.js"></script>

@@ -1,26 +1,7 @@
 @import url('../variables.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
 
-/* Paleta de colores y variables mejoradas */
-:root {
-  --color-primary: #3f60a0;
-  /* Azul más vibrante */
-  --color-secondary: #f0f2f5;
-  /* Fondo muy claro y moderno */
-  --color-text-dark: #212529;
-  /* Negro suave para texto principal */
-  --color-text-light: #ffffff;
-  /* Blanco puro para texto sobre fondos oscuros */
-  --color-gradient-start: #e0e4e8;
-  /* Color de inicio del degradado - Ligeramente más oscuro */
-  --color-gradient-end: #d3d9df;
-  /* Color de final del degradado - Ligeramente más oscuro */
 
-  /* Fuentes */
-  --font-principalateral: 'Roboto', sans-serif;
-  --font-title: 'Poppins', sans-serif;
-  /* Poppins para títulos y texto principal */
-}
 .body{
   background-color: var(--color-secondary);
 }

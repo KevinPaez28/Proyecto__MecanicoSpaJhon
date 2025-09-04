@@ -8,9 +8,6 @@ import principalUsuario from '../views/Auth/usuarios/Principal/principalUsuario.
 import servicios from '../views/Auth/administrador/Servicios/servicios.js'
 import informacionUsuario from '../views/Auth/usuarios/Informacion/informacionUsuario.js'
 import principalMecanico from '../views/Auth/Mecanico/principal/principalMecanico.js'
-import serviciosUsuarios from "../views/Auth/usuarios/servicios/serviciosUsuarios.js"
-import vehiculosMecanico from '../views/Auth/Mecanico/Vehiculos/vehiculosMecanico.js'
-import informacionMecanico from '../views/Auth/Mecanico/informacion/informacion.js'
 import HistorialServicios from '../views/Auth/usuarios/HistorialServicios/HistorialServicios.js'
 import factura from '../views/Auth/administrador/Factura/factura.js'
 import ListarEmpleados from '../views/Auth/administrador/Empleados/ListarEmpleados.js'

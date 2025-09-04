@@ -1,26 +1,40 @@
-<div class="servicios-formulario-contenedor">
-    <form id="formularioServicios" class="servicios-formulario" novalidate>
-        <div class="servicios-formulario-header">
-            <p class="servicios-formulario-titulo">Agregar Nuevo Servicio</p>
-        </div>
+<div class="contenidoAdmin">
+    <div class="loginmecanico__login">
+        <form id="formularioServicios" class="formulario" novalidate>
+            <div class="title">
+                <p class="form__text">Agregar Nuevo Servicio</p>
+            </div>
 
-        <div class="servicios-formulario-grupo">
-            <label for="nombreServicio" class="servicios-label">Nombre del Servicio</label>
-            <input id="nombre_servicio" type="text" class="servicios-input" required minlength="3" />
-        </div>
+            <div class="form__grupo">
+                <div class="form__label">
+                    <label for="nombreServicio" class="servicios-label">Nombre del Servicio</label>
+                </div>
+                <div class="form__inputtext">
+                    <input id="nombre_servicio" type="text" class="form__input" required minlength="3" />
+                </div>
+            </div>
 
-        <div class="servicios-formulario-grupo">
-            <label for="descripcionServicio" class="servicios-label">Descripcion</label>
-            <textarea id="descripcion" class="servicios-input" required></textarea>
-        </div>
+            <div class="form__grupo">
+                <div class="form__label">
+                    <label for="descripcionServicio" class="servicios-label">Descripcion</label>
+                </div>
+                <div class="form__inputtext">
+                    <textarea id="descripcion" class="form__input" required></textarea>
+                </div>
+            </div>
 
-        <div class="servicios-formulario-grupo">
-            <label for="precioServicio" class="servicios-label">Precio</label>
-            <input id="precio" type="number" class="servicios-input" required minlength="3" step="0.001" />
-        </div>
+            <div class="form__grupo">
+                <div class="form__label">
+                    <label for="precioServicio" class="servicios-label">Precio</label>
+                </div>
+                <div class="form__inputtext">
+                    <input id="precio" type="number" class="form__input" required minlength="3" step="0.001" />
+                </div>
+            </div>
 
-        <div class="servicios-formulario-botones">
-            <button type="submit" class="servicios-boton">Guardar Servicio</button>
-        </div>
-    </form>
+            <div class="form__button button">
+                <button type="submit" class="button__form button__form--diseño_fondo">Guardar Servicio</button>
+            </div>
+        </form>
+    </div>
 </div>

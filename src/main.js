@@ -19,16 +19,15 @@ async function cargarSidebar() {
     body.style.flexDirection = "row";
     main.style.backgroundColor = "#f0f2f5";
   } else if (role === '2') {
-    sidebarContainer.style.height = "15%";
-    sidebarContainer.style.width = "100%";
-    body.style.flexDirection = "column";
     sidebarPath = './src/Components/headerUsuario.html';
     roleClass = 'sidebar-usuario';
+    sidebarContainer.style.width = "15%";
+    body.style.flexDirection = "row";
     main.style.backgroundColor = "#f0f2f5";
   } else if (role === '1') {
-    sidebarContainer.style.width = "19%";
     sidebarPath = './src/Components/Sidebar.html';
     roleClass = 'sidebar-admin';
+    sidebarContainer.style.width = "19%";
     body.style.flexDirection = "row";
     main.style.backgroundColor = "#f0f2f5";
   }

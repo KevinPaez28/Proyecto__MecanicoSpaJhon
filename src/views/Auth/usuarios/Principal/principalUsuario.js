@@ -12,12 +12,12 @@ export default async (parametros = null) => {
     const id = usuario.usuario_id;
     const usuarios = await get(`Usuarios`);
     const vehiculos = await get(`Vehiculos/usuarios/${id}`);
-    const seccionInfo = document.querySelector(".VehiculosUsuariosId");
+    const seccionInfo = document.querySelector(".interfazVehiculos__content");
     seccionInfo.innerHTML = "";
 
     vehiculos.data.forEach((element) => {
       const cards = document.createElement("div");
-      cards.classList.add("vehiculosUsuarios");
+      cards.classList.add("interfazvehiculos__cards"); // ✅ Igual al admin
 
       const body = document.createElement("div");
       body.classList.add("interfazvehiculos__body");
@@ -80,18 +80,19 @@ export default async (parametros = null) => {
       content.appendChild(modelo);
       content.appendChild(usuarioId);
 
+      // ✅ Usamos las mismas clases que en admin
       const botones = document.createElement("div");
-      botones.classList.add("Usuarios__buttones");
+      botones.classList.add("interfazvehiculos__button");
 
       const btnEditar = document.createElement("button");
-      btnEditar.classList.add("usuarios__button");
+      btnEditar.classList.add("interfazvehiculos__buttones");
       btnEditar.textContent = "Editar";
       btnEditar.dataset.id = element.vehiculo_id;
       btnEditar.dataset.usuarioLogin =
         usuariosFiltrados.length > 0 ? usuariosFiltrados[0].usuario : "";
 
       const btnEliminar = document.createElement("button");
-      btnEliminar.classList.add("usuarios__button");
+      btnEliminar.classList.add("interfazvehiculos__buttones");
       btnEliminar.textContent = "Eliminar";
 
       botones.appendChild(btnEditar);
@@ -112,13 +113,14 @@ export default async (parametros = null) => {
       cards.appendChild(body);
       seccionInfo.appendChild(cards);
     });
+
   };
   VehiculosPorId();
 
   const EliminarVehiculos = async (id) => {
     try {
       console.log(id);
-      
+
       const confirm = await eliminar("¿Desea eliminar la información del Vehículo?");
       if (confirm.isConfirmed) {
         const respuesta = await del(`Vehiculos/${id}`);

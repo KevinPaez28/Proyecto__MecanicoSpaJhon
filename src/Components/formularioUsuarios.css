@@ -12,7 +12,6 @@
 }
 .loginmecanico__login {
   width: 450px;
-  height: 350px;
   border-radius: 30px;
 }
 .bodyContent {
@@ -31,6 +30,11 @@
 .form__grupo {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+.form__button {
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
 .form__inputtext{

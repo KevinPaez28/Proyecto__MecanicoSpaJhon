@@ -6,7 +6,7 @@ height: 60%;
   display: inline-block;        /* Permite que el botón se adapte al contenido */
   padding: 0.6em 1.5em;         /* Alto y ancho relativo al contenido */
   border-radius: 50px;
-  background-color: var(--color--principal);
+  background-color: var(--color-primary);
   color: #fff;
   font-family: var(--font-buttons);
   font-size: 1.1rem;
@@ -54,4 +54,46 @@ height: 60%;
     padding: 0.7em 0.8em;
     border-radius: 20px;
   }
+}
+
+.interfazvehiculos__button {
+  border: 1px solid #000;
+  display: flex;
+  justify-content: space-around;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+.interfazvehiculos__buttones {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.interfazvehiculos__buttones:first-child {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.interfazvehiculos__buttones:first-child:hover {
+  background-color: var(--color-primary-hover);
+  transform: scale(1.05);
+}
+
+.interfazvehiculos__buttones:last-child {
+  background-color: var(--color-btn-delete);
+  color: var(--color-text-light);
+}
+
+.interfazvehiculos__buttones:last-child:hover {
+  background-color: var(--color-btn-delete);
+  transform: scale(1.05);
 }

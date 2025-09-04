@@ -55,16 +55,19 @@ export default async (parametros = null) => {
         const btnGuardar = document.createElement("button");
         btnGuardar.type = "submit";
         btnGuardar.textContent = "Guardar";
-        btnGuardar.className = "btn-modificar";
+        btnGuardar.className = "interfazvehiculos__buttones";
 
         // Botón eliminar
+        const div = document.createElement("div");
+        div.classList.add("interfazVehiculos__title");
         const btnEliminar = document.createElement("button");
         btnEliminar.type = "button";
         btnEliminar.textContent = "Eliminar";
-        btnEliminar.className = "btn-eliminar";
+        btnEliminar.className = "interfazvehiculos__buttones";
         btnEliminar.style.marginLeft = "8px";
 
-        form.append(inputNombre, inputStock, inputPrecio, selectCategoria, btnGuardar, btnEliminar);
+        form.append(inputNombre, inputStock, inputPrecio, selectCategoria,div);
+        div.append(btnGuardar, btnEliminar);
         contenedor.appendChild(form);
 
         form.addEventListener("submit", async (e) => {

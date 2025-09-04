@@ -4,22 +4,6 @@
 @import url('../variables.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
 
-:root {
-  --color-primary: #3f60a0;
-  --color-primary-hover: #2b4c85;
-  --color-secondary: #f0f2f5;
-  --color-text-dark: #212529;
-  --color-text-light: #ffffff;
-  --color-accent-blue: #5a7edc;
-  --color-card-bg: #ffffff; /* Fondo blanco por defecto */
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-shadow-hover: rgba(0, 0, 0, 0.15);
-  --color-danger: #e74c3c;
-  --color-danger-hover: #c0392b;
-
-  --font-principalateral: 'Roboto', sans-serif;
-  --font-title: 'Poppins', sans-serif;
-}
 
 /* ======================= */
 /* Formulario edición productos */

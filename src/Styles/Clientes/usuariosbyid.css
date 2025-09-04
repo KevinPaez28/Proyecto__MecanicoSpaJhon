@@ -1,198 +1,204 @@
-@import url('../variables.css');
-
-.informacionPerfil{
- width: 100%;
- height: 85vh;
- display: flex;
- justify-content: center;
- align-items: center;
-}
-.contentcards{
- width: 30%;
- height:65%;
- background-color: var(--color--cardsVehiculosclientes);
- border-radius: 15px;
+/* ======================= */
+/* Archivo de variables (ejemplo) */
+/* Es crucial definir estas variables para el tema */
+:root {
+  
 }
 
-
-.titleNombre{
-height: 20%;
-padding: 20px;
-}
-.contentinfo{
-width: 100%;
-height: 85%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-gap: 15px;
-}
-.titleNombre{
- 
- text-align: center;
-}
-.infotitlename{
- font-family: var(--font-Title);
- font-size: 2vw;
+/* ======================= */
+/* Contenedor principal */
+.informacionPerfil {
+  width: 100%;
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--color-secondary);
 }
 
-.contenidoUsuario{
- width: 100%;
-display: flex;
-justify-content: space-evenly;
-height: 100%;
-padding: 0px 25px;
-}
-.infotitle{
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-padding:5px;
-width: 130px;
-}
-.titletext{
- font-size: 1.4vw;
- font-weight: 600;
- font-family: var(--font-Title);
- width: 130px;
- /* border: solid 1px #000; */
-}
-.infotext{
- font-size: 1.2vw;
- font-weight: 500;
- font-family: var(--font-body);
-}
-.infodatos{
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-padding:5px;
-}
-.contentbuttons{
-height: 15%;
-width: 100%;
-display: flex;
-justify-content: space-evenly;
-padding: 10px;
-
-}
-.btnUsuarios{
-height: 80%;
-width: 20%;
-border: none;
-border-radius: 15px;
-background-color: var(--color--BotonClientes);
-color: var(--color--fondotextos);
+/* Tarjeta */
+.contentcards {
+  width: 360px;
+  max-width: 90%;
+  background-color: var(--color-cardsVehiculosclientes);
+  /* Borde más suave */
+  border-radius: 12px;
+  padding: 24px; /* Aumenta el padding para más espacio */
+  display: flex;
+  flex-direction: column;
+  /* Espacio entre secciones */
+  gap: 20px;
+  /* Sombra más moderna y difusa */
+  box-shadow: 0 8px 25px var(--color-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.clienteModificacion__input{
- width: 85%;
- height: 23px;
- border: none;
- padding: 5px;
- border-radius: 15px;
+/* Header / Nombre */
+.titleNombre {
+  text-align: center;
+  margin-bottom: 0; /* Ya tenemos gap en el contenedor padre */
 }
-.btn-guardarClientes{
-height: 80%;
-width: 20%;
-border: none;
-border-radius: 15px;
-background-color: var(--color--BotonClientes);
-color: var(--color--fondotextos);
+
+.infotitlename {
+  font-family: var(--font-Title);
+  font-size: 2rem; /* Título un poco más grande */
+  font-weight: 700;
+  color: var(--color-text-dark);
+  letter-spacing: -0.5px; /* Espaciado sutil para un look más limpio */
 }
+
+/* Información interna */
+.contentinfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaciado consistente */
+  width: 100%;
+}
+
+/* Usuario detalles */
+.contenidoUsuario {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+.infotitle,
+.infodatos {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.titletext {
+  font-size: 1rem; /* Ajuste para mejor jerarquía visual */
+  font-weight: 600;
+  font-family: var(--font-Title);
+  color: var(--color-text-dark);
+  text-transform: uppercase; /* Mayúsculas para los títulos de sección */
+  margin: 2px;
+  }
+
+.infotext {
+  margin: 5px;
+  font-size: 0.95rem;
+  font-weight: 400; /* Peso más ligero para el texto */
+  font-family: var(--font-principalateral);
+  color: var(--color-negro); /* Color de texto más claro */
+}
+
+/* Botones */
+.contentbuttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+
+.btnUsuarios,
+.btn-guardarClientes {
+  padding: 12px 24px; /* Aumenta el padding para botones más grandes */
+  border-radius: 12px; /* Coherente con el radio del borde de la tarjeta */
+  border: none;
+  background-color: var(--color--BotonClientes);
+  color: var(--color--fondotextos);
+  font-family: var(--font-principalateral);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btnUsuarios:hover,
+.btn-guardarClientes:hover {
+  transform: translateY(-2px); /* Un sutil levantamiento en hover */
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3); /* Sombra al pasar el mouse */
+}
+
+/* Inputs */
+.clienteModificacion__input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-family: var(--font-principalateral);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clienteModificacion__input:focus {
+  outline: none; /* Elimina el borde de enfoque por defecto */
+  border-color: var(--color-primary); /* Borde primario en el enfoque */
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2); /* Sutil resplandor de enfoque */
+}
+
+/* ======================= */
+/* Responsividad */
+/* ======================= */
 
 /* Tablets */
 @media (max-width: 768px) {
-  .informacionPerfil {
-    height: auto;
-    padding: 15px 0;
-    flex-direction: column;
-  }
   .contentcards {
     width: 95%;
-    min-width: 260px;
-    height: auto;
-    margin: 0 auto 20px auto;
-    padding: 16px 12px;
+    padding: 20px;
+    gap: 16px;
   }
-  .titleNombre {
-    padding: 10px;
-  }
+
   .infotitlename {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
   }
-  .contenidoUsuario {
-    gap: 12px;
-    padding: 0 8px;
-  }
-  .infotitle {
-    width: 100%;
-    padding: 4px 0;
-  }
+
   .titletext {
-    font-size: 1rem;
-    width: 100%;
-  }
-  .infodatos {
-    width: 100%;
-    padding: 2px 0;
-  }
-  .infotext {
     font-size: 0.95rem;
-    word-wrap: break-word;
   }
+
+  .infotext {
+    font-size: 0.9rem;
+  }
+
   .contentbuttons {
-    flex-direction: row;
     gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 10px 0;
   }
-  .btnUsuarios, .btn-guardarClientes {
-    width: auto;
-    min-width: 90px;
-    height: 34px;
-    font-size: 0.9rem;
-    padding: 0 12px;
-  }
-  .clienteModificacion__input {
-    width: 100%;
-    height: 34px;
-    font-size: 0.9rem;
+
+  .btnUsuarios,
+  .btn-guardarClientes {
+    padding: 10px 20px;
+    font-size: 0.95rem;
   }
 }
 
-/* Celulares pequeños */
+/* Móviles */
 @media (max-width: 480px) {
   .contentcards {
     width: 100%;
-    min-width: 200px;
-    padding: 12px 8px;
+    padding: 16px;
+    gap: 12px;
   }
+
   .infotitlename {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
+
   .titletext {
     font-size: 0.9rem;
   }
+
   .infotext {
     font-size: 0.85rem;
   }
-  .contenidoUsuario {
-    gap: 8px;
-    display: flex;
-  }
+
   .contentbuttons {
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     align-items: stretch;
   }
-  .btnUsuarios, .btn-guardarClientes {
-    font-size: 0.85rem;
-    height: 32px;
-  }
-  .clienteModificacion__input {
-    height: 30px;
-    font-size: 0.85rem;
+
+  .btnUsuarios,
+  .btn-guardarClientes {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 0;
   }
 }

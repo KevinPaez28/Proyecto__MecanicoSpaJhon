@@ -1,34 +1,64 @@
-<div class="insertarServicios" id="dialogServicios">
-    <div class="content__form">
-        <form action="" class="formServicios" id="insertar__servicios" novalidate>
-            <div class="content__inputs">
-                <div class="fila__info">
-                    <label class="fila__text">Servicio:</label>
-                    <select class="ingreso__datos" id="servicio_id" required>
-                        <option value="">Selecciona un servicio</option>
-                    </select>
-                </div>
-                <div class="fila__info">
-                    <label class="fila__text">Placa:</label>
-                    <select class="ingreso__datos" id="vehiculo_id" required></select>
-                </div>
-                <div class="fila__info">
-                    <label class="fila__text">Fecha:</label>
-                    <input class="ingreso__datos" type="date" id="fecha" name="fecha" required>
-                </div>
-                <div class="fila__info">
-                    <label class="observaciones" class="fila__text">Observaciones:</label>
-                    <textarea class="observaciones" id="observaciones" required></textarea>
-                </div>
-                <div class="fila__info">
-                    <label class="fila__text">Estado:</label>
-                    <select class="ingreso__datos" id="estado_id" required></select>
-                </div>
-            </div>
-            <div class="content__buttones">
-                <button type="submit" class="buttonservicios" id="guardarServicios">Guardar</button>
-            </div>
-        </form>
-    </div>
+<div class="contenidoAdmin">
+  <div class="loginmecanico__login">
+    <form id="formServicios" class="formulario" novalidate>
+      
+      <div class="title">
+        <p class="form__text">Agregar Servicio</p>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="servicio_id">Servicio:</label>
+        </div>
+        <div class="form__inputtext">
+          <select id="servicio_id" class="form__input" required>
+            <option value="">Selecciona un servicio</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="vehiculo_id">Placa:</label>
+        </div>
+        <div class="form__inputtext">
+          <select id="vehiculo_id" class="form__input" required></select>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="fecha">Fecha:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="date" id="fecha" class="form__input" required>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="observaciones">Observaciones:</label>
+        </div>
+        <div class="form__inputtext">
+          <textarea id="observaciones" class="form__input" rows="3" required></textarea>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="estado_id">Estado:</label>
+        </div>
+        <div class="form__inputtext">
+          <select id="estado_id" class="form__input" required></select>
+        </div>
+      </div>
+
+      <div class="form__button button">
+        <button type="submit" class="button__form button__form--diseño_fondo">Guardar</button>
+      </div>
+
+    </form>
+  </div>
 </div>
+
 <script type="module" src="crearservicios.js"></script>

@@ -71,27 +71,25 @@ export default async (parametros = null) => {
 
       // ---- Botones ----
       const botones = document.createElement("div");
-      botones.classList.add("listadoServicios__button");
+      botones.classList.add("interfazvehiculos__button");
 
       const btneditar = document.createElement("button");
-      btneditar.classList.add("listadoServicios__buttones");
+      btneditar.classList.add("interfazvehiculos__buttones");
       btneditar.textContent = "Editar";
       botones.appendChild(btneditar);
 
       const btnEliminar = document.createElement("button");
-      btnEliminar.classList.add("listadoServicios__buttones");
+      btnEliminar.classList.add("interfazvehiculos__buttones");
       btnEliminar.textContent = "Eliminar";
       botones.appendChild(btnEliminar);
 
       if (!tienePermiso("Servicios_Actualizar")) {
-        btneditar.style.display = "none";        
+        botones.style.display = "none";        
         header.style.display = "none";
         content.style.height = "80vh";
       }
-      if (!tienePermiso("Servicios_Eliminar")) {
-        btnEliminar.style.display = "none";       
+      
 
-      }
       btneditar.addEventListener("click", async => {
         localStorage.setItem("idServicioEditar", servicios.servicio_id);
         window.location.href = `#/Servicios/editar`;

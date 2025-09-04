@@ -236,11 +236,11 @@ export const Clientesbyid = async () => {
 
   const btnEditar = document.createElement("button");
   btnEditar.textContent = "Editar";
-  btnEditar.classList.add("btnUsuarios");
+  btnEditar.classList.add("interfazvehiculos__buttones");
 
   const btnEliminar = document.createElement("button");
   btnEliminar.textContent = "Eliminar";
-  btnEliminar.classList.add("btnUsuarios");
+  btnEliminar.classList.add("interfazvehiculos__buttones");
 
   btnEditar.addEventListener("click", async (e) => {
     e.preventDefault();

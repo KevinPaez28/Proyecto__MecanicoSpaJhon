@@ -42,7 +42,7 @@ export default async (parametros = null) => {
 
       const btnEditar = document.createElement("button");
       btnEditar.textContent = "Editar";
-      btnEditar.classList.add("btn-modificar");
+      btnEditar.classList.add("interfazvehiculos__buttones");
 
       btnEditar.dataset.id = usuario.usuario_id;
       if (tienePermiso("Usuarios_Actualizar")) {
@@ -54,8 +54,11 @@ export default async (parametros = null) => {
         });
       }
       const btnEliminar = document.createElement("button");
+      const div = document.createElement("div");
+      div.classList.add("interfazVehiculos__title");
+      ;
       btnEliminar.textContent = "Eliminar";
-      btnEliminar.classList.add("btn-eliminar");
+      btnEliminar.classList.add("interfazvehiculos__buttones");
       if (tienePermiso("Usuarios_Eliminar")) {
         btnEliminar.addEventListener("click", () => {
           const idEmpleado = usuario.usuario_id;
@@ -63,9 +66,13 @@ export default async (parametros = null) => {
           eliminarUsuarioPorId();
         });
       }
+      // Metemos los botones dentro del div
+      div.append(btnEditar, btnEliminar);
 
-      tdAcciones.append(btnEditar, btnEliminar);
+      // Metemos el div dentro del tdAcciones
+      tdAcciones.appendChild(div);
 
+      // Finalmente agregamos todo al tr
       tr.append(tdNombre, tdCedula, tdTelefono, tdUsuario, tdRol, tdEstado, tdAcciones);
       tbody.appendChild(tr);
     });
@@ -101,7 +108,7 @@ export default async (parametros = null) => {
       await error("Error inesperado al desactivar");
     }
   };
-  if (!tienePermiso("Usuarios_Listar")){
+  if (!tienePermiso("Usuarios_Listar")) {
   }
   MostrarUsuarios();
 };

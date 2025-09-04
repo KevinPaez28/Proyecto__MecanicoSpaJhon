@@ -10,44 +10,63 @@
 
 <body>
 
-  <header class="headerUsuario">
-    <div class="headerlogo">
-      <img class="headerimg" src="../../../../../public/Logo.png" alt="Logo" />
-      <p class="headertext">Bienvenido</p>
+  <!-- Sidebar clásico para desktop/tablet -->
+  <div class="lateral" id="sidebar">
+    <div class="lateral__title">
+      <p class="lateral__titletext">USUARIO</p>
     </div>
-
-    <div class="headermenu headermenu--desktop">
-      <a class="button__info" href="#/cliente/principal">Inicio</a>
-      <a class="button__info" href="#/Servicios">Servicios Disponibles</a>
-      <a class="button__info" href="#/historial">Historial de Servicios</a>
-      <a class="button__info" href="#/informacion">Información Usuario</a>
-      <a class="button__info" id="cerrar_sesion" href="#/Home">Cerrar Sesión</a>
-    </div>
-
-  </header>
-  <input type="checkbox" id="cheHeader" class="cheHeader" hidden>
-  <label for="cheHeader" class="header__label">
-    <span class="header__icon">☰</span>
-  </label>
-
-  <nav class="header__overlay">
-    <div class="header__menu">
-      <div class="perfil">
-        <img src="../../../../../public/Logo.png" alt="Logo" class="perfil__imagen">
-        <p class="perfil__texto">Bienvenido</p>
+    <div class="lateral__menu">
+      <div class="lateral__border">
+        <i class="bi bi-house-door-fill lateral__icons"></i>
       </div>
+      <a href="#/cliente/principal" class="lateral__text">Inicio</a>
+    </div>
+    <div class="lateral__menu">
+      <div class="lateral__border">
+        <i class="bi bi-gear-fill lateral__icons"></i>
+      </div>
+      <a href="#/Servicios" class="lateral__text">Servicios Disponibles</a>
+    </div>
+    <div class="lateral__menu">
+      <div class="lateral__border">
+        <i class="bi bi-clock-history lateral__icons"></i>
+      </div>
+      <a href="#/historial" class="lateral__text">Historial de Servicios</a>
+    </div>
+    <div class="lateral__menu">
+      <div class="lateral__border">
+        <i class="bi bi-person-circle lateral__icons"></i>
+      </div>
+      <a href="#/informacion" class="lateral__text">Información Usuario</a>
+    </div>
+    <div class="lateral__menu">
+      <div class="lateral__border">
+        <i class="bi bi-box-arrow-left lateral__icons"></i>
+      </div>
+      <a href="#/Home" id="cerrar_sesion" class="lateral__text">Cerrar sesión</a>
+    </div>
+  </div>
+
+  <!-- Menú hamburguesa para móvil -->
+  <input type="checkbox" id="cheBurguer" class="cheBurguer" hidden>
+  <label for="cheBurguer" class="burguer__label">
+    <span class="burguer__icon">☰</span>
+  </label>
+  <nav class="sidebar__overlay">
+    <div class="sidebar__menu">
       <div class="caja"><a href="#/cliente/principal" class="caja__link"
-          onclick="document.querySelector('#cheHeader').checked=false">Inicio</a></div>
+          onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-house-door-fill lateral__icons"></i> Inicio</a></div>
       <div class="caja"><a href="#/Servicios" class="caja__link"
-          onclick="document.querySelector('#cheHeader').checked=false">Servicios Disponibles</a></div>
+          onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-gear-fill lateral__icons"></i> Servicios Disponibles</a></div>
       <div class="caja"><a href="#/historial" class="caja__link"
-          onclick="document.querySelector('#cheHeader').checked=false">Historial de Servicios</a></div>
+          onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-clock-history lateral__icons"></i> Historial de Servicios</a></div>
       <div class="caja"><a href="#/informacion" class="caja__link"
-          onclick="document.querySelector('#cheHeader').checked=false">Información Usuario</a></div>
-      <div class="caja"><a id="cerrar_sesion_mobile" href="#/Home" class="caja__link" 
-          onclick="document.querySelector('#cheHeader').checked=false">Cerrar Sesión</a></div>
+          onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-person-circle lateral__icons"></i> Información Usuario</a></div>
+      <div class="caja"><a id="cerrar_sesion_mobile" href="#/Home" class="caja__link"
+          onclick="document.querySelector('#cheBurguer').checked=false"><i class="bi bi-box-arrow-left lateral__icons"></i> Cerrar sesión</a></div>
     </div>
   </nav>
+
 </body>
 <script type="module" src="./cerrarSesion.js"></script>
 </html>

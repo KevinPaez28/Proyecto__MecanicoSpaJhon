@@ -62,7 +62,7 @@
 /* Cards estilo moderno */
 .listado__cardservicios {
   width: 360px;
-  height: 40%;
+  height: auto;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 4px 12px var(--color-shadow);
   border-radius: 15px;

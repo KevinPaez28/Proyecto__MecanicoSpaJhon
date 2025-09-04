@@ -5,7 +5,7 @@ import { recogerDatos, contarCamposFormulario, validarFechaMinima } from '../../
 
 export default async () => {
     // Referencias a los formularios y dialogos
-    const formServicios = document.querySelector('.formServicios');
+    const formServicios = document.getElementById('formServicios');
     const form = document.querySelector('#dialogServicios');
     const select = document.getElementById('servicio_id');
     const selectvehiculo = document.getElementById('vehiculo_id');

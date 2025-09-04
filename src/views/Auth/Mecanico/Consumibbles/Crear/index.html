@@ -1,24 +1,48 @@
-<div class="insertar_productos" id="dialogProductos">
-    <div>
-        <form action="" class="formProductos" id="insertar__productos" novalidate>
-            <div class="content__inputs">
-                <div class="fila__info">
-                    <label class="fila__text">N° de Servicio:</label>
-                    <select class="ingreso__datos" id="detalle_id" required></select>
-                </div>
-                <div class="fila__info">
-                    <label class="fila__text">Cantidad:</label>
-                    <input class="ingreso__datos" type="number" id="cantidad_usada" min="1" value="1" required>
-                </div>
-                <div class="fila__info">
-                    <label class="fila__text">Productos Consumidos</label>
-                    <select class="ingreso__datos" id="producto_id" required></select>
-                </div>
-            </div>
-            <div class="content__buttones">
-                <button type="submit" class="buttonservicios" id="guardarproductos">Guardar</button>
-            </div>
-        </form>
-    </div>
+<div class="contenidoAdmin">
+  <div class="loginmecanico__login">
+    <form id="formProductos" class="formulario" novalidate>
+      
+      <div class="title">
+        <p class="form__text">Agregar Productos Consumidos</p>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="detalle_id">N° de Servicio:</label>
+        </div>
+        <div class="form__inputtext">
+          <select id="detalle_id" class="form__input" required>
+            <option value="">Selecciona un servicio</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="cantidad_usada">Cantidad:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="number" id="cantidad_usada" class="form__input" min="1" value="1" required>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="producto_id">Producto Consumido:</label>
+        </div>
+        <div class="form__inputtext">
+          <select id="producto_id" class="form__input" required>
+            <option value="">Selecciona un producto</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form__button button">
+        <button type="submit" class="button__form button__form--diseño_fondo">Guardar</button>
+      </div>
+
+    </form>
+  </div>
 </div>
+
 <script type="module" src="consumibles.js"></script>

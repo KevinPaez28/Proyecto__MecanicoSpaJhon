@@ -1,47 +1,73 @@
+/* =======================
+   Fonts Import
+   ======================= */
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Cardo:ital,wght@0,400;0,700;1,400&family=Comfortaa:wght@300..700&family=Comic+Relief:wght@400;700&family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Orbitron:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
-/* @import url('categoriasProductos.css');
-@import url('interfazAdmin.css');
-@import url('interfazIndex.css');
-@import url('interfazVehiculos.css');
-@import url('registrar.css');
-@import url('registrarEmpleado.css'); */
-*{
-  margin:0;
-  padding:0;
+
+/* =======================
+   Reset
+   ======================= */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
-:root{
-  --color--principal:#38528a;
-  --color--hoverForm: #b9bdc7;
-  --color--itemsMenuloginhover:#000000c0;
-  --color--inputlogin:rgba(253, 253, 253, 0.712);
-  --color--registrovehiculos:rgba(253, 253, 253, 0.335);
-  --color--principaltextheader:rgb(243, 243, 243);
-  --color--negroFuente:#000;
-  --color--buttonheader:#cbcfd2;
-  --color--blancocontent:#F5F5F5;
-  --color--fondologin: rgba(171, 171, 171, 0.559);
-  --color--cardvehiculos :  rgba(158, 152, 152, 0.425);
-  --color--buttoncards:#6d80a1;
-  --color--buttonProductos:#0d6dfdab;
-  --color--fondotextos:#d0cfcf;
-  --color--buttonEliminar:#bd4d4d;
-  --color--buttonEditado:#8d9c60;
 
+/* =======================
+   Variables CSS
+   ======================= */
+:root {
+  /* Primary Colors */
+  --color-primary: #3f60a0;
+  --color-primary-hover: #2b4c85;
+  --color-secondary: #f0f2f5;
+  --color-accent-blue: #5a7edc;
+  --color-negro: #000;
+  /* Text Colors */
+  --color-text-dark: #212529;
+  --color-text-light: #ffffff;
+  --color-text-muted: #555555;
 
-  --color--headercliente:#A8A2A2;
-  --color--principalUsuarios:#383c46;
-  --color--cardsVehiculosclientes: #D0D3D4;
-  --color--BotonClientes: 	#4a5468;
+  /* Backgrounds */
+  --color-bg: #f5f7f8;
+  --color-card-bg: #e9eef3;
+  --color-header-bg: #A8A2A2;
+  --color-cards-vehicles: #D0D3D4;
+  --color-login-bg: rgba(171, 171, 171, 0.559);
+  --color-vehicle-form-bg: rgba(253, 253, 253, 0.335);
 
+  /* Buttons */
+  --color-btn-primary: #2196F3;
+  --color-btn-primary-hover: #1976D2;
+  --color-btn-secondary: #6d80a1;
+  --color-btn-edit: #8d9c60;
+  --color-btn-delete: #bd4d4d;
+  --color-btn-products: rgba(13, 109, 253, 0.67);
 
-  --font--principalateral:"Lato", sans-serif;
-  --font--principalContent: 'Inter', sans-serif;
-  --font-Title: 'Poppins', sans-serif;
-  --font-body:'Roboto', sans-serif;
-  --font_bodyIngresovehiculos: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Shadows */
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-hover: rgba(0, 0, 0, 0.15);
+
+  /* Fonts */
+  --font-body: 'Roboto', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-lato: 'Lato', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-segoe: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --font-buttons: 'Montserrat', sans-serif;
 }
 
-
+/* =======================
+   Example usage
+   ======================= */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-dark);
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+button {
+  font-family: var(--font-buttons);
+}

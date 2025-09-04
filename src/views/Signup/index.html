@@ -1,86 +1,88 @@
-  <div class="bodyContent">
-    <div class="header">
-      <div class="header__usuarios">
-        <div class="header__menu">
-          <a class="menu__items menu__items--fondoclaro" href="#">Mantenimiento y Servicios</a>
-          <a class="menu__items menu__items--fondoclaro" href="#">Repuestos</a>
-          <a class="menu__items menu__items--fondoclaro" href="#">Contacto</a>
-        </div>
-        <div class="header__login">
-            <a class="button__login button__login--buttongrandre"  href="#/Home">Iniciar Sesión</a> 
-        </div>
+<div class="bodyContent">
+  <div class="header">
+    <div class="header__usuarios">
+      <div class="header__menu">
+        <a class="menu__items menu__items--fondoclaro" href="#">Mantenimiento y Servicios</a>
+        <a class="menu__items menu__items--fondoclaro" href="#">Repuestos</a>
+        <a class="menu__items menu__items--fondoclaro" href="#">Contacto</a>
       </div>
-    </div>
-      <div class="registrarse">
-        <img class="logo__marcaAgua" src="../../../public/Logo.png" alt="">
-      <div class="content__logo">
-        <img class="content__img" src="../../../public/Moto.png" alt="">
-        <p class="content__text">"Bienvenido al taller digital: accede para acelerar el servicio y cuidar tu moto al máximo."</p>
+      <div class="header__login">
+        <a class="button__login button__login--buttongrandre" href="#/Home">Iniciar Sesión</a>
       </div>
-      <form id="formUsuario" class="formulario" novalidate>
-            <div class="title">
-              <p class="form__text">Registrarse</p>
-            </div>
-
-            <div class="form__grupo">
-              <div class="form__label">
-                <label for="nombre">Nombre completo:</label>
-              </div>
-              <div class="form__inputtext">
-                <input type="text" id="nombre" class="form__input" placeholder="Nombre completo" minlength="5" required>
-              </div>
-            </div>
-
-            <div class="form__grupo">
-              <div class="form__label">
-                <label for="correo">Correo electrónico:</label>
-              </div>
-              <div class="form__inputtext">
-                <input type="email" id="correo" class="form__input" placeholder="Correo electrónico" minlength="5" required>
-              </div>
-            </div>
-
-            <div class="form__grupo">
-              <div class="form__label">
-              <label for="cedula">Cédula:</label>
-              </div>
-              <div class="form__inputtext">
-              <input type="text" id="cedula" class="form__input" placeholder="Cédula" required>
-              </div>
-            </div>
-          
-            <div class="form__grupo">
-              <div class="form__label">
-              <label for="telefono">Teléfono:</label>
-              </div>
-              <div class="form__inputtext">
-              <input type="text" id="telefono" class="form__input" placeholder="Teléfono" minlength="10" maxlength="10" required />
-              </div>
-            </div>  
-
-            <div class="form__grupo">
-              <div class="form__label">
-              <label for="usuario">Nombre de usuario:</label>
-              </div>
-              <div class="form__inputtext">
-              <input type="text" id="usuario" class="form__input" placeholder="Nombre Usuario" minlength="5" required />
-              </div>
-            </div>
-
-            <div class="form__grupo">
-              <div class="form__label">
-              <label for="contrasena">Contraseña:</label>
-              </div>
-              <div class="form__inputtext">
-              <input type="password" id="contrasena" class="form__input" placeholder="Contraseña"  required/>
-              </div>
-            </div>
-
-            <div class="form__grupo button">
-              <button type="submit" class="button__form button__form--diseño_fondo">Registrarse</button>
-            </div>
-          </form>
-      </div>
-      <script src="./RegisterController.js"></script>
     </div>
   </div>
+  <div class="registrarse">
+    <img class="logo__marcaAgua" src="../../../public/Logo.png" alt="">
+    <div class="content__logo">
+      <img class="content__img" src="../../../public/Moto.png" alt="">
+      <p class="content__text">"Bienvenido al taller digital: accede para acelerar el servicio y cuidar tu moto al
+        máximo."</p>
+    </div>
+    <form id="formUsuario" class="formulario" novalidate>
+      <div class="title">
+        <p class="form__text">Registrarse</p>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="nombre">Nombre completo:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="text" id="nombre" class="form__input" placeholder="Nombre completo" minlength="5" required>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="correo">Correo electrónico:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="email" id="correo" class="form__input" placeholder="Correo electrónico" minlength="5" required>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="cedula">Cédula:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="text" id="cedula" class="form__input" placeholder="Cédula" required>
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="telefono">Teléfono:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="text" id="telefono" class="form__input" placeholder="Teléfono" minlength="10" maxlength="10"
+            required />
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="usuario">Nombre de usuario:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="text" id="usuario" class="form__input" placeholder="Nombre Usuario" minlength="5" required />
+        </div>
+      </div>
+
+      <div class="form__grupo">
+        <div class="form__label">
+          <label for="contrasena">Contraseña:</label>
+        </div>
+        <div class="form__inputtext">
+          <input type="password" id="contrasena" class="form__input" placeholder="Contraseña" required />
+        </div>
+      </div>
+
+      <div class="form__grupo button">
+        <button type="submit" class="button__form button__form--diseño_fondo">Registrarse</button>
+      </div>
+    </form>
+  </div>
+  <script src="./RegisterController.js"></script>
+</div>
+</div>

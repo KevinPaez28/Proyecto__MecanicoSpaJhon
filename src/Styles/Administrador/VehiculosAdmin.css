@@ -5,20 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-  --color-primary: #3f60a0;
-  --color-primary-hover: #2b4c85;
-  --color-secondary: #f0f2f5;
-  --color-text-dark: #212529;
-  --color-text-light: #ffffff;
-  --color-accent-blue: #5a7edc;
-  --color-card-bg: #e9eef3;
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-shadow-hover: rgba(0, 0, 0, 0.15);
-  --color-danger: #e74c3c;
-  --color-danger-hover: #c0392b;
 
-  --font-principalateral: 'Roboto', sans-serif;
-  --font-title: 'Poppins', sans-serif;
 }
 
 /* ======================= */
@@ -34,11 +21,21 @@
 
 /* Header */
 .interfazVehiculos__header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
   margin-bottom: 1.5rem;
+}
+
+.interfazVehiculos__title {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 
 .title__vehiculos {
@@ -50,12 +47,12 @@
 }
 
 /* ======================= */
-/* Sección de contenido y tarjetas */
+/* Sección de contenido y tarjetas usando flex */
 /* ======================= */
 .interfazVehiculos__content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   padding-bottom: 2rem;
 }
 
@@ -63,13 +60,14 @@
 .interfazvehiculos__cards {
   background-color: var(--color-card-bg);
   border-radius: 15px;
-  padding: 1.5rem;
+  padding: 1.3rem;
   box-shadow: 0 4px 12px var(--color-shadow);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-height: 200px;
+  height: auto;  /* altura fija */
+  width: 300px;   /* ancho fijo */
 }
 
 .interfazvehiculos__cards:hover {
@@ -108,45 +106,6 @@
   color: #4a4a4a;
 }
 
-/* Botones de tarjeta */
-.interfazvehiculos__button {
-  display: flex;
-  justify-content: space-around;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.interfazvehiculos__buttones {
-  width: 100%;
-  height: 40px;
-  border-radius: 8px;
-  border: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.interfazvehiculos__buttones:first-child {
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
-}
-
-.interfazvehiculos__buttones:first-child:hover {
-  background-color: var(--color-primary-hover);
-  transform: scale(1.05);
-}
-
-.interfazvehiculos__buttones:last-child {
-  background-color: var(--color-danger);
-  color: var(--color-text-light);
-}
-
-.interfazvehiculos__buttones:last-child:hover {
-  background-color: var(--color-danger-hover);
-  transform: scale(1.05);
-}
-
 /* ======================= */
 /* Formulario (Dialog) */
 /* ======================= */
@@ -167,7 +126,6 @@
   max-height: 90vh;
 }
 
-/* Título del formulario */
 .insertarUsuario__title {
   width: 100%;
   text-align: center;
@@ -274,15 +232,9 @@
     font-size: 1rem;
   }
 
-  .interfazVehiculos__content {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-  }
-
   .formVehiculo__grupo {
     display: flex;
     flex-direction: row;
-
   }
 }
 

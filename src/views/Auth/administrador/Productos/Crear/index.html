@@ -1,29 +1,46 @@
-<div class="interfazcategorias__insertar">
-    <div class="interfazinsertar__contenedor-productos">
-        <form action="" class="interfazinsertar__formulario" id="productos" novalidate>
-            <div class="interfazinsertar__formulario-titulo">
-                <p class="interfazinsertar__formulario-texto">Productos</p>
+<div class="contenidoAdmin">
+    <div class="loginmecanico__login">
+        <form action="" class="formulario" id="productos" novalidate>
+            <div class="title">
+                <p class="form__text">Productos</p>
             </div>
-            <div class="interfazinsertar__formulario-grupo">
-                <label class="interfazinsertar__label" for="nombre">Nombre de Productos</label>
-                <input id="Nombre" class="interfazinsertar__input" type="text" required min="5">
+            <div class="form__grupo">
+                <div class="form__label">
+                    <label for="nombre">Nombre Producto:</label>
+                </div>
+                <div class="form__inputtext">
+                    <input id="nombre" class="form__input" type="text" required min="5" placeholder="Nombre Producto">
+                </div>
             </div>
-            <div class="interfazinsertar__formulario-grupo">
-                <label class="interfazinsertar__label" for="categoria">Precio</label>
-                <input id="Precio" class="interfazinsertar__input" type="text" required min="2">
+
+            <div class="form__grupo">
+                <div class = "form_label">
+                    <label for="categoria">Precio:</label>
+                </div>
+                <div class="form__inputtext">
+                    <input id="Precio" class="form__input" type="text" required min="2" placeholder="Precio">
+                </div>
             </div>
-            <div class="interfazinsertar__formulario-grupo">
-                <label class="interfazinsertar__label" for="categoria">Unidad</label>
-                <input id="stock" class="interfazinsertar__input" type="text" required min="1">
+            <div class="form__grupo">
+                <div class = "form_label">
+                    <label for="categoria">Unidad:</label>
+                </div>
+                <div class="form__inputtext">
+                    <input id="stock" class="form__input" type="text" required min="1" placeholder="Stock">
+                </div>
             </div>
-            <div class="interfazinsertar__formulario-grupo">
-                <label class="interfazinsertar__label" for="rol">Categoria</label>
-                <select id="categoria_id" class="interfazinsertar__input" required>
-                    <option value="">Selecciona una Categoria</option>
-                </select>
+            <div class="form__grupo">
+                <div class = "form_label">
+                    <label for="rol">Categoria:</label>
+                </div>
+                <div class="form__inputtext">
+                    <select id="categoria_id" class="form__input" required>
+                        <option value="">Selecciona una Categoria</option>
+                    </select>
+                </div>
             </div>
-            <div class="interfazinsertar__formulario-botones">
-                <button type="submit" class="interfazinsertar__boton">Guardar</button>
+            <div class="form__button button">
+                <button type="submit" class="button__form button__form--diseño_fondo">Guardar</button>
             </div>
         </form>
     </div>
