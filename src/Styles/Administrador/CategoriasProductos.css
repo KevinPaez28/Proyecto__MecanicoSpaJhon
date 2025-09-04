@@ -4,7 +4,6 @@
 @import url('../variables.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
 
-
 /* ======================= */
 /* Formulario edición productos */
 /* ======================= */
@@ -15,11 +14,13 @@
   padding: 14px 12px;
   margin-bottom: 16px;
   display: flex;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
   gap: 10px;
   align-items: center;
 }
 
 .form-editar-producto .editar-input {
+  flex-grow: 1; /* Permite que los inputs se expandan */
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   padding: 6px 8px;
@@ -139,7 +140,8 @@
 
 .interfazcategorias__Cards {
   height: 200px;
-  width: 30%;
+  min-width: 250px; /* Ancho mínimo para evitar que se aplasten */
+  flex: 1 1 30%; /* Permite que las tarjetas se adapten y crezcan */
   background-color: var(--color-card-bg);
   border-radius: 15px;
   overflow-y: scroll;
@@ -214,8 +216,8 @@
 }
 
 .interfazcategorias__card {
-  height: 35%;
-  width: 40%;
+  min-width: 250px; /* Ancho mínimo para evitar que se aplasten */
+  flex: 1 1 40%; /* Permite que las tarjetas se adapten y crezcan */
   background-color: var(--color-card-bg);
   border-radius: 15px;
   display: flex;
@@ -234,7 +236,7 @@
   width: 100%;
   height: 85vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   padding: 10px;
   gap: 20px;
@@ -242,7 +244,6 @@
 
 .Categorias__input,
 .interfazinsertar__input {
-
   width: 60%;
   border-radius: 10px;
   padding: 5px;
@@ -263,14 +264,13 @@
   box-shadow: 0 4px 12px var(--color-shadow);
 }
 
-
 .interfazinsertar__contenedor-productos {
   width: 40%;
   height: 55%;
 }
-.interfazinsertar__contenedor-categorias{
+.interfazinsertar__contenedor-categorias {
   width: 30%;
-  height: 30%; 
+  height: 30%;
 }
 
 .interfazinsertar__formulario-grupo {
@@ -345,168 +345,88 @@
 }
 
 /* ======================= */
-/* Responsivo tablets y móviles */
+/* Media Queries (Responsivo) */
 /* ======================= */
-@media (max-width: 900px) {
-  .interfazcategorias,
-  .interfazcategorias__content,
-  .interfazcategorias__contenedor,
-  .interfazinsertar__contenedor-categorias,
-  .interfazinsertar__contenedor-productos,
-  .form-editar-producto,
-  .interfazcategorias__Cards,
-  .interfazcategorias__card,
-  .interfazinsertar__formulario {
-    width: 100vw !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    box-sizing: border-box !important;
-    background: #ffffff !important;
-    min-width: 0 !important;
-    max-width: 100vw !important;
-  }
 
-  .interfazcategorias {
+/* Para pantallas entre 601px y 900px */
+@media (max-width: 900px) {
+  /* Layout principal */
+  .interfazcategorias,
+  .interfazcategorias__content {
+    flex-direction: column;
     height: auto;
     padding: 8px;
+    gap: 12px;
   }
-
+  .interfazcategorias__contenedor {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* Cards y formularios */
+  .interfazcategorias__Cards,
+  .interfazcategorias__card,
+  .interfazinsertar__contenedor-productos,
+  .interfazinsertar__contenedor-categorias,
+  .interfazinsertar__formulario {
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
   .interfazcategorias__header,
   .interfazcategorias__title {
     flex-direction: column;
     gap: 8px;
     height: auto;
   }
-
   .interfazcategorias__titleButton {
     width: 100%;
     height: 40px;
     font-size: 1rem;
   }
-
-  .interfazcategorias__content,
-  .interfazcategorias__contenedor {
+  /* Formularios de edición/inserción */
+  .form-editar-producto {
     flex-direction: column;
-    gap: 12px;
-    height: auto;
-  }
-
-  .interfazcategorias__Cards,
-  .interfazcategorias__card {
-    width: 90%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-
-  .interfazcategorias__insertar {
-    height: auto;
-    padding: 8px;
-    gap: 10px;
-  }
-
-  .form-editar-producto,
-  .interfazinsertar__formulario {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 12px !important;
-    padding: 12px 6px !important;
+    align-items: stretch;
+    padding: 12px 6px;
+    gap: 8px;
   }
   .form-editar-producto .editar-input,
   .Categorias__input,
   .interfazinsertar__input {
-    width: 100% !important;
-    font-size: 1rem !important;
-    padding: 8px 10px !important;
-    margin-bottom: 8px !important;
+    width: 100%;
+    font-size: 1rem;
+    padding: 8px 10px;
   }
   .form-editar-producto .btn-modificar,
   .form-editar-producto .btn-eliminar,
   .interfazinsertar__boton {
-    width: 100% !important;
-    font-size: 1rem !important;
-    padding: 10px 0 !important;
-    margin-bottom: 8px !important;
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .interfazcategorias__insertar {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
+/* Para pantallas menores a 600px (móviles) */
 @media (max-width: 600px) {
-  .interfazcategorias,
-  .interfazcategorias__content,
-  .interfazcategorias__contenedor,
-  .interfazinsertar__contenedor-categorias,
-  .interfazinsertar__contenedor-productos,
-  .form-editar-producto,
   .interfazcategorias__Cards,
   .interfazcategorias__card,
-  .interfazinsertar__formulario {
-    width: 100vw !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    box-sizing: border-box !important;
-    background: #ffffff !important;
-    min-width: 0 !important;
-    max-width: 100vw !important;
-  }
-
-  .interfazcategorias {
-    height: auto;
-    padding: 2px;
-  }
-
-  .interfazcategorias__header,
-  .interfazcategorias__title {
-    flex-direction: column;
-    gap: 4px;
-    height: auto;
-  }
-
-  .interfazcategorias__titleButton {
+  .interfazinsertar__contenedor-productos,
+  .interfazinsertar__contenedor-categorias {
     width: 100%;
-    height: 35px;
+  }
+  .interfazcategorias__titleProductos {
+    font-size: 1.5rem;
+  }
+  .interfazcategorias__titleButton {
     font-size: 0.9rem;
-  }
-
-  .interfazcategorias__content,
-  .interfazcategorias__contenedor {
-    flex-direction: column;
-    gap: 6px;
-    height: auto;
-  }
-
-  .interfazcategorias__Cards,
-  .interfazcategorias__card {
-    width: 98%;
-    height: auto;
-    margin-bottom: 8px;
-  }
-
-  .interfazcategorias__insertar {
-    height: auto;
-    padding: 4px;
-    gap: 6px;
-  }
-
-  .form-editar-producto,
-  .interfazinsertar__formulario {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 8px !important;
-    padding: 8px 2px !important;
-  }
-  .form-editar-producto .editar-input,
-  .Categorias__input,
-  .interfazinsertar__input {
-    width: 100% !important;
-    font-size: 0.95rem !important;
-    padding: 7px 8px !important;
-    margin-bottom: 6px !important;
-  }
-  .form-editar-producto .btn-modificar,
-  .form-editar-producto .btn-eliminar,
-  .interfazinsertar__boton {
-    width: 100% !important;
-    font-size: 0.95rem !important;
-    padding: 8px 0 !important;
-    margin-bottom: 6px !important;
+    height: 35px;
   }
 }

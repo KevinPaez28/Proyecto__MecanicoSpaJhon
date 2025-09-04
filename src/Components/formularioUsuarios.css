@@ -1,57 +1,93 @@
-
 .formulario {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* dos columnas */
+  gap: 20px 30px;
+  padding: 20px;
   background-color: var(--color--fondologin);
   border-radius: 20px;
   font-family: var(--font--principalateral);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 500;
-}
-.loginmecanico__login {
-  width: 450px;
-  border-radius: 30px;
-}
-.bodyContent {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
 }
 
-.form__card {
-  height: 100%;
-  width: 60%;
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
+.formulario__titulo {
+  grid-column: span 2; /* ocupa las dos columnas */
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .form__grupo {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
 }
-.form__button {
+
+.form__grupo label {
+  min-height: 25px; /* todos los labels ocupan lo mismo */
   display: flex;
-  justify-content: center;
-  width: 100%;
+  align-items: flex-end; /* alineados abajo */
 }
-.form__inputtext{
- width: 50%;
- height: 5%;
-} 
+
+.form__input {
+  border-radius: 5px;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box; /* asegura que todos midan igual */
+}
+
 .mensaje-error {
   color: red;
   font-size: 0.8rem;
   margin-top: 4px;
-  display: block;
   font-weight: 500;
 }
 
-.form__input{
-  border-radius: 5px;
-  height: 25px;
-  padding: 3px;
+/* Para inputs que deben ocupar toda la fila */
+.full-width {
+  grid-column: span 2;
+}
+
+.form__button-full-width {
+  grid-column: span 2; /* ocupa las dos columnas */
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button__form {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
   border: none;
+  border-radius: 8px;
+  background-color: var(--color--principalateral);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button__form:hover {
+  background-color: #333;
+}
+.title{
+  grid-column: span 2; /* ocupa las dos columnas */
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.formbutton{
+    grid-column: span 2; /* ocupa las dos columnas */
+    text-align: center;
 }

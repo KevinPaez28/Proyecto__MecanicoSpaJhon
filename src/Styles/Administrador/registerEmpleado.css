@@ -81,27 +81,8 @@
   color: #fff;
 }
 
-.form__inputtext {
-  width: 50%;
-  height: 5%;
-  border-radius: 5px;
-  padding: 3px;
-}
 
-.mensaje-error {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 4px;
-  display: block;
-  font-weight: 500;
-}
 
-.form__input {
-  border-radius: 5px;
-  height: 25px;
-  padding: 3px;
-  border: 1px solid #ccc;
-}
 
 @media (max-width: 900px) {
   .contentBloque,

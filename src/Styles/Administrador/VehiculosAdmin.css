@@ -27,6 +27,9 @@
   align-items: center;
   padding: 0 1rem;
   margin-bottom: 1.5rem;
+  /* Añade flex-wrap para que los elementos se envuelvan si no caben */
+  flex-wrap: wrap; 
+  gap: 1rem; /* Espacio entre los elementos del header */
 }
 
 .interfazVehiculos__title {
@@ -36,6 +39,8 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  /* Añade flex-wrap aquí también, por si hay más de un elemento dentro de .interfazVehiculos__title */
+  flex-wrap: wrap; 
 }
 
 .title__vehiculos {
@@ -54,6 +59,7 @@
   flex-wrap: wrap;
   gap: 20px;
   padding-bottom: 2rem;
+  justify-content: center; /* Centra las tarjetas en el contenedor */
 }
 
 /* Tarjetas individuales */
@@ -66,8 +72,9 @@
   flex-direction: column;
   justify-content: space-between;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: auto;  /* altura fija */
-  width: 300px;   /* ancho fijo */
+  height: auto;
+  /* ✅ Haz el ancho flexible para que las tarjetas se adapten */
+  flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
 }
 
 .interfazvehiculos__cards:hover {
@@ -208,6 +215,17 @@
 
 /* Tablets */
 @media (max-width: 768px) {
+  /* ✅ Acomoda el header para que se apile en tabletas */
+  .interfazVehiculos__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .interfazVehiculos__title {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
   .dialog__centradoVehiculo {
     width: 95%;
     padding: 1.5rem;
@@ -233,22 +251,23 @@
   }
 
   .formVehiculo__grupo {
-    display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 }
 
 /* Móviles */
 @media (max-width: 480px) {
-  .dialog__centradoVehiculo {
-    width: 60%;
-    padding: 1rem;
-    border-radius: 10px;
+  /* ✅ Acomoda el header para que se apile en móviles */
+  .interfazVehiculos__header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .formVehiculo__grupo {
-    display: flex;
-    flex-direction: row;
+  .dialog__centradoVehiculo {
+    width: 90%; /* Ancho más amplio para móviles */
+    padding: 1rem;
+    border-radius: 10px;
   }
 
   .insertarUsuario__text {
@@ -264,5 +283,9 @@
   .formVehiculo__btn {
     height: 40px;
     font-size: 0.95rem;
+  }
+
+  .formVehiculo__grupo {
+    flex-direction: column;
   }
 }

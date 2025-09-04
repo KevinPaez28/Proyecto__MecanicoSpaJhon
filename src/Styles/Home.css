@@ -1,8 +1,8 @@
 @import url("./variables.css");
 :root {
-  --color--principal: #1e293b; 
-  --color--secundario: #0ea5e9; 
-  --color--fondocards: #f8fafc;
+  --color--principal: #1e293b;   /* Azul oscuro elegante */
+  --color--secundario: #0ea5e9; /* Azul brillante */
+  --color--fondocards: #f8fafc; /* Fondo claro */
   --color--textoprincipal: #1f2937;
   --color--blanco: #ffffff;
 }
@@ -50,7 +50,7 @@
   background: rgba(255,255,255,0.1);
   padding: 8px 12px;
   border-radius: 30px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* ✅ Evita que se rompa en pantallas chicas */
 }
 
 .header__input {
@@ -87,7 +87,7 @@
 /* ========== CONTENT ========== */
 .content {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* ✅ Hace que no se corte */
   width: 100%;
   padding: 40px 20px;
   gap: 30px;
@@ -106,9 +106,9 @@
 }
 
 .content__img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
+  width: 100%;          
+  max-width: 300px;     
+  height: auto;       
   margin-bottom: 15px;
   filter: drop-shadow(0 8px 10px rgba(255, 255, 255, 0.785));
 }
@@ -116,50 +116,45 @@
 .content__text {
   font-size: 1.2rem;
   font-family: "Poppins", sans-serif;
-  color: var(--color--blanco);
+  color: var(--color--blanco); /* ✅ Texto claro sobre fondo oscuro */
   max-width: 350px;
 }
 
-/* ========== TARJETAS DE SERVICIOS (Responsive) ========== */
+/* ========== TARJETAS DE SERVICIOS ========== */
 .content__informacion {
   flex: 2;
   display: flex;
   justify-content: center;
   width: 100%;
+  align-items: center;
 }
 
 .vista__servicios {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center; 
-  align-items: stretch; 
+  justify-content: space-evenly;
+  align-items: stretch;
+  flex-wrap: wrap; /* ✅ Hace responsivo */
   width: 100%;
   gap: 20px;
 }
 
 .vista__lista {
-  flex: 1 1 260px;
+  flex: 1;
+  min-width: 260px;
   background: #ffffff;
   border-radius: 20px;
   padding: 24px;
   margin-top: 60px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0,0,0,0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.266);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.266); /* ✅ sombra suave */
 }
 
 .vista__lista:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px); /* ✅ Efecto suave sin sombra */
 }
 
-.title {
-  font-family: "Orbitron", sans-serif;
-  font-weight: 700;
-  font-size: 1.3rem;
-  text-align: center;
-  margin-bottom: 15px;
-  color: var(--color--principal);
-}
+
 
 .vistas__items {
   margin: 10px 0;
@@ -188,6 +183,9 @@
   }
   .vista__lista {
     width: 100%;
+
+
+
   }
 }
 
