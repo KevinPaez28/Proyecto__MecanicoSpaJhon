@@ -128,14 +128,14 @@ export default async () => {
       const btnEditar = document.createElement("button");
       btnEditar.type = "button";
       btnEditar.classList.add("interfazvehiculos__buttones");
-      btnEditar.innerHTML = `<i class="bi bi-pencil"></i>`;
+      btnEditar.innerHTML = `Editar`;
       divButtons.appendChild(btnEditar);
 
       // Botón Eliminar
       const btnEliminar = document.createElement("button");
       btnEliminar.type = "button";
       btnEliminar.classList.add("interfazvehiculos__buttones");
-      btnEliminar.innerHTML = `<i class="bi bi-trash"></i>`;
+      btnEliminar.innerHTML = `Cancelar`;
       divButtons.appendChild(btnEliminar);
 
       tdAcciones.appendChild(divButtons);

@@ -40,7 +40,7 @@
   align-items: center;
   height: 100%;
   /* Añade flex-wrap aquí también, por si hay más de un elemento dentro de .interfazVehiculos__title */
-  flex-wrap: wrap; 
+  /* flex-wrap: wrap;  */
 }
 
 .title__vehiculos {
