@@ -15,7 +15,7 @@
 
 
 :root {
-  /* Primary Colors */
+  /* Colores primarios */
   --color-primario: #3f60a0;
   --color-primario-hover: #2b4c85;
   --color-secundario: #f0f2f5;
@@ -23,12 +23,12 @@
   --color-negro: #000;
   --color--fondologin: rgba(171, 171, 171, 0.559);
 
-  /* Text Colors */
+  /* Colores texto */
   --color-texto-oscuro: #212529;
   --color-texto-claro: #ffffff;
   --color-text-muted: #555555;
 
-  /* Backgrounds */
+  /* fondos */
   --color-bg: #f5f7f8;
   --color-card-bg: #e9eef3;
   --color-header-bg: #A8A2A2;
@@ -36,18 +36,14 @@
   --color-login-bg: rgba(171, 171, 171, 0.559);
   --color-vehicle-form-bg: rgba(253, 253, 253, 0.335);
 
-  /* Buttons */
+  /* botonefd */
   --color-text-blanco:#ffffff;
   --color-btn-primario: #2196F3;
   --color-btn-primario-hover: #1976D2;
   --color-btn-secundario: #6d80a1;
   --color-btn-eliminar: #bd4d4d;
 
-  /* Shadows */
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-shadow-hover: rgba(0, 0, 0, 0.15);
-
-  /* Fonts */
+  /* fuentes */
   --font-body: 'Roboto', sans-serif;
   --font-heading: 'Poppins', sans-serif;
   --font-lato: 'Lato', sans-serif;
@@ -56,9 +52,7 @@
   --font-buttons: 'Montserrat', sans-serif;
 }
 
-/* =======================
-   Example usage
-   ======================= */
+
 body {
   font-family: var(--font-body);
   background-color: var(--color-bg);
