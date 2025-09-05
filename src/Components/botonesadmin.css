@@ -88,11 +88,11 @@ height: 60%;
 }
 
 .interfazvehiculos__buttones:last-child {
-  background-color: var(--color-btn-delete);
+  background-color: var(--color-btn-eliminar);
   color: var(--color-text-blanco);
 }
 
 .interfazvehiculos__buttones:last-child:hover {
-  background-color: var(--color-btn-delete);
+  background-color: var(--color-btn-eliminar);
   transform: scale(1.05);
 }

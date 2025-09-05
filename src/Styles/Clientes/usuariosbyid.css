@@ -2,20 +2,7 @@
 /* @import url('../variables.css'); */
 /* --- Definición de variables globales --- */
 /* Te recomiendo definir todas tus variables aquí para una gestión centralizada */
-:root {
-  --color-primary: #3498db;
-  --color-primary-hover: #2980b9;
-  --color-secondary: #ecf0f1;
-  --color-cardsVehiculosclientes: #ffffff;
-  --color-shadow: rgba(44, 62, 80, 0.2);
-  --color-text-dark: #2c3e50;
-  --color-negro: #34495e;
-  --color-border-light: #dcdde1;
-  --color--BotonClientes: #3498db;
-  --color--fondotextos: #ffffff;
-  --font-Title: 'Roboto', sans-serif;
-  --font-principalateral: 'Roboto', sans-serif;
-}
+
 
 /* ======================= */
 /* Contenedor principal */
@@ -52,7 +39,7 @@
   font-family: var(--font-Title);
   font-size: 2.2rem; /* Título principal más grande */
   font-weight: 700;
-  color: var(--color-text-dark);
+  color: var(--color-primario);
   letter-spacing: -0.8px;
   line-height: 1.2;
 }
@@ -86,7 +73,7 @@
   font-size: 1.3rem;
   font-weight: 600;
   font-family: var(--font-Title);
-  color: var(--color-text-dark);
+  color: var(--color-primario);
   text-transform: uppercase;
   margin-bottom: 4px;
 }

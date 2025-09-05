@@ -41,9 +41,7 @@
   --color-btn-primario: #2196F3;
   --color-btn-primario-hover: #1976D2;
   --color-btn-secundario: #6d80a1;
-  --color-btn-edit: #8d9c60;
-  --color-btn-delete: #bd4d4d;
-  --color-btn-products: rgba(13, 109, 253, 0.67);
+  --color-btn-eliminar: #bd4d4d;
 
   /* Shadows */
   --color-shadow: rgba(0, 0, 0, 0.1);
